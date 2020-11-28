@@ -64,7 +64,7 @@ public class Functions {
      * @return The mean of the array
      */
     public static double findMean(int[] ints) {
-        if(ints == null || ints.length == 1) {
+        if(ints == null || ints.length < 1) {
             throw new IllegalArgumentException("Cannot find the mean for a null or empty int array");
         }
         int total = 0;
@@ -81,7 +81,7 @@ public class Functions {
      * @return The mean of the array
      */
     public static double findMean(long[] longs) {
-        if(longs == null || longs.length == 1) {
+        if(longs == null || longs.length < 1) {
             throw new IllegalArgumentException("Cannot find the mean for a null or empty long array");
         }
         int total = 0;
