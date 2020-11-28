@@ -66,7 +66,6 @@ public class Triple<K, V, E> {
      * @return A triple with the three object contained within
      */
     public static <K, V, E> Triple<K, V, E> triplet(K first, V second, E third) {
-        int i;
         return new Triple<>(first, second, third);
     }
 }
