@@ -92,15 +92,12 @@ public class Functions {
     }
 
     /**
-     * Finds the median of an array of ints. This will not sort the array, but work with an internal copy of the original array
+     * Finds the median of an array of integers. This will not sort the array, but work with an internal copy of the original array
      *
-     * @param ints The ints
+     * @param ints The integers
      * @return The median of the array
      */
     public static int findMedianValue(int[] ints) {
-        if(ints == null || ints.length < 1) {
-            throw new IllegalArgumentException("Cannot find the mean for a null or empty int array");
-        }
         int[] copy = Arrays.copyOf(ints, ints.length);
         int index = sortAndFindMedianIndex(copy);
         return copy[index];
@@ -113,18 +110,15 @@ public class Functions {
      * @return The median of the array
      */
     public static long findMedianValue(long[] longs) {
-        if(longs == null || longs.length < 1) {
-            throw new IllegalArgumentException("Cannot find the mean for a null or empty int array");
-        }
         long[] copy = Arrays.copyOf(longs, longs.length);
         int index = sortAndFindMedianIndex(copy);
         return copy[index];
     }
 
     /**
-     * Sorts an array of ints and finds the index of the median
+     * Sorts an array of integers and finds the index of the median
      *
-     * @param ints The array of ints
+     * @param ints The array of integers
      * @return The index of the median in the sorted array
      */
     public static int sortAndFindMedianIndex(int[] ints) {
@@ -150,9 +144,9 @@ public class Functions {
     }
 
     /**
-     * Finds the mode for an array of ints. Ties are broken arbitrarily by the last value in the array to meet the max criteria
+     * Finds the mode for an array of integers. Ties are broken arbitrarily by the last value in the array to meet the max criteria
      *
-     * @param ints The array of ints
+     * @param ints The array of integers
      * @return The int that occurs most often in the array
      */
     public static int findMode(int[] ints) {
@@ -193,6 +187,38 @@ public class Functions {
             map.put(l, val);
         }
         return max;
+    }
+
+    /**
+     * Gets the frequency of each value in an array of integers
+     *
+     * @param ints The array of integers
+     * @return The frequency table of each value in the array
+     */
+    public static Map<Integer, Integer> getFrequencies(int[] ints) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        // Add all occurrences of each value in the array
+        for(int i : ints) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        return map;
+    }
+
+    /**
+     * Gets the frequency of each value in an array of longs
+     *
+     * @param longs The array of longs
+     * @return The frequency table of each value in the array
+     */
+    public static Map<Long, Integer> getFrequencies(long[] longs) {
+        Map<Long, Integer> map = new HashMap<>();
+
+        // Add all occurrences of each value in the array
+        for(long l : longs) {
+            map.put(l, map.getOrDefault(l, 0) + 1);
+        }
+        return map;
     }
 
     /**
