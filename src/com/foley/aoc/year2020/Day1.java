@@ -37,7 +37,7 @@ public class Day1 extends Daily {
         for(int i : ints) {
             int index = Functions.binarySearch(ints, 2020 - i);
             // If index is non-negative, the answer has been found
-            if(index >= 0 && index) {
+            if(index >= 0) {
                 System.out.printf("2020 found @ <x = %d, y = %d>\n", i, ints[index]);
                 System.out.printf("The product of the two is %d\n", i * ints[index]);
                 return;
