@@ -53,6 +53,28 @@ public class Triple<K, V, E> {
     public E getThird() {
         return third;
     }
+    
+    /**
+    * Indicates whether some other object is "equal to" this one
+    * 
+    * @param obj the reference object with which to compare
+    * @return True if this object is the same as the obj argument; false otherwise
+    */
+    public boolean equals(Object obj) {
+        // Null and class check
+        if(obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        
+        // Identity check
+        if(this == obj) {
+            return true;
+        }
+        
+        // Parameter check
+        Triple<K, V, E> t = (Triple<K, V, E>)obj;
+        return first.equals(t.first) && second.equals(t.second) && third.equals(t.third);    
+    }
 
     /**
      * Creates a new triple with the specified objects
