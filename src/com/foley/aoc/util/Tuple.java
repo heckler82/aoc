@@ -60,7 +60,7 @@ public class Tuple<K, V> {
         
         // Parameter check
         Tuple<K, V> t = (Tuple<K, V>)obj;
-        return (first.equals(t.first) && second.equals(t.second)) || (first.equals(t.second) && second.equals(t.first));    
+        return first.equals(t.first) && second.equals(t.second);    
     }
 
     /**
