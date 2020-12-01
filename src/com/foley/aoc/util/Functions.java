@@ -265,7 +265,7 @@ public class Functions {
         int lo = 0;
         int hi = longs.length - 1;
         
-        // Continue to search until the serach space is not valid
+        // Continue to search until the search space is not valid
         while(lo <= hi) {
             // Calculate the test value and account for potential overflow
             mid = (lo + hi) >>> 1;
@@ -289,7 +289,7 @@ public class Functions {
     * 
     * @param ints The array of integers
     * @param target The target value
-    * @return The indeces of the two values that equal target, or -1, -1 if the target value can't be calculated from the array
+    * @return The indexes of the two values that equal target, or -1, -1 if the target value can't be calculated from the array
     */
     public static Tuple<Integer, Integer> twoSum(int[] ints, int target) {
         int lo = 0;
@@ -320,7 +320,7 @@ public class Functions {
     * 
     * @param ints The array of integers
     * @param target The target value
-    * @return The indeces of the three values that equal target, or -1, -1, -1 if the target value can't be calculated from the array
+    * @return The indexes of the three values that equal target, or -1, -1, -1 if the target value can't be calculated from the array
     */
     public static Triple<Integer, Integer, Integer> threeSum(int[] ints, int target) {
         // Utilize the first element as the starting point
@@ -333,7 +333,7 @@ public class Functions {
             for(int j = i + 1; j < ints.length; j++) {
                 // If the current sum is in the set, the answer is found
                 if(set.contains(currentSum - ints[j])) {
-                    return Triple.triplet(ints[i], ints[j], currentSum - ints[j]);
+                    return Triple.triplet(i, j, binarySearch(ints, (currentSum - ints[j]));
                 }
                 set.add(ints[j]);
             }
