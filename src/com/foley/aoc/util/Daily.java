@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * @version 24 Nov 2020
  */
 public abstract class Daily {
-    protected int day = 0;
     protected String[] input;
 
     /**
@@ -25,7 +24,6 @@ public abstract class Daily {
     public Daily(String fileName) {
         setup(fileName);
         String name = getClass().getSimpleName();
-        day = Integer.parseInt(name.substring(3));
     }
 
     /**
