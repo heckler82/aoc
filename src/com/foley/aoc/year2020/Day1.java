@@ -1,6 +1,9 @@
 package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
+import com.foley.aoc.util.Functions;
+
+import java.util.Arrays;
 
 /**
  * Solutions for day 1
@@ -24,7 +27,19 @@ public class Day1 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-
+        int[] ints = Functions.convertToIntArray(input);
+        Arrays.sort(ints);
+        
+        // Search for value in array that will sum to 2020 with the current value
+        for(int i : ints) {
+            int index = Functions.binarySearch(ints, 2020 - i);
+            // If index is non-negative, the answer has been found
+            if(index >= 0) {
+                System.out.printf("2020 found @ <x = %d, y = %d>\n", i, ints[index]);
+                System.out.printf("The product of the two is %d\n", i, ints[index]);
+                return;
+            }
+        }
     }
 
     @Override
