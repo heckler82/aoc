@@ -40,6 +40,28 @@ public class Tuple<K, V> {
     public V getSecond() {
         return second;
     }
+    
+    /**
+    * Indicates whether some other object is "equal to" this one
+    * 
+    * @param obj the reference object with which to compare
+    * @return True if this object is the same as the obj argument; false otherwise
+    */
+    public boolean equals(Object obj) {
+        // Null and class check
+        if(obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        
+        // Identity check
+        if(this == obj) {
+            return true;
+        }
+        
+        // Parameter check
+        Tuple<K, V> t = (Tuple<K, V>)obj;
+        return (first.equals(t.first) && second.equals(t.second)) || (first.equals(t.second) && second.equals(t.first));    
+    }
 
     /**
      * Creates a new tuple with the specified objects
