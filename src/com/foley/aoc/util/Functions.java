@@ -220,6 +220,68 @@ public class Functions {
         }
         return map;
     }
+    
+    /**
+    * Searches an array of integers for a target value. Assumes that the array is sorted from least to greatest
+    * 
+    * @param ints The array of integers
+    * @param target The target value to search for
+    * @return The index of the target value if present, or the negative index of the expected position in the array if the target value were to be inserted
+    */
+    public static int binarySearch(int[] ints, int target) {
+        int mid = -1;
+        int lo = 0;
+        int hi = ints.length - 1;
+        
+        // Continue to search until the serach space is not valid
+        while(lo <= hi) {
+            // Calculate the test value and account for potential overflow
+            mid = (lo + hi) >>> 1;
+            // Update search space based on test value
+            if(ints[mid] > target) {
+                hi = mid - 1;
+            } else {
+                if(ints[mid] < target) {
+                    lo = mid + 1;
+                } else {
+                    return mid;
+                }
+            }
+        }
+        // Target not found in the array, return negative expected insertion index
+        return -lo;
+    }
+    
+    /**
+    * Searches an array of longs for a target value. Assumes that the array is sorted from least to greatest
+    * 
+    * @param longs The array of longs
+    * @param target The target value to search for
+    * @return The index of the target value if present, or the negative index of the expected position in the array if the target value were to be inserted
+    */
+    public static int binarySearch(long[] longs, long target) {
+        int mid = -1;
+        int lo = 0;
+        int hi = longs.length - 1;
+        
+        // Continue to search until the serach space is not valid
+        while(lo <= hi) {
+            // Calculate the test value and account for potential overflow
+            mid = (lo + hi) >>> 1;
+            // Update search space based on test value
+            if(longs[mid] > target) {
+                hi = mid - 1;
+            } else {
+                if(longs[mid] < target) {
+                    lo = mid + 1;
+                } else {
+                    return mid;
+                }
+            }
+        }
+        // Target not found in the array, return negative expected insertion index
+        return -lo;
+    }
 
     /**
      * Dynamically gets a new daily
