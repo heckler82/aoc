@@ -2,6 +2,7 @@ package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.Functions;
+import com.foley.aoc.util.Triple;
 import com.foley.aoc.util.Tuple;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class Day1 extends Daily {
      */
     public Day1(String fileName) {
         super(fileName);
-        ints = convertToIntArray(input);
+        ints = Functions.convertToIntArray(input);
         Arrays.sort(ints);
     }
 
@@ -33,15 +34,9 @@ public class Day1 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        // Search for value in array that will sum to 2020 with the current value
-        for(int i : ints) {
-            int index = Functions.binarySearch(ints, 2020 - i);
-            // If index is non-negative, the answer has been found
-            if(index >= 0) {
-                System.out.printf("2020 found @ <x = %d, y = %d>\n", i, ints[index]);
-                System.out.printf("The product of the two is %d\n", i * ints[index]);
-                return;
-            }
+        Tuple<Integer, Integer> t = Functions.twoSum(ints, 2020);
+        if(t.getFirst() > -1) {
+            System.out.printf("2020 found at indexes %d and %d with a product of %d\n", t.getFirst(), t.getSecond(), ints[t.getFirst()] * ints[t.getSecond()]);
         }
     }
 
@@ -50,24 +45,9 @@ public class Day1 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
-        List<Tuple<Integer, Integer>> list = new ArrayList<>();
-        
-        // Naively get all possible pair combinations from the input
-        for(int i = 0; i < ints.length - 1; i++) {
-            for(int j = i + 1; j < ints.length; j++) {
-                list.add(new Tuple<>(ints[i], ints[j]));
-            }
-        }
-        
-        // Derivative of part 1
-        for(Tuple<> t : list) {
-            int index = Functions.binarySearch(ints, 2020 - (t.getFirst() + t.getSecond()));
-            // If index is non-negative, the answer has been found
-            if(index >= 0 && ints[index] != t.getFirst() && ints[index] != t.getSecond()) {
-                System.out.printf("2020 found @ <x = %d, y = %d, z = %d>\n", t.getFirst(), t.getSecond(), ints[index]);
-                System.out.printf("The product of the three is %d\n", t.getFirst() * t.getSecond() * ints[index]);
-                return;
-            }
+        Triple<Integer, Integer, Integer> t = Functions.threeSum(ints, 2020);
+        if(t.getFirst() > -1) {
+            System.out.printf("2020 found at indexes %d, %d, and %d with a product of %d\n", t.getFirst(), t.getSecond(), t.getThird(), ints[t.getFirst()] * ints[t.getSecond()] * ints[t.getThird()]);
         }
     }
 }

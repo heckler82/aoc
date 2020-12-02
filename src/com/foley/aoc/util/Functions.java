@@ -333,7 +333,7 @@ public class Functions {
             for(int j = i + 1; j < ints.length; j++) {
                 // If the current sum is in the set, the answer is found
                 if(set.contains(currentSum - ints[j])) {
-                    return Triple.triplet(i, j, binarySearch(ints, (currentSum - ints[j]));
+                    return Triple.triplet(i, j, binarySearch(ints, (currentSum - ints[j])));
                 }
                 set.add(ints[j]);
             }

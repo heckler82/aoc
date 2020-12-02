@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public abstract class Daily {
     protected String[] input;
+    private int day;
 
     /**
      * Creates a new daily
@@ -24,6 +25,7 @@ public abstract class Daily {
     public Daily(String fileName) {
         setup(fileName);
         String name = getClass().getSimpleName();
+        day = Integer.parseInt(name.substring(3));
     }
 
     /**
@@ -59,10 +61,14 @@ public abstract class Daily {
      */
     public void doTasks() {
         System.out.printf("============ DAY %d ============\n", day);
+        long start = System.nanoTime();
         System.out.println("---- Task 1 ----");
         task1();
         System.out.println("\n---- Task 2 ----");
         task2();
+        long elapsed = System.nanoTime() - start;
+        System.out.println();
+        System.out.printf("Total runtime was %fms\n", elapsed / 1000.0 / 1000.0);
     }
 
     /**
