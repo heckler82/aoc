@@ -1,6 +1,12 @@
 package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
+import com.foley.aoc.util.Functions;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Solutions for day 2
@@ -9,6 +15,8 @@ import com.foley.aoc.util.Daily;
  * @version 24 Nov 2020
  */
 public class Day2 extends Daily {
+    private List<Entry> list;
+    
     /**
      * Creates a new daily
      *
@@ -16,6 +24,11 @@ public class Day2 extends Daily {
      */
     public Day2(String fileName) {
         super(fileName);
+        list = new ArrayList<>();
+        // Parse all input into entries
+        for(String s : input) {
+            list.add(new Entry(s));
+        }
     }
 
     @Override
@@ -24,10 +37,8 @@ public class Day2 extends Daily {
      */
     public void task1() {
         int count = 0;
-        for(String s : input) {
-            String[] tokens = s.split("\\s+");
-            String[] range = tokens[0].split("-");
-            count += isValidPassword(Integer.parseInt(range[0]), Integer.parseInt(range[1]), tokens[1].charAt(0), tokens[2]) ? 1 : 0;
+        for(Entry e : list) {
+            count += isValidPassword(e.val, e.val2, e.letter, e.word) ? 1 : 0;
         }
         System.out.printf("There are %d valid passwords in the list\n", count);
     }
@@ -38,10 +49,8 @@ public class Day2 extends Daily {
      */
     public void task2() {
         int count = 0;
-        for(String s : input) {
-            String[] tokens = s.split("\\s+");
-            String[] range = tokens[0].split("-");
-            count += isValidPassword2(Integer.parseInt(range[0]), Integer.parseInt(range[1]), tokens[1].charAt(0), tokens[2]) ? 1 : 0;
+        for(Entry e : list) {
+            count += isValidPassword2(e.val, e.val2, e.letter, e.word) ? 1 : 0;
         }
         System.out.printf("There are %d valid passwords in the list\n", count);
     }
@@ -78,5 +87,31 @@ public class Day2 extends Daily {
         char a = password.charAt(pos - 1);
         char b = password.charAt(pos - 2);
         return (a == target) ^ (b == target);
+    }
+    
+    /**
+    * Utility class for holding line data from input
+    */
+    private class Entry {
+        public int val;
+        public int val2;
+        public char letter;
+        public String word;
+        static Pattern p = Pattern.compile("(\\d+)-(\\d+)\\s(.):.(\\S+)");
+        
+        /**
+        * Creates a new entry
+        * 
+        * @param in The string to parse
+        */
+        public Entry(String in) {
+            Matcher m = p.matcher(in);
+            if(m.find()) {
+                val = Integer.parseInt(m.group(1));
+                val2 = Integer.parseInt(m.grou(2));
+                letter = m.group(3).charAt(0);
+                word = m.group(4);
+            }
+        }
     }
 }
