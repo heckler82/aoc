@@ -223,6 +223,36 @@ public class Functions {
     }
     
     /**
+    * Gets the frequency of a target character in an array of characters
+    * 
+    * @param chars The array of characters
+    * @param target The target character to search for
+    * @return The number of times the target character appears in the array
+    */
+    public static int getFrequency(char[] chars, char target) {
+        int count = 0;
+        for(char c : chars) {
+            count += c == target ? 1 : 0;
+        }
+        return count;
+    }
+    
+    /**
+    * Gets the frequency of a target character in a string
+    * 
+    * @param str The string
+    * @param target The target character to search for
+    * @return The number of times the target character appears in the String
+    */
+    public static int getFrequency(String str, char target) {
+        int count = 0;
+        for(int i = 0; i < str.length(); i++) {
+            count += str.charAt(i) == target ? 1 : 0;
+        }
+        return count;
+    }
+    
+    /**
     * Searches an array of integers for a target value. Assumes that the array is sorted from least to greatest
     * 
     * @param ints The array of integers
