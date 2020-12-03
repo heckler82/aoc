@@ -62,14 +62,13 @@ public class Day3 extends Daily {
     */
     private int countTrees(char[][] map, int slopeX, int slopeY) {
         Point pos = new Point(0, 0);
-        Point slope = new Point(slopeX, slopeY);
         int treeCount = 0;
         // Continue to parse until vertically exiting the map bounds
         while(pos.y < map.length) {
             treeCount += map[pos.y][pos.x] == '#' ? 1 : 0;
             // Clamp the x coordinate to stay within horizontal map bounds
-            pos.x = (pos.x + slope.x) % clamp;
-            pos.y += slope.y;
+            pos.x = (pos.x + slopeX) % clamp;
+            pos.y += slopeY;
         }
         return treeCount;
     }
