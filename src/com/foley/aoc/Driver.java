@@ -1,7 +1,7 @@
 package com.foley.aoc;
 
 import com.foley.aoc.util.Daily;
-import com.foley.aoc.util.Functions;
+import com.foley.aoc.util.functions.Sort;
 
 import javax.swing.JOptionPane;
 
@@ -91,13 +91,13 @@ public class Driver {
             for(int i = 1; i < 26; i++) {
                 String inputPath = "./res/" + year + "/day" + i + ".txt";
                 String className = "com.foley.aoc.year" + year + ".Day" + i;
-                Daily d = Functions.getDaily(inputPath, className);
+                Daily d = Daily.getDaily(inputPath, className);
                 d.doTasks();
             }
         } else {
             String inputPath = "./res/" + year + "/day" + day + ".txt";
             String className = "com.foley.aoc.year" + year + ".Day" + day;
-            Daily d = Functions.getDaily(inputPath, className);
+            Daily d = Daily.getDaily(inputPath, className);
             d.doTasks();
         }
     }

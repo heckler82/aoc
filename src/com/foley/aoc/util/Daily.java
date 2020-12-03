@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 /**
@@ -80,4 +82,26 @@ public abstract class Daily {
      * Accomplishes the second task for the day
      */
     protected abstract void task2();
+
+    /**
+     * Dynamically gets a new daily
+     *
+     * @param inputPath The path to the input file
+     * @param className The name of the class to instantiate
+     * @return A new daily
+     */
+    public static Daily getDaily(String inputPath, String className) {
+        if(inputPath == null || className == null) {
+            throw new IllegalArgumentException("Path to input file or class name is null");
+        }
+        try {
+            Class cl = Class.forName(className);
+            Constructor<Daily> con = cl.getConstructor(inputPath.getClass());
+            return con.newInstance(inputPath);
+        } catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return null;
+    }
 }

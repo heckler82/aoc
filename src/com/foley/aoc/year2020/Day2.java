@@ -1,7 +1,7 @@
 package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
-import com.foley.aoc.util.Functions;
+import com.foley.aoc.util.functions.Compute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +65,8 @@ public class Day2 extends Daily {
     * @return True if the password string has the target character appear between min and max times inclusive
     */
     private boolean isValidPassword(int min, int max, char target, String password) {
-        int freq = Functions.getFrequency(password, target);
-        return freq >= min && freq <= max);
+        int freq = Compute.getFrequency(password, target);
+        return freq >= min && freq <= max;
     }
     
     /**
@@ -85,7 +85,7 @@ public class Day2 extends Daily {
         }
         // Get characters
         char a = password.charAt(pos - 1);
-        char b = password.charAt(pos - 2);
+        char b = password.charAt(pos2 - 1);
         return (a == target) ^ (b == target);
     }
     
@@ -97,7 +97,7 @@ public class Day2 extends Daily {
         public int val2;
         public char letter;
         public String word;
-        static Pattern p = Pattern.compile("(\\d+)-(\\d+)\\s(.):.(\\S+)");
+        Pattern p = Pattern.compile("(\\d+)-(\\d+)\\s(.):.(\\S+)");
         
         /**
         * Creates a new entry
@@ -108,7 +108,7 @@ public class Day2 extends Daily {
             Matcher m = p.matcher(in);
             if(m.find()) {
                 val = Integer.parseInt(m.group(1));
-                val2 = Integer.parseInt(m.grou(2));
+                val2 = Integer.parseInt(m.group(2));
                 letter = m.group(3).charAt(0);
                 word = m.group(4);
             }
