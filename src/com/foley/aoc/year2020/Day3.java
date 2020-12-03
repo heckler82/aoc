@@ -21,8 +21,8 @@ public class Day3 extends Daily {
      */
     public Day3(String fileName) {
         super(fileName);
-        char[][] map = processMap(input);
-        int clamp = map[0].length;
+        map = processMap(input);
+        clamp = map[0].length;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Day3 extends Daily {
         // The answer from part one
         long init = 294L;
         // Additional slopes to check
-        Tuple<Integer, Integer>[] slopes = {new Point(1, 1),
+        Point[] slopes = {new Point(1, 1),
                                             new Point(5, 1),
                                             new Point(7, 1),
                                             new Point(1, 2)};
@@ -86,5 +86,6 @@ public class Day3 extends Daily {
                 map[y][x] = in[y].charAt(x);
             }
         }
+        return map;
     }
 }
