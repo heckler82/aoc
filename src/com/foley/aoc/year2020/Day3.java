@@ -71,7 +71,7 @@ public class Day3 extends Daily {
             pos.x = (pos.x + slope.x) % clamp;
             pos.y += slope.y;
         }
-        System.out.printf("There were %d trees encountered\n", treeCount);
+        return treeCount;
     }
     
     /**
