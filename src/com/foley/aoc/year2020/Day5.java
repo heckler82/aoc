@@ -34,11 +34,12 @@ public class Day5 extends Daily {
 
         for(String s : input) {
 
-            // Find row
-            int row = findCell(s, 0, 127, 0, 7, 'F');
-            int col = findCell(s, 0, 7, 7, s.length(), 'L');
+            int id = 0;
+            for(char c : s.toCharArray()) {
+                id *= 2;
+                id = id + (((c == 'B') || (c == 'R')) ? 1 : 0);
+            }
 
-            int id = row * 8 + col;
             list.add(id);
             maxId = Math.max(id, maxId);
         }
@@ -61,32 +62,5 @@ public class Day5 extends Daily {
             }
             expectedSeat++;
         }
-    }
-
-    /**
-     * Finds the final value of the row or column from a given bsp string
-     *
-     * @param s The BSP string
-     * @param lower The lower limit
-     * @param upper The upper limit
-     * @param start The starting point in the bsp string
-     * @param end The ending point in the bsp string
-     * @param front The character that determines which half to take
-     * @return The final calculated row or column
-     */
-    private int findCell(String s, int lower, int upper, int start, int end, char front) {
-        int lo = lower;
-        int hi = upper;
-        int row = upper + 1;
-
-        for(int i = start; i < end; i++) {
-            row /= 2;
-            if(s.charAt(i) == front) {
-                hi -= row;
-            } else {
-                lo += row;
-            }
-        }
-        return lo;
     }
 }
