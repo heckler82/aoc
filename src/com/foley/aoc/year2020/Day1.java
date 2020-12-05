@@ -5,8 +5,7 @@ import com.foley.aoc.util.Triple;
 import com.foley.aoc.util.Tuple;
 import com.foley.aoc.util.functions.Compute;
 import com.foley.aoc.util.functions.Search;
-
-import java.util.Arrays;
+import com.foley.aoc.util.functions.Sort;
 
 /**
  * Solutions for day 1
@@ -25,7 +24,7 @@ public class Day1 extends Daily {
     public Day1(String fileName) {
         super(fileName);
         ints = Compute.convertToIntArray(input);
-        Arrays.sort(ints);
+        Sort.mergeSort(ints);
     }
 
     @Override
