@@ -33,26 +33,11 @@ public class Day5 extends Daily {
         int maxId = Integer.MIN_VALUE;
 
         for(String s : input) {
-            int row = 127;
-            int col = 7;
-            int rowMin = 0;
-            int colMin = 0;
 
             // Find row
-            for(int i = 0; i < 7; i++) {
-                if(s.charAt(i) == 'F') {
-                    row = (row + rowMin) / 2;
-                } else {
-                    rowMin = (row + rowMin) / 2 + 1;
-                }
-            }
-            for(int i = 7; i < 10; i++) {
-                if(s.charAt(i) == 'L') {
-                    col = (col + colMin) / 2;
-                } else {
-                    colMin = (col + colMin) / 2 + 1;
-                }
-            }
+            int row = findCell(s, 0, 127, 0, 7, 'F');
+            int col = findCell(s, 0, 7, 7, s.length(), 'L');
+
             int id = row * 8 + col;
             list.add(id);
             maxId = Math.max(id, maxId);
@@ -66,11 +51,42 @@ public class Day5 extends Daily {
      */
     public void task2() {
         Collections.sort(list);
-        for(int i = 0; i < 824; i++) {
-            if(list.get(i) != (i + 11)) {
-                System.out.printf("Your seat is number %d\n", i + 11);
+        int expectedSeat = list.get(0);
+        final int start = expectedSeat;
+
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i) != expectedSeat) {
+                System.out.printf("Your seat is number %d\n", i + start);
                 break;
             }
+            expectedSeat++;
         }
+    }
+
+    /**
+     * Finds the final value of the row or column from a given bsp string
+     *
+     * @param s The BSP string
+     * @param lower The lower limit
+     * @param upper The upper limit
+     * @param start The starting point in the bsp string
+     * @param end The ending point in the bsp string
+     * @param front The character that determines which half to take
+     * @return The final calculated row or column
+     */
+    private int findCell(String s, int lower, int upper, int start, int end, char front) {
+        int lo = lower;
+        int hi = upper;
+        int row = upper + 1;
+
+        for(int i = start; i < end; i++) {
+            row /= 2;
+            if(s.charAt(i) == front) {
+                hi -= row;
+            } else {
+                lo += row;
+            }
+        }
+        return lo;
     }
 }
