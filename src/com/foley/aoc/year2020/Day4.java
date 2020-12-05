@@ -2,10 +2,8 @@ package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
 
-import java.util.AraryList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -38,9 +36,9 @@ public class Day4 extends Daily {
         int haveAllData = 0;
         Passport p = new Passport();
         for(String s : input) {
-            if("\n".equals(s)) {
+            if("".equals(s)) {
                 haveAllData += p.hasAllData() ? 1 : 0;
-                isValid = p.validate() ? 1 : 0;
+                isValid += p.validate() ? 1 : 0;
                 p = new Passport();
             } else {
                 p.parse(s);
@@ -48,7 +46,7 @@ public class Day4 extends Daily {
         }
         // Account for the last line that doesn't have a newline after it
         haveAllData += p.hasAllData() ? 1 : 0;
-        isValid = p.validate() ? 1 : 0;
+        isValid += p.validate() ? 1 : 0;
         System.out.printf("There are %d passports that have all necessary data fields\n", haveAllData);
     }
 
@@ -63,12 +61,21 @@ public class Day4 extends Daily {
     /**
     * Container for holding passport data
     */
-    private Class Passport {
+    private class Passport {
         private int activeFlags;
         Map<Integer, String> dataMap;
-        
-        static Map<String, Integer> validFlags = new HashMap<>();
-        static Set<String> set = new HashSet<>();
+
+        int BIRTH_YEAR = 1;
+        int ISSUE_YEAR = 2;
+        int EXPIRATION_YEAR = 4;
+        int HEIGHT = 8;
+        int HAIR_COLOR = 16;
+        int EYE_COLOR = 32;
+        int PASSPORT_ID = 64;
+        int COUNTRY_ID = 128;
+
+        Map<String, Integer> validFlags = new HashMap<>();
+        Set<String> set = new HashSet<>();
         
         /**
         * Creates a new passport
@@ -105,16 +112,6 @@ public class Day4 extends Daily {
         }
         
         /**
-        * Gets the data that is mapped to a flag
-        * 
-        * @param flag The flag
-        * @return The data that mapped to the flag or "BAD_FLAG" is the flag does not exist
-        */
-        public String getData(int flag) {
-            return dataMap.getOrDefault(flag, "BAD_FLAG");
-        }
-        
-        /**
         * Ensures that a passport has all required data
         * 
         * @return True if the passport has all required data
@@ -130,7 +127,7 @@ public class Day4 extends Daily {
         */
         public boolean validate() {
             // Are all flags set
-            if(!hasAllData) {
+            if(!hasAllData()) {
                 return false;
             }
             
@@ -193,7 +190,7 @@ public class Day4 extends Daily {
         * Gets the matcher for a given pattern and string
         * 
         * @param pattern The pattern to match against
-        * @param The string to match
+        * @param s The string to match
         * @return The matcher
         */
         private Matcher match(String pattern, String s) {
@@ -207,7 +204,7 @@ public class Day4 extends Daily {
         * @param s The input string
         */
         public void parse(String s) {
-            Pattern p = Pattern.compile("^(\\S+):(\\S+)$");
+            Pattern p = Pattern.compile("(\\S+):(\\S+)");
             Matcher m = p.matcher(s);
             // While valid data pairs are found, add to the passport
             while(m.find()) {
