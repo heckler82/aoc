@@ -2,9 +2,6 @@ package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
 
-import java.util.Arrays;
-import java.util.BitSet;
-
 /**
  * Solutions for day 6
  *
