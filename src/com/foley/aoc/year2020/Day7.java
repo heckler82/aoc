@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Solutions for day 7
@@ -37,9 +36,7 @@ public class Day7 extends Daily {
             String[] split = s.split(" bags contain ");
             // There are no additional bags inside this one
             if(split.length == 1) {
-                Matcher m = Regex.getMatcher("(\\w+\\s+\\w+)", split[0]);
-                m.find();
-                map.put(m.group(1), list);
+                map.put(Regex.getSingleMatch((\\w+\\s+\\w+)", split[0]), list);
             } else {
                 // Match pattern for "int color"
                 Matcher m = Regex.getMatcher("(\\d+)\\s+(\\w+\\s+\\w+)", split[1]);
