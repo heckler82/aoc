@@ -49,13 +49,26 @@ public class Regex {
   }
   
   /**
+  * Returns a single match for a string against a pattern. Use only when a single result is expected. This 
+  * method will return the entire group for the match, and not a specific group
+  * 
+  * @param pattern The pattern to match against
+  * @param match The string to match
+  * @return A single result from the matching process
+  */
+  public static String getSingleMatch(String pattern, String match) {
+    Matcher m = getMatcher(pattern, match);
+    return m.find().group(0);
+  }
+  
+  /**
   * Gets a list of the strings contained within match that match against a pattern
   * 
   * @param pattern The pattern to match against
   * @param match The string to test
   * @return A list of all the matches
   */
-  public List<String> getMatches(String pattern, String match) {
+  public static List<String> getMatches(String pattern, String match) {
     Matcher m = getMatcher(pattern, match);
     List<String> list = new ArrayList<>();
     while(m.find()) {
