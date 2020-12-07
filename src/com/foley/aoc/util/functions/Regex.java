@@ -7,6 +7,9 @@ import java.util.regex.Pattern;
 
 /**
 * Simple functions for working with regular expressions
+* 
+* @author Evan Foley
+* @version 07 Dec 2020
 */
 public class Regex {
   /**
