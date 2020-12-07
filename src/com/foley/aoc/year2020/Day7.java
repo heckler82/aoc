@@ -2,6 +2,7 @@ package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.Tuple;
+import com.foley.aoc.util.regex.Regex;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,17 +30,20 @@ public class Day7 extends Daily {
     public Day7(String fileName) {
         super(fileName);
         map = new HashMap<>();
+        // Parse all data into the map
+        // Data entries are in the format "color" : List of <quantity : "color">
         for(String s : input) {
             List<Tuple<Integer, String>> list = new ArrayList<>();
             String[] split = s.split(" bags contain ");
+            // There are no additional bags inside this one
             if(split.length == 1) {
-                Pattern p = Pattern.compile("(\\w+\\s+\\w+)");
-                Matcher m = p.matcher(split[0]);
+                Matcher m = Regex.getMatcher("(\\w+\\s+\\w+)", split[0]);
                 m.find();
                 map.put(m.group(1), list);
             } else {
-                Pattern p = Pattern.compile("(\\d+)\\s+(\\w+\\s+\\w+)");
-                Matcher m = p.matcher(split[1]);
+                // Match pattern for "int color"
+                Matcher m = Regex.getMatcher("(\\d+)\\s+(\\w+\\s+\\w+)", split[1]);
+                // Poll all the results out of the string and add them to the map
                 while(m.find()) {
                     Tuple<Integer, String> t = new Tuple<>(Integer.parseInt(m.group(1)), m.group(2));
                     list.add(t);
@@ -73,6 +77,7 @@ public class Day7 extends Daily {
     */
     private Set<String> getValidBagColors(String s) {
         List<String> list = new ArrayList<String>();
+        // Find all colors that hold s in its color listing and add them to list
         for(String s2 : map.keySet()) {
             List<Tuple<Integer, String>> l = map.get(s2);
             for(Tuple<Integer, String> t : l) {
@@ -81,7 +86,9 @@ public class Day7 extends Daily {
                 }
             }
         }
+        // Add all found colors to a set
         Set<String> set = new HashSet<>(list);
+        // Find all the colors that hold the previously found colors, and union the resulting set to the created set
         for(String s2 : list) {
             set.addAll(getValidBagColors(s2));
         }
@@ -95,8 +102,10 @@ public class Day7 extends Daily {
     * @return The total number of bags that are contained within 1 of the specified bag color
     */
     private long getTotalBagsInside(String s) {
+        // Get the colors that are held inside this color
         List<Tuple<Integer, String>> list = map.get(s);
         long sum = 0L;
+        // Add up the total number of each color that is contained inside
         for(Tuple<Integer, String> t : list) {
             sum += t.getFirst() + t.getFirst() * getTotalBagsInside(t.getSecond());
         }
