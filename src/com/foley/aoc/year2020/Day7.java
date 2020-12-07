@@ -36,7 +36,7 @@ public class Day7 extends Daily {
             String[] split = s.split(" bags contain ");
             // There are no additional bags inside this one
             if(split.length == 1) {
-                map.put(Regex.getSingleMatch((\\w+\\s+\\w+)", split[0]), list);
+                map.put(split[0], list);
             } else {
                 // Match pattern for "int color"
                 Matcher m = Regex.getMatcher("(\\d+)\\s+(\\w+\\s+\\w+)", split[1]);
