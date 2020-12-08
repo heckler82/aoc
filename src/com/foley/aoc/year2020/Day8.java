@@ -1,13 +1,11 @@
 package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
-import com.foley.aoc.util.functions.Regex;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
 
 /**
  * Solutions for day 8
@@ -112,11 +110,8 @@ public class Day8 extends Daily {
     * @return The instruction parsed from the string
     */
     private Instruction parseInstruction(String s) {
-        Matcher m = Regex.getMatcher("(\\w+)\\s+((-|\\+)?\\d+)", s);
-        if(m.find()) {
-            return new Insrtuction(m.group(1), Integer.parseInt(m.group(2)));
-        }
-        return null;
+        String[] split = s.split("\\s+");
+        return new Instruction(split[0], Integer.parseInt(spit[1]));
     }
     
     /**
