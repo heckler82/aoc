@@ -41,7 +41,7 @@ public class Compute {
      * @return An array of longs filled with the converted strings
      */
     public static long[] convertToLongArray(String[] arr) {
-        long[] ints = new long[arr.length];
+        long[] longs = new long[arr.length];
         for(int i = 0; i < arr.length; i++) {
             try {
                 longs[i] = Long.parseLong(arr[i]);
@@ -278,12 +278,12 @@ public class Compute {
     * @param hi The ending index (exclusive)
     * @return The sub range of integers
     */
-    private int[] getSortedRange(int[] ints, int lo, int hi) {
+    public static int[] getSortedRange(int[] ints, int lo, int hi) {
         int[] arr = new int[hi - lo];
         for(int i = lo; i < hi; i++) {
             arr[i - lo] = ints[i];
         }
-        Array.sort(arr);
+        Arrays.sort(arr);
         return arr;
     }
     
@@ -295,12 +295,12 @@ public class Compute {
     * @param hi The ending index (exclusive)
     * @return The sub range of longs
     */
-    private long[] getSortedRange(long[] longs, int lo, int hi) {
+    public static long[] getSortedRange(long[] longs, int lo, int hi) {
         long[] arr = new long[hi - lo];
         for(int i = lo; i < hi; i++) {
             arr[i - lo] = longs[i];
         }
-        Array.sort(arr);
+        Arrays.sort(arr);
         return arr;
     }
 }

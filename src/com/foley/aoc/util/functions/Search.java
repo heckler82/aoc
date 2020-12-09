@@ -114,7 +114,7 @@ public class Search {
      */
     public static Tuple<Long, Long> twoSum(long[] longs, long target) {
         int lo = 0;
-        int hi = ints.length - 1;
+        int hi = longs.length - 1;
 
         // Continue until lo is equal to hi
         while(lo < hi) {
@@ -133,7 +133,7 @@ public class Search {
         }
 
         // No result found
-        return Tuple.pair(-1, -1);
+        return Tuple.pair(-1L, -1L);
     }
 
     /**

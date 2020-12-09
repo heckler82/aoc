@@ -1,8 +1,11 @@
 package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
+import com.foley.aoc.util.Tuple;
 import com.foley.aoc.util.functions.Compute;
 import com.foley.aoc.util.functions.Search;
+
+import java.util.Arrays;
 
 /**
  * Solutions for day 9
@@ -11,7 +14,7 @@ import com.foley.aoc.util.functions.Search;
  * @version 24 Nov 2020
  */
 public class Day9 extends Daily {
-    priavte long[] stream;
+    private long[] stream;
     private long val = 0L;
     
     /**
@@ -89,8 +92,7 @@ public class Day9 extends Daily {
                 long[] range = Compute.getSortedRange(longs, lo, to);
                 long min = range[0];
                 long max = range[range.length - 1];
-                System.out.print(min + max);
-                break;
+                return min + max;
             }
         }
         return -1;
