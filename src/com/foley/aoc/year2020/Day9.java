@@ -76,17 +76,21 @@ public class Day9 extends Daily {
     */
     private long getWeakness(long[] longs, long target) {
         int lo = 0;
-        long sum = 0L;
-        for(int i = 0; i < longs.length; i++) {
-            sum += longs[i];
-            while(sum > target) {
+        int to = 1;
+        long sum = longs[lo] + longs[to];
+        while(to < longs.length) {
+            if(sum > target) {
                 sum -= longs[lo++];
             }
-            if(sum == target) {
-                long[] range = getSortedRange(longs, lo, i);
+            if(sum < badValue) {
+                sum += longs[++to];
+            }
+            if(sum == target && lo < to) {
+                long[] range = getSortedRange(longs, lo, to);
                 long min = range[0];
                 long max = range[range.length - 1];
-                return min + max;
+                System.out.print(min + max);
+                break;
             }
         }
         return -1;
