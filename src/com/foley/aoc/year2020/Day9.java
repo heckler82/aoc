@@ -86,7 +86,7 @@ public class Day9 extends Daily {
                 sum += longs[++to];
             }
             if(sum == target && lo < to) {
-                long[] range = getSortedRange(longs, lo, to);
+                long[] range = Compute.getSortedRange(longs, lo, to);
                 long min = range[0];
                 long max = range[range.length - 1];
                 System.out.print(min + max);
@@ -94,22 +94,5 @@ public class Day9 extends Daily {
             }
         }
         return -1;
-    }
-    
-    /**
-    * Gets a range of longs from a parent array
-    * 
-    * @param longs The parent array
-    * @param lo The starting index (inclusive)
-    * @param hi The ending index (exclusive)
-    * @return The sub range of longs
-    */
-    private long[] getSortedRange(long[] longs, int lo, int hi) {
-        long[] l = new long[hi - lo];
-        for(int i = lo; i < hi; i++) {
-            l[i - lo] = longs[i];
-        }
-        Array.sort(l);
-        return l;
     }
 }
