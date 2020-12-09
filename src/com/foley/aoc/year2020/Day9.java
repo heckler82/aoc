@@ -82,7 +82,7 @@ public class Day9 extends Daily {
             if(sum > target) {
                 sum -= longs[lo++];
             }
-            if(sum < badValue) {
+            if(sum < target) {
                 sum += longs[++to];
             }
             if(sum == target && lo < to) {
