@@ -14,10 +14,10 @@ import java.util.Map;
  */
 public class Compute {
     /**
-     * Converts an array of Strings to an integer array
+     * Converts an array of Strings to an array of integers
      *
      * @param arr The input array
-     * @return An integer array filled with the converted strings
+     * @return An array of integers filled with the converted strings
      */
     public static int[] convertToIntArray(String[] arr) {
         int[] ints = new int[arr.length];
@@ -32,6 +32,27 @@ public class Compute {
             }
         }
         return ints;
+    }
+    
+    /**
+     * Converts an array of Strings to an array of longs
+     *
+     * @param arr The input array
+     * @return An array of longs filled with the converted strings
+     */
+    public static long[] convertToLongArray(String[] arr) {
+        long[] ints = new long[arr.length];
+        for(int i = 0; i < arr.length; i++) {
+            try {
+                longs[i] = Long.parseLong(arr[i]);
+            }
+            catch(NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Could not parse '" + arr[i] + "' into a long",
+                        "Number Format Exception", JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
+            }
+        }
+        return longs;
     }
 
     /**
