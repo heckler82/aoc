@@ -79,7 +79,7 @@ public class Search {
      *
      * @param ints The array of integers
      * @param target The target value
-     * @return The indexes of the two values that equal target, or -1, -1 if the target value can't be calculated from the array
+     * @return The two values that equal target, or -1, -1 if the target value can't be calculated from the array
      */
     public static Tuple<Integer, Integer> twoSum(int[] ints, int target) {
         int lo = 0;
@@ -90,7 +90,38 @@ public class Search {
             int sum = ints[lo] + ints[hi];
             // Return a hit
             if(sum == target) {
-                return Tuple.pair(lo, hi);
+                return Tuple.pair(ints[lo], ints[hi]);
+            }
+
+            // Remove whichever end of the array will not produce the target value
+            if(sum > target) {
+                hi--;
+            } else {
+                lo++;
+            }
+        }
+
+        // No result found
+        return Tuple.pair(-1, -1);
+    }
+    
+    /**
+     * Finds the two numbers in a sorted array whose sum adds up to the target value. Assumes the array is sorted
+     *
+     * @param longs The array of longs
+     * @param target The target value
+     * @return The two values that equal target, or -1, -1 if the target value can't be calculated from the array
+     */
+    public static Tuple<Long, Long> twoSum(long[] longs, long target) {
+        int lo = 0;
+        int hi = ints.length - 1;
+
+        // Continue until lo is equal to hi
+        while(lo < hi) {
+            long sum = longs[lo] + longs[hi];
+            // Return a hit
+            if(sum == target) {
+                return Tuple.pair(longs[lo], longs[hi]);
             }
 
             // Remove whichever end of the array will not produce the target value
@@ -110,7 +141,7 @@ public class Search {
      *
      * @param ints The array of integers
      * @param target The target value
-     * @return The indexes of the three values that equal target, or -1, -1, -1 if the target value can't be calculated from the array
+     * @return The three values that equal target, or -1, -1, -1 if the target value can't be calculated from the array
      */
     public static Triple<Integer, Integer, Integer> threeSum(int[] ints, int target) {
         // Utilize the first element as the starting point
@@ -123,7 +154,7 @@ public class Search {
             for(int j = i + 1; j < ints.length; j++) {
                 // If the current sum is in the set, the answer is found
                 if(set.contains(currentSum - ints[j])) {
-                    return Triple.triplet(i, j, binarySearch(ints, (currentSum - ints[j])));
+                    return Triple.triplet(ints[i], ints[j], currentSum - ints[j]);
                 }
                 set.add(ints[j]);
             }
