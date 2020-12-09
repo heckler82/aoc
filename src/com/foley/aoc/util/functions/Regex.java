@@ -20,7 +20,7 @@ public class Regex {
   * @return True if the string matches against the pattern
   */
   public static boolean canMatchPattern(String pattern, String match) {
-    Pattern p = pattern.compile(pattern);
+    Pattern p = Pattern.compile(pattern);
     return p.matcher(match).find();
   }
   
@@ -32,7 +32,7 @@ public class Regex {
   * @return True if the string completely matches against the pattern
   */
   public static boolean completelyMatchPattern(String pattern, String match) {
-    Pattern p = pattern.compile(pattern);
+    Pattern p = Pattern.compile(pattern);
     return p.matcher(match).matches();
   }
   
@@ -44,8 +44,8 @@ public class Regex {
   * @return The matching engine for string and pattern
   */
   public static Matcher getMatcher(String pattern, String match) {
-    Pattern p = pattern.compile(pattern);
-    return p.matcher();
+    Pattern p = Pattern.compile(pattern);
+    return p.matcher(match);
   }
   
   /**
@@ -58,7 +58,10 @@ public class Regex {
   */
   public static String getSingleMatch(String pattern, String match) {
     Matcher m = getMatcher(pattern, match);
-    return m.find().group(0);
+    if(m.find()) {
+      return m.group(0);
+    }
+    return "";
   }
   
   /**

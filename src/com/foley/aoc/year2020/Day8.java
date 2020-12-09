@@ -1,6 +1,8 @@
 package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
+import com.foley.aoc.util.hal.CPU;
+import com.foley.aoc.util.hal.Instruction;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,6 +17,8 @@ import java.util.Set;
  */
 public class Day8 extends Daily {
     private List<Instruction> instructions;
+    private CPU cpu;
+
     /**
      * Creates a new daily
      *
@@ -22,10 +26,12 @@ public class Day8 extends Daily {
      */
     public Day8(String fileName) {
         super(fileName);
+        instructions = new ArrayList<>();
         // Get all instructions from the input
         for(String s : input) {
-            instructions.add(parseInstructions(s));
+            instructions.add(Instruction.parseInstruction(s));
         }
+        cpu = new CPU();
     }
 
     @Override
@@ -35,6 +41,7 @@ public class Day8 extends Daily {
     public void task1() {
         // Run the unmodified program
         runProgram();
+        System.out.printf("The value in the accumulator before the program repeats is %d\n", cpu.getAccumulator());
     }
 
     @Override
@@ -44,13 +51,14 @@ public class Day8 extends Daily {
     public void task2() {
         // Modify a single 'nop' or 'jmp' instruction until the program can run without loops
         for(Instruction i : instructions) {
+            cpu.reset();
             // Ignore accumulate instructions
-            if(i.op.equals("acc")) {
+            if(i.getOp().equals("acc")) {
                 continue;
             }
             // Modify a single instruction each run
             String mod = "jmp";
-            if(i.op.equals("jmp")) {
+            if(i.getOp().equals("jmp")) {
                 mod = "nop";
             }
             // If the modified run was successful, break out of the loop
@@ -58,6 +66,7 @@ public class Day8 extends Daily {
                 break;
             }
         }
+        System.out.printf("The final value in the accumulator is %d\n", cpu.getAccumulator());
     }
     
     /**
@@ -68,10 +77,10 @@ public class Day8 extends Daily {
     * @return True if the program successfully reached termination
     */
     private boolean attemptModifiedRun(Instruction i, String newOp) {
-        String oldOp = i.op;
-        i.op = newOp;
+        String oldOp = i.getOp();
+        i.setOp(newOp);
         boolean b = runProgram();
-        i.op = oldOp;
+        i.setOp(oldOp);
         return b;
     }
     
@@ -81,55 +90,14 @@ public class Day8 extends Daily {
     * @return True if the program terminated normally
     */
     private boolean runProgram() {
-        int accumulator = 0;
-        int iptr = 0;
+        // Hold instructions that have already run
         Set<Integer> prev = new HashSet<>();
         
         // Continue to loop until the end of the program is reached, or a loop is discovered
-        while(iptr < instructions.size() && prev.add(iptr)) {
-            Instruction current = instructions.get(iptr);
-            switch(current.op) {
-                case "jmp":
-                    iptr += current.val;
-                    break;
-                case "acc":
-                    accumulator += current.val;
-                case "nop":
-                    iptr++;
-                    break;
-            }
+        while(cpu.getInstructionPointer() < instructions.size() && prev.add(cpu.getInstructionPointer())) {
+            Instruction current = instructions.get(cpu.getInstructionPointer());
+            cpu.runInstruction(current);
         }
-        System.out.printf("THe value in the accumulator is %d\n", accumulator);
-        return iptr == instructions.size();
-    }
-    
-    /**
-    * Parses an instruction out of a string
-    * 
-    * @param s The string to parse
-    * @return The instruction parsed from the string
-    */
-    private Instruction parseInstruction(String s) {
-        String[] split = s.split("\\s+");
-        return new Instruction(split[0], Integer.parseInt(spit[1]));
-    }
-    
-    /**
-    * Holds data for a cimputer instruction
-    */
-    private class Instruction {
-        private String op;
-        private int val;
-        
-        /**
-        * Creates a new instruction
-        * 
-        * @param op The operation
-        * @param val The value
-        */
-        public Instruction(String op, int val) {
-            this.op = op;
-            this.val = val;
-        }
+        return cpu.getInstructionPointer() == instructions.size();
     }
 }

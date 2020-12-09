@@ -2,7 +2,7 @@ package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.Tuple;
-import com.foley.aoc.util.regex.Regex;
+import com.foley.aoc.util.functions.Regex;
 
 import java.util.ArrayList;
 import java.util.HashMap;
