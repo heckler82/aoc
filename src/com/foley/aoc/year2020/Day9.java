@@ -75,29 +75,37 @@ public class Day9 extends Daily {
     * @return The sum of the minimum and maximum value that add up to target
     */
     private long getWeakness(long[] longs, long target) {
+        int lo = 0;
+        long sum = 0L;
         for(int i = 0; i < longs.length; i++) {
-            int sum = longs[i];
-            int min = longs[i];
-            int max = longs[i];
-            // Search all succeeding values
-            for(int j = i + 1; j < longs.length; j++) {
-                sum += longs[j];
-                // Update min and max
-                if(longs[j] < min) {
-                    min = longs[j];
-                }
-                if(longs[j] > max) {
-                    max = longs[j];
-                }
-                // Solution found
-                if(sum == target) {
-                    return min + max;
-                }
-                // Break out of this sequence if we overshoot
-                if(sum > target) {
-                    break;
-                }
+            sum += longs[i];
+            while(sum > target) {
+                sum -= longs[lo++];
+            }
+            if(sum == target) {
+                long[] range = getSortedRange(longs, lo, i);
+                long min = range[0];
+                long max = range[range.length - 1];
+                return min + max;
             }
         }
+        return -1;
+    }
+    
+    /**
+    * Gets a range of longs from a parent array
+    * 
+    * @param longs The parent array
+    * @param lo The starting index (inclusive)
+    * @param hi The ending index (exclusive)
+    * @return The sub range of longs
+    */
+    private long[] getSortedRange(long[] longs, int lo, int hi) {
+        long[] l = new long[hi - lo];
+        for(int i = lo; i < hi; i++) {
+            l[i - lo] = longs[i];
+        }
+        Array.sort(l);
+        return l;
     }
 }
