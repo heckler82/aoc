@@ -2,6 +2,7 @@ package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.functions.Compute;
+import com.foley.aoc.util.functions.Search;
 
 /**
  * Solutions for day 9
