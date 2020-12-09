@@ -269,4 +269,38 @@ public class Compute {
         }
         return count;
     }
+    
+    /**
+    * Gets a range of integers from a parent array
+    * 
+    * @param ints The parent array
+    * @param lo The starting index (inclusive)
+    * @param hi The ending index (exclusive)
+    * @return The sub range of integers
+    */
+    private int[] getSortedRange(int[] ints, int lo, int hi) {
+        int[] arr = new int[hi - lo];
+        for(int i = lo; i < hi; i++) {
+            arr[i - lo] = ints[i];
+        }
+        Array.sort(arr);
+        return arr;
+    }
+    
+    /**
+    * Gets a range of longs from a parent array
+    * 
+    * @param longs The parent array
+    * @param lo The starting index (inclusive)
+    * @param hi The ending index (exclusive)
+    * @return The sub range of longs
+    */
+    private long[] getSortedRange(long[] longs, int lo, int hi) {
+        long[] arr = new long[hi - lo];
+        for(int i = lo; i < hi; i++) {
+            arr[i - lo] = longs[i];
+        }
+        Array.sort(arr);
+        return arr;
+    }
 }
