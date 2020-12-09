@@ -32,7 +32,7 @@ public class Day9 extends Daily {
         int lo = 0;
         int hi = 25;
         long[] preamble = getPreamble(stream, lo, hi);
-        for(int i = 0; i < stream.length; i++) {
+        for(int i = lo + 25; i < stream.length; i++) {
             Arrays.sort(preamble);
             Tuple<Long, Long> t = Search.twoSum(preamble, stream[i]);
             if(t.getFirst() == -1) {
