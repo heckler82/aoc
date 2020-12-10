@@ -1,6 +1,7 @@
 package com.foley.aoc.util.functions;
 
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +76,62 @@ public class Compute {
         }
         return ints;
     }
+
+    /**
+     * Converts an array of Strings to a list of integers
+     *
+     * @param arr The input array
+     * @return A list filled with the converted strings
+     */
+    public static List<Integer> convertToIntegerList(String[] arr) {
+        List<Integer> ints = new ArrayList<>();
+        for(String s : arr) {
+            ints.add(Integer.parseInt(s));
+        }
+        return ints;
+    }
+
+    /**
+     * Converts a list of Strings to a list of longs
+     *
+     * @param list The input list
+     * @return A list filled with the converted strings
+     */
+    public static List<Long> convertToLongList(List<String> list) {
+        List<Long> longs = new ArrayList<>();
+        for(String s : list) {
+            longs.add(Long.parseLong(s));
+        }
+        return longs;
+    }
+
+    /**
+     * Converts an array of Strings to a list of longs
+     *
+     * @param arr The input array
+     * @return A list filled with the converted strings
+     */
+    public static List<Long> convertToLongList(String[] arr) {
+        List<Long> longs = new ArrayList<>();
+        for(String s : arr) {
+            longs.add(Long.parseLong(s));
+        }
+        return longs;
+    }
+    /**
+     * Converts a list of Strings to a list of integers
+     *
+     * @param list The input list
+     * @return A list filled with the converted strings
+     */
+    public static List<Integer> convertToIntegerList(List<String> list) {
+        List<Integer> ints = new ArrayList<>();
+        for(String s : list) {
+            ints.add(Integer.parseInt(s));
+        }
+        return ints;
+    }
+
 
     /**
      * Finds the mean of an array of integers
