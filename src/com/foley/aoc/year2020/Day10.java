@@ -54,11 +54,11 @@ public class Day10 extends Daily {
     public void task2() {
         List<Integer> ints = new ArrayList<>();
         ints.add(0);
+        ints.add(deviceRating);
         for(String s : input) {
             ints.add(Integer.parseInt(s));
         }
         Collections.sort(ints);
-        ints.add(ints.get(ints.size() - 1) + 3);
         int pow2 = 0;
         int pow7 = 0;
         for(int i = 1; i < ints.size() - 1; i++) {
