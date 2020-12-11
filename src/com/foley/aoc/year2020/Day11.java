@@ -31,13 +31,14 @@ public class Day11 extends Daily {
      */
     public void task1() {
         boolean isRunning = true;
+        Board b1 = b.integrate();
 
         // Loop until stopping condition is met
         while(isRunning) {
-            b = b.integrate();
-            isRunning = b.isMutated();
+            b1 = b1.integrate();
+            isRunning = b1.isMutated();
         }
-        System.out.printf("There are %d occupied seats\n", b.count);
+        System.out.printf("There are %d occupied seats\n", b1.count);
     }
 
     @Override
@@ -45,17 +46,17 @@ public class Day11 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
-        b = new Board(input);
-        b.findVisible();
+        Board b1 = b.integrate();
+        b1.findVisible();
 
         boolean isRunning = true;
 
         // Loop until stopping condition is met
         while(isRunning) {
-            b = b.integrate2();
-            isRunning = b.isMutated();
+            b1 = b1.integrate2();
+            isRunning = b1.isMutated();
         }
-        System.out.printf("There are %d occupied seats\n", b.count);
+        System.out.printf("There are %d occupied seats\n", b1.count);
     }
 
     private class Board {
@@ -69,17 +70,19 @@ public class Day11 extends Daily {
         public Board(String[] input) {
             map = new char[input.length][];
             consider = new HashSet<>();
+            cache = new HashMap<>();
             for(int y = 0; y < input.length; y++) {
                 map[y] = new char[input[y].length()];
                 for(int x = 0; x < input[y].length(); x++) {
                     map[y][x] = input[y].charAt(x);
                     if(input[y].charAt(x) != '.') {
-                        consider.add(new Point(x, y));
+                        Point p = new Point(x, y);
+                        consider.add(p);
+                        cache.put(p, new ArrayList<>());
                     }
                 }
             }
             mutate = false;
-            cache = new HashMap<>();
             count = 0;
         }
 
@@ -123,7 +126,7 @@ public class Day11 extends Daily {
             Board b = new Board(this);
             for(Point p : consider) {
                 char c = map[p.y][p.x];
-                int neighborCount = checkVisibleNeighbors(p.x, p.y);
+                int neighborCount = checkVisibleNeighbors(p);
                 switch(c) {
                     case 'L':
                         if(neighborCount == 0) {
@@ -165,9 +168,8 @@ public class Day11 extends Daily {
             return count;
         }
 
-        private int checkVisibleNeighbors(int x, int y) {
+        private int checkVisibleNeighbors(Point key) {
             int count = 0;
-            Point key = new Point(x, y);
             // Doin' it dirty
             for(Point p : cache.get(key)) {
                 count += map[p.y][p.x] == '#' ? 1 : 0;
@@ -192,9 +194,6 @@ public class Day11 extends Daily {
 
         private void findFirstVisible(int x, int y, Point p) {
             Point point = new Point(x, y);
-            if(!cache.containsKey(point)) {
-                cache.put(point, new ArrayList<>());
-            }
             while(safeCheck(x += p.x, y += p.y)) {
                 Point p1 = new Point(x, y);
                 if(consider.contains(p1)) {
