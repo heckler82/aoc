@@ -173,6 +173,9 @@ public class Day11 extends Daily {
             // Doin' it dirty
             for(Point p : cache.get(key).values()) {
                 count += map[p.y][p.x] == '#' ? 1 : 0;
+                if(count == 5) {
+                    return count;
+                }
             }
             return count;
         }
