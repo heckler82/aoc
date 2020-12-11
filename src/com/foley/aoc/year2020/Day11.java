@@ -61,7 +61,7 @@ public class Day11 extends Daily {
     private class Board {
         char[][] map;
         boolean mutate;
-        int[][] d = {{-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
+        int[][] dir = {{-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
         Set<Point> consider;
         private Map<Point, Map<Point, Point>> cache;
 
@@ -158,8 +158,8 @@ public class Day11 extends Daily {
 
         private int checkNeighbors(int x, int y, char c) {
             int count = 0;
-            for(int i = 0; i < d.length; i++) {
-                int[] a = d[i];
+            for(int i = 0; i < dir.length; i++) {
+                int[] a = dir[i];
                 if(safeCheck(x + a[0], y + a[1])) {
                     count += map[y + a[1]][x + a[0]] == c ? 1 : 0;
                 }
@@ -191,7 +191,7 @@ public class Day11 extends Daily {
 
         public void findVisible() {
             for(Point p : consider) {
-                for(int[] i : d) {
+                for(int[] i : dir) {
                     findFirstVisible(p.x, p.y, new Point(i[0], i[1]));
                 }
             }
