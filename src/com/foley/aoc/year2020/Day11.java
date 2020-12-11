@@ -63,7 +63,7 @@ public class Day11 extends Daily {
         boolean mutate;
         int[][] dir = {{-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
         Set<Point> consider;
-        private Map<Point, Map<Point, Point>> cache;
+        private Map<Point, List<Point>> cache;
         public int count;
 
         public Board(String[] input) {
@@ -169,7 +169,7 @@ public class Day11 extends Daily {
             int count = 0;
             Point key = new Point(x, y);
             // Doin' it dirty
-            for(Point p : cache.get(key).values()) {
+            for(Point p : cache.get(key)) {
                 count += map[p.y][p.x] == '#' ? 1 : 0;
                 if(count == 5) {
                     return count;
@@ -193,12 +193,12 @@ public class Day11 extends Daily {
         private void findFirstVisible(int x, int y, Point p) {
             Point point = new Point(x, y);
             if(!cache.containsKey(point)) {
-                cache.put(point, new HashMap<>());
+                cache.put(point, new ArrayList<>());
             }
             while(safeCheck(x += p.x, y += p.y)) {
                 Point p1 = new Point(x, y);
                 if(consider.contains(p1)) {
-                    cache.get(point).put(p, p1);
+                    cache.get(point).add(p1);
                     return;
                 }
             }
