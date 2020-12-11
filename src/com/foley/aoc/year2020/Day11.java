@@ -100,7 +100,7 @@ public class Day11 extends Daily {
                     case 'L':
                         if(neighborCount == 0) {
                             b.set(p.x, p.y, '#');
-                            count++;
+                            b.count++;
                             b.mutate |= true;
                         } else {
                             b.set(p.x, p.y, 'L');
@@ -112,7 +112,7 @@ public class Day11 extends Daily {
                             b.mutate |= true;
                         } else {
                             b.set(p.x, p.y, '#');
-                            count++;
+                            b.count++;
                         }
                 }
             }
@@ -128,7 +128,7 @@ public class Day11 extends Daily {
                     case 'L':
                         if(neighborCount == 0) {
                             b.set(p.x, p.y, '#');
-                            count++;
+                            b.count++;
                             b.mutate |= true;
                         } else {
                             b.set(p.x, p.y, 'L');
@@ -140,7 +140,7 @@ public class Day11 extends Daily {
                             b.mutate |= true;
                         } else {
                             b.set(p.x, p.y, '#');
-                            count++;
+                            b.count++;
                         }
                 }
             }
