@@ -37,7 +37,7 @@ public class Day11 extends Daily {
             b = b.integrate();
             isRunning = b.isMutated();
         }
-        System.out.printf("There are %d occupied seats\n", b.count('#'));
+        System.out.printf("There are %d occupied seats\n", b.count);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Day11 extends Daily {
             b = b.integrate2();
             isRunning = b.isMutated();
         }
-        System.out.printf("There are %d occupied seats\n", b.count('#'));
+        System.out.printf("There are %d occupied seats\n", b.count);
     }
 
     private class Board {
@@ -64,19 +64,23 @@ public class Day11 extends Daily {
         int[][] dir = {{-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
         Set<Point> consider;
         private Map<Point, Map<Point, Point>> cache;
+        public int count;
 
         public Board(String[] input) {
             map = new char[input.length][];
+            consider = new HashSet<>();
             for(int y = 0; y < input.length; y++) {
                 map[y] = new char[input[y].length()];
                 for(int x = 0; x < input[y].length(); x++) {
                     map[y][x] = input[y].charAt(x);
+                    if(input[y].charAt(x) != '.') {
+                        consider.add(new Point(x, y));
+                    }
                 }
             }
             mutate = false;
             cache = new HashMap<>();
-            consider = new HashSet<>();
-            init();
+            count = 0;
         }
 
         public Board(Board b) {
@@ -84,16 +88,7 @@ public class Day11 extends Daily {
             mutate = false;
             cache = b.cache;
             consider = b.consider;
-        }
-
-        private void init() {
-            for(int y = 0; y < map.length; y++) {
-                for(int x = 0; x < map[y].length; x++) {
-                    if(map[y][x] != '.') {
-                        consider.add(new Point(x, y));
-                    }
-                }
-            }
+            count = 0;
         }
 
         public Board integrate() {
@@ -105,6 +100,7 @@ public class Day11 extends Daily {
                     case 'L':
                         if(neighborCount == 0) {
                             b.set(p.x, p.y, '#');
+                            count++;
                             b.mutate |= true;
                         } else {
                             b.set(p.x, p.y, 'L');
@@ -116,6 +112,7 @@ public class Day11 extends Daily {
                             b.mutate |= true;
                         } else {
                             b.set(p.x, p.y, '#');
+                            count++;
                         }
                 }
             }
@@ -131,6 +128,7 @@ public class Day11 extends Daily {
                     case 'L':
                         if(neighborCount == 0) {
                             b.set(p.x, p.y, '#');
+                            count++;
                             b.mutate |= true;
                         } else {
                             b.set(p.x, p.y, 'L');
@@ -142,6 +140,7 @@ public class Day11 extends Daily {
                             b.mutate |= true;
                         } else {
                             b.set(p.x, p.y, '#');
+                            count++;
                         }
                 }
             }
@@ -176,14 +175,6 @@ public class Day11 extends Daily {
                 if(count == 5) {
                     return count;
                 }
-            }
-            return count;
-        }
-
-        private int count(char c) {
-            int count = 0;
-            for(Point p : consider) {
-                count += map[p.y][p.x] == c ? 1 : 0;
             }
             return count;
         }
