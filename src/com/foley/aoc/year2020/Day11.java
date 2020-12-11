@@ -95,13 +95,13 @@ public class Day11 extends Daily {
             Board b = new Board(this);
             for(Point p : consider) {
                 char c = map[p.y][p.x];
-                int neighborCount = checkNeighbors(p.x, p.y, '#');
+                int neighborCount = checkNeighbors(p.x, p.y);
                 switch(c) {
                     case 'L':
                         if(neighborCount == 0) {
                             b.set(p.x, p.y, '#');
                             b.count++;
-                            b.mutate |= true;
+                            b.mutate = true;
                         } else {
                             b.set(p.x, p.y, 'L');
                         }
@@ -109,7 +109,7 @@ public class Day11 extends Daily {
                     case '#':
                         if(neighborCount >= 4) {
                             b.set(p.x, p.y, 'L');
-                            b.mutate |= true;
+                            b.mutate = true;
                         } else {
                             b.set(p.x, p.y, '#');
                             b.count++;
@@ -123,13 +123,13 @@ public class Day11 extends Daily {
             Board b = new Board(this);
             for(Point p : consider) {
                 char c = map[p.y][p.x];
-                int neighborCount = checkVisibleNeighbors(p.x, p.y, '#');
+                int neighborCount = checkVisibleNeighbors(p.x, p.y);
                 switch(c) {
                     case 'L':
                         if(neighborCount == 0) {
                             b.set(p.x, p.y, '#');
                             b.count++;
-                            b.mutate |= true;
+                            b.mutate = true;
                         } else {
                             b.set(p.x, p.y, 'L');
                         }
@@ -137,7 +137,7 @@ public class Day11 extends Daily {
                     case '#':
                         if(neighborCount >= 5) {
                             b.set(p.x, p.y, 'L');
-                            b.mutate |= true;
+                            b.mutate = true;
                         } else {
                             b.set(p.x, p.y, '#');
                             b.count++;
@@ -155,18 +155,17 @@ public class Day11 extends Daily {
             map[y][x] = c;
         }
 
-        private int checkNeighbors(int x, int y, char c) {
+        private int checkNeighbors(int x, int y) {
             int count = 0;
-            for(int i = 0; i < dir.length; i++) {
-                int[] a = dir[i];
-                if(safeCheck(x + a[0], y + a[1])) {
-                    count += map[y + a[1]][x + a[0]] == c ? 1 : 0;
+            for(int[] i : dir) {
+                if(safeCheck(x + i[0], y + i[1])) {
+                    count += map[y + i[1]][x + i[0]] == '#' ? 1 : 0;
                 }
             }
             return count;
         }
 
-        private int checkVisibleNeighbors(int x, int y, char c) {
+        private int checkVisibleNeighbors(int x, int y) {
             int count = 0;
             Point key = new Point(x, y);
             // Doin' it dirty
