@@ -50,10 +50,8 @@ public class Day12 extends Daily {
                     p2.y += way.y * dist;
                     if(dir.ordinal() % 2 == 0) {
                         p.x += dir.ordinal() == 2 ? dist : -dist;
-                        //p2.x += dir.ordinal() == 2 ? (way.x * dist) : -(way.x * dist);
                     } else {
                         p.y += dir.ordinal() == 1 ? dist : -dist;
-                        //p2.y += dir.ordinal() == 1 ? (way.y * dist) : -(way.y * dist);
                     }
                     break;
                 case 'N':
