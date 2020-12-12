@@ -42,7 +42,6 @@ public class Day12 extends Daily {
         for(String s : input) {
             char action = s.charAt(0);
             int dist = Integer.parseInt(s.substring(1));
-            Direction perm = Direction.EAST;
             int diff;
             switch(action) {
                 case 'F':
