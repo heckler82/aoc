@@ -40,10 +40,9 @@ public class Day12 extends Daily {
         Direction[] dirs = Direction.values();
 
         for(String s : input) {
-            char action = s.charAt(0);
             int dist = Integer.parseInt(s.substring(1));
             int diff;
-            switch(action) {
+            switch(s.charAt(0)) {
                 case 'F':
                     // Update part 2 ship location from waypoint
                     p2.x += way.x * dist;
