@@ -45,9 +45,12 @@ public class Day12 extends Daily {
             int diff;
             switch(action) {
                 case 'F':
+                    // Update part 2 ship location from waypoint
                     p2.x += way.x * dist;
                     p2.y += way.y * dist;
-                    if(dir.ordinal() % 2 == 0) {
+
+                    // Determine which direction to move, and move the ship in that direction
+                    if(dir.ordinal() % 2 == 0) { // 0 and 2 are WEST and EAST, 1 and 3 are NORTH and SOUTH
                         p.x += dir.ordinal() == 2 ? dist : -dist;
                     } else {
                         p.y += dir.ordinal() == 1 ? dist : -dist;
@@ -70,11 +73,14 @@ public class Day12 extends Daily {
                     way.x -= dist;
                     break;
                 case 'L':
+                    // Determine how many rotations were done, then clamp the value into the range of valid directions
                     diff = dir.ordinal() - (dist / 90);
                     if(diff < 0) {
                         diff += dirs.length;
                     }
                     dir = dirs[diff];
+
+                    // Rotate the waypoint around the ship
                     for(int i = 0; i < (dist / 90); i++) {
                         int temp = way.x;
                         way.x = -way.y;
@@ -82,11 +88,14 @@ public class Day12 extends Daily {
                     }
                     break;
                 case 'R':
+                    // Determine how many rotations were done, then clamp the value into the range of valid directions
                     diff = dir.ordinal() + (dist / 90);
                     if(diff >= dirs.length) {
                         diff -= dirs.length;
                     }
                     dir = dirs[diff];
+
+                    // Rotate the waypoint around the ship
                     for(int i = 0; i < (dist / 90); i++) {
                         int temp = way.y;
                         way.y = -way.x;
