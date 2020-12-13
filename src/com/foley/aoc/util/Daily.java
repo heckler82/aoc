@@ -61,7 +61,7 @@ public abstract class Daily {
     /**
      * Does both tasks for the day
      */
-    public void doTasks() {
+    public long doTasks() {
         System.out.printf("============ DAY %d ============\n", day);
         long start = System.nanoTime();
         System.out.println("---- Task 1 ----");
@@ -71,6 +71,7 @@ public abstract class Daily {
         long elapsed = System.nanoTime() - start;
         System.out.println();
         System.out.printf("Total runtime was %fms\n", elapsed / 1000.0 / 1000.0);
+        return elapsed;
     }
 
     /**

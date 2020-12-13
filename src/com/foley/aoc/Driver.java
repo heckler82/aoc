@@ -87,12 +87,14 @@ public class Driver {
         // Run all days or only the requested day
         if(day == 0) {
             // Get and run all days for the year
+            long total = 0L;
             for(int i = 1; i < 26; i++) {
                 String inputPath = "./res/" + year + "/day" + i + ".txt";
                 String className = "com.foley.aoc.year" + year + ".Day" + i;
                 Daily d = Daily.getDaily(inputPath, className);
-                d.doTasks();
+                total += d.doTasks();
             }
+            System.out.printf("Total time for all days to run is %fms\n", total / 1000.0 / 1000.0);
         } else {
             String inputPath = "./res/" + year + "/day" + day + ".txt";
             String className = "com.foley.aoc.year" + year + ".Day" + day;

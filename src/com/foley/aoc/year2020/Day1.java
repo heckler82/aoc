@@ -34,7 +34,7 @@ public class Day1 extends Daily {
     public void task1() {
         Tuple<Integer, Integer> t = Search.twoSum(ints, 2020);
         if(t.getFirst() > -1) {
-            System.out.printf("2020 found at indexes %d and %d with a product of %d\n", t.getFirst(), t.getSecond(), ints[t.getFirst()] * ints[t.getSecond()]);
+            System.out.printf("2020 found at indexes %d and %d with a product of %d\n", t.getFirst(), t.getSecond(), t.getFirst() * t.getSecond());
         }
     }
 
@@ -45,7 +45,7 @@ public class Day1 extends Daily {
     public void task2() {
         Triple<Integer, Integer, Integer> t = Search.threeSum(ints, 2020);
         if(t.getFirst() > -1) {
-            System.out.printf("2020 found at indexes %d, %d, and %d with a product of %d\n", t.getFirst(), t.getSecond(), t.getThird(), ints[t.getFirst()] * ints[t.getSecond()] * ints[t.getThird()]);
+            System.out.printf("2020 found at indexes %d, %d, and %d with a product of %d\n", t.getFirst(), t.getSecond(), t.getThird(), t.getFirst() * t.getSecond() * t.getThird());
         }
     }
 }

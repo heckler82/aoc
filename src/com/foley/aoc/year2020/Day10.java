@@ -17,7 +17,7 @@ import java.util.Map;
  * @version 24 Nov 2020
  */
 public class Day10 extends Daily {
-    private int[] adapters;
+    List<Integer> list;
     private int deviceRating;
 
     /**
@@ -27,8 +27,9 @@ public class Day10 extends Daily {
      */
     public Day10(String fileName) {
         super(fileName);
-        adapters = Compute.convertToIntArray(input);
-        Arrays.sort(adapters);
+        list = Compute.convertToIntegerList(input);
+        list.add(0);
+        Collections.sort(list);
     }
 
     @Override
@@ -36,14 +37,15 @@ public class Day10 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        int jolt = 0;
+        int jolt = list.get(0);
         Map<Integer, Integer> map = new HashMap<>();
-        for(int i : adapters) {
-            int diff = i - jolt;
-            jolt = i;
+        for(int i = 1; i < list.size(); i++) {
+            int val = list.get(i);
+            int diff = val - jolt;
+            jolt = val;
             map.put(diff, map.getOrDefault(diff, 0) + 1);
         }
-        deviceRating = adapters[adapters.length - 1] + 3;
+        deviceRating = list.get(list.size() - 1) + 3;
         System.out.printf("The answer is %d\n", map.get(1) * (map.get(3) + 1));
     }
 
@@ -52,27 +54,16 @@ public class Day10 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
-        List<Integer> ints = new ArrayList<>();
-        ints.add(0);
-        ints.add(deviceRating);
-        for(String s : input) {
-            ints.add(Integer.parseInt(s));
+        list.add(deviceRating);
+        Map<Integer, Long> map = new HashMap<>();
+        map.put(0, 1L);
+        for(int i = 1; i < list.size(); i++) {
+            int val = list.get(i);
+            long sum = map.getOrDefault(val - 3, 0L) +
+                    map.getOrDefault(val - 2, 0L) +
+                    map.getOrDefault(val - 1, 0L);
+            map.put(list.get(i), sum);
         }
-        Collections.sort(ints);
-        int pow2 = 0;
-        int pow7 = 0;
-        for(int i = 1; i < ints.size() - 1; i++) {
-            long neg3 = (i >= 3) ? ints.get(i - 3) : -9999;
-            if(ints.get(i + 1) - neg3 == 4) {
-                pow7 += 1;
-                pow2 -= 2;
-            } else {
-                if(ints.get(i + 1) - ints.get(i - 1) == 2) {
-                    pow2++;
-                }
-            }
-        }
-        long count = (long)(Math.pow(2, pow2) * Math.pow(7, pow7));
-        System.out.printf("The number of distinct valid arrangements is %d\n", count);
+        System.out.printf("The number of distinct valid arrangements is %d\n", map.get(deviceRating));
     }
 }
