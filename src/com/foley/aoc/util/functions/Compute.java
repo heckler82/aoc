@@ -360,4 +360,85 @@ public class Compute {
         Arrays.sort(arr);
         return arr;
     }
+
+    /**
+     * Computes the greatest common divisor of two non-negative integers
+     *
+     * @param a The first integer
+     * @param b The second integer
+     * @return The greatest common divisor
+     */
+    public static int gcd(int a, int b) {
+        while(b != 0) {
+            int r = a % b;
+            a = b;
+            b = r;
+        }
+        return a;
+    }
+
+    /**
+     * Computes the greatest common divisor of two non-negative longs
+     *
+     * @param a The first long
+     * @param b The second long
+     * @return The greatest common divisor
+     */
+    public static long gcd(long a, long b) {
+        while(b != 0) {
+            long r = a % b;
+            a = b;
+            b = r;
+        }
+        return a;
+    }
+
+    /**
+     * Computes the least common multiple of two integers
+     *
+     * @param a The first integer
+     * @param b The second integer
+     * @return The least common multiple
+     */
+    public static int lcm(int a, int b) {
+        return (a * b) / gcd(a, b);
+    }
+
+    /**
+     * Computes the least common multiple of two longs
+     *
+     * @param a The first long
+     * @param b The second long
+     * @return The least common multiple
+     */
+    public static long lcm(long a, long b) {
+        return (a * b) / gcd(a, b);
+    }
+
+    /**
+     * Returns the smallest number x such that x % num[0] = rem[0]...x % num[value] = rem[value]
+     * Assumes that values contained in longs are pairwise coprime (gcd for every pair is 1)
+     *
+     * @param num The array of longs
+     * @param rem The expected remainders
+     * @param k The length of longs and remainder
+     * @return The smallest value that satisfies the chinese remainder theorem
+     */
+    public static long chineseRemainder(long[] num, long[] rem, long k) {
+        int x = 1;
+
+        // CRT guarantees this loop will eventually be broken (if num is pairwise coprime)
+        while(true) {
+            int j;
+            for(j = 0; j < k; j++) {
+                if(x % num[j] != rem[j]) {
+                    break;
+                }
+            }
+            if(j == k) {
+                return x;
+            }
+            x++;
+        }
+    }
 }

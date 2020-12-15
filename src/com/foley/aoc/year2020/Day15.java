@@ -23,7 +23,6 @@ public class Day15 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-
     }
 
     @Override
@@ -31,6 +30,5 @@ public class Day15 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
-
     }
 }
