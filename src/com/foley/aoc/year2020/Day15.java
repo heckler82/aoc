@@ -4,6 +4,7 @@ import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.Tuple;
 import com.foley.aoc.util.functions.Compute;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import java.util.Map;
  */
 public class Day15 extends Daily {
     private int turn;
+    private int max;
     private Map<Integer, Tuple<Integer, Integer>> spoken = new HashMap<>();
 
 
@@ -34,8 +36,31 @@ public class Day15 extends Daily {
     public void task1() {
         turn = 0;
         int lastSpoken = 0;
+        int last = 0;
         int[] start = Compute.convertToIntArray(input[0].split(","));
 
+        int[] vals = new int[30000001];
+        Arrays.fill(vals, -1);
+
+        for(int i = 0; i < start.length; i++) {
+            vals[start[i]] = i;
+        }
+
+        int turns = start.length + 1;
+
+        while(turns < 30000000) {
+            int lastSpokenIndex = vals[lastSpoken];
+            vals[lastSpoken] = turns - 1;
+            lastSpoken = lastSpokenIndex == -1 ? 0 : turns - 1 - lastSpokenIndex;
+            turns++;
+            if(turns == 2020) {
+                last = lastSpoken;
+            }
+        }
+        max = lastSpoken;
+        System.out.printf("Final value is %d\n", last);
+
+        /**
         // Seed
         for(int i : start) {
             turn++;
@@ -43,12 +68,15 @@ public class Day15 extends Daily {
             lastSpoken = i;
         }
 
-        while(turn < 2020) {
+        while(turn < 30000000) {
             var t = spoken.getOrDefault(lastSpoken, Tuple.pair(-1, -1));
             lastSpoken = takeTurn(lastSpoken, t.getSecond() == -1);
-            System.out.printf("\tTurn %d: The number spoken was %d\n", turn, lastSpoken);
+            if(turn == 2020) {
+                last = lastSpoken;
+            }
         }
-        System.out.printf("The final number is %d\n", turn, lastSpoken);
+        max = lastSpoken;
+        System.out.printf("The final number is %d\n", last);*/
     }
 
     @Override
@@ -56,6 +84,7 @@ public class Day15 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
+        System.out.printf("The final number is %d\n", max);
     }
 
     /**
