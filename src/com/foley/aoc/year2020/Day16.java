@@ -4,8 +4,7 @@ import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.functions.Compute;
 import com.foley.aoc.util.functions.Regex;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 
 /**
@@ -70,7 +69,7 @@ public class Day16 extends Daily {
                     for(int num : nums) {
                         boolean valid = false;
                         for(Range r : rules) {
-                            valid |= r.validate(num);
+                            valid |= r.inRange(num);
                         }
                         if(!valid) {
                             invalid.add(num);
@@ -93,11 +92,61 @@ public class Day16 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
+        // Establish a bucket for each column
+        List<Set<Integer>> buckets = new ArrayList<>();
+        Map<Integer, BitSet> candidates = new HashMap<>();
+        for(int i = 0; i < myTicket.length; i++) {
+            buckets.add(new HashSet<>());
+            candidates.put(i, new BitSet(myTicket.length));
+        }
+
+        // Fill up the buckets with column values
         for(List<Integer> list : validTickets) {
-            for(int i : list) {
-                
+            for(int i = 0; i < list.size(); i++) {
+                buckets.get(i).add(list.get(i));
             }
         }
+
+        // Determine which rules fit each bucket
+        for(int j = 0; j < rules.size(); j++) {
+            Range r = rules.get(j);
+            for (int i = 0; i < buckets.size(); i++) {
+                var bucket = buckets.get(i);
+                boolean fit = true;
+                for (int num : bucket) {
+                    if(!r.inRange(num)) {
+                        fit = false;
+                        break;
+                    }
+                }
+                // This is a potential candidate for this column
+                if(fit) {
+                    candidates.get(i).set(j);
+                }
+            }
+        }
+
+        int[] finalRules = new int[myTicket.length];
+        while(candidates.size() > 0) {
+            for (int i = 0; i < myTicket.length; i++) {
+                BitSet bit = candidates.get(i);
+                if (bit != null && bit.cardinality() == 1) {
+                    finalRules[i] = bit.nextSetBit(0);
+                    candidates.remove(i);
+                    for (BitSet b : candidates.values()) {
+                        b.clear(finalRules[i]);
+                    }
+                }
+            }
+        }
+
+        long prod = 1;
+        for(int i = 0; i < finalRules.length; i++) {
+            if(finalRules[i] < departure.size()) {
+                prod *= myTicket[i];
+            }
+        }
+        System.out.printf("The final value is %d\n", prod);
     }
 
     /**
@@ -106,25 +155,18 @@ public class Day16 extends Daily {
     private class Range {
         private int low;
         private int high;
-        private Range other;
-
-        public Range(int low, int high) {
-            this.low = low;
-            this.high = high;
-        }
+        private int low2;
+        private int high2;
 
         public Range(int low, int high, int low2, int high2) {
             this.low = low;
             this.high = high;
-            other = new Range(low2, high2);
+            this.low2 = low2;
+            this.high2 = high2;
         }
 
-        public boolean validate(int num) {
-            boolean b = num >= low && num <= high;
-            if(other != null) {
-                b |= other.validate(num);
-            }
-            return b;
+        public boolean inRange(int num) {
+            return (num >= low && num <= high) || (num >= low2 && num <= high2);
         }
     }
 }
