@@ -1,5 +1,7 @@
 package com.foley.aoc.util;
 
+import java.util.Objects;
+
 /**
  * Container for holding 2 associated objects
  *
@@ -61,6 +63,15 @@ public class Tuple<K, V> {
         // Parameter check
         Tuple<K, V> t = (Tuple<K, V>)obj;
         return first.equals(t.first) && second.equals(t.second);    
+    }
+
+    /**
+     * Gets the hash code for this tuple
+     *
+     * @return The hash code for the tuple
+     */
+    public int hashCode() {
+        return Objects.hash(first, second);
     }
 
     /**
