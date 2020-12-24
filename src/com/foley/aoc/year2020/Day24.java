@@ -2,9 +2,12 @@ package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.functions.Regex;
+import com.foley.aoc.util.gfx.SimpleImageDisplay;
 
-import java.awt.Point;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 
 /**
@@ -17,6 +20,11 @@ public class Day24 extends Daily {
     private final String DIRECTION_PATTERN = "([n|s]?[e|w])";
     private final double SIZE = 1.0;
     private Set<Hex> active;
+
+    int minx = Integer.MAX_VALUE;
+    int maxx = Integer.MIN_VALUE;
+    int miny = Integer.MAX_VALUE;
+    int maxy = Integer.MIN_VALUE;
 
     /**
      * Creates a new daily
@@ -74,7 +82,7 @@ public class Day24 extends Daily {
      */
     public void task2() {
         for(int i = 0; i < 100; i++) {
-            var consider = new HashSet<Hex>();
+            var consider = new HashMap<Hex, Integer>();
             var next = new HashSet<Hex>();
 
             for(var h : active) {
@@ -84,7 +92,7 @@ public class Day24 extends Daily {
                     if(active.contains(n)) {
                         count += 1;
                     } else {
-                        consider.add(n);
+                        consider.put(n, consider.getOrDefault(n, 0) + 1);
                     }
                 }
 
@@ -95,21 +103,44 @@ public class Day24 extends Daily {
             }
 
             // Go through potentials
-            for(var c : consider) {
-                int count = 0;
-                for(var n : c.neighbors()) {
-                    if(active.contains(n)) {
-                        count += 1;
-                    }
-                }
-                if(count == 2) {
-                    next.add(c);
+            for(var entry : consider.entrySet()) {
+                if(entry.getValue() == 2) {
+                    next.add(entry.getKey());
                 }
             }
 
             active = next;
         }
         System.out.printf("There are %d active tiles after 100 days\n", active.size());
+
+        // Image stuff
+        //displayImage();
+    }
+
+    private void displayImage() {
+        for(var h : active) {
+            if(h.x > maxx) {
+                maxx = h.x;
+            }
+            if(h.x < minx) {
+                minx = h.x;
+            }
+            if(h.y > maxy) {
+                maxy = h.y;
+            }
+            if(h.y < miny) {
+                miny = h.y;
+            }
+        }
+        BufferedImage img = new BufferedImage((maxx - minx) * 5, (maxy - miny) * 5, BufferedImage.TYPE_INT_RGB);
+        Graphics g = img.createGraphics();
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, img.getWidth(), img.getHeight());
+        g.setColor(Color.BLACK);
+        for(var h : active) {
+            g.fillRect((h.x - minx) * 5, (h.y - miny) * 5, 5, 5);
+        }
+        SimpleImageDisplay sid = new SimpleImageDisplay(img);
     }
 
     private class Hex {
