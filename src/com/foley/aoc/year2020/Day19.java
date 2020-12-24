@@ -3,7 +3,9 @@ package com.foley.aoc.year2020;
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.functions.Regex;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 
 /**
@@ -16,9 +18,7 @@ public class Day19 extends Daily {
     private final String BASE_PATTERN = "^(\\d+): \"(.)\"$";
     private final String BASIC_PATTERN = "^(\\d+): (\\d+)(\\s\\d+)?$";
     private final String COMPLEX_PATTERN = "^(\\d+): (\\d+)(\\s\\d+)? (\\|) (\\d+)(\\s\\d+)?$";
-    private final Map<String, Set<Integer>> rules;
-    private final Set<String> terminal;
-    private final Set<String> nonTerminal;
+    private final Map<String, String> rules;
 
     /**
      * Creates a new daily
@@ -28,8 +28,6 @@ public class Day19 extends Daily {
     public Day19(String fileName) {
         super(fileName);
         rules = new HashMap<>();
-        terminal = new HashSet<>();
-        nonTerminal = new HashSet<>();
     }
 
     @Override
@@ -45,6 +43,7 @@ public class Day19 extends Daily {
                 case 0:
                     if ("".equals(s)) {
                         mode = 1;
+                        buildFinalExpr();
                         continue;
                     }
                     // Check for complex rule
@@ -52,16 +51,12 @@ public class Day19 extends Daily {
                     String id;
                     if (m.find()) {
                         id = m.group(1);
-                        rules.put(id, new HashSet<>());
                         // If there is no group 3, this is form # | # and not # # | # #
                         if (m.group(3) == null) {
-                            rules.get(id).add(Objects.hash(m.group(2)));
-                            rules.get(id).add(Objects.hash(m.group(5)));
+                            rules.put(id, "[" + m.group(2) + "|" + m.group(5) + "]");
                         } else {
-                            rules.get(id).add(Objects.hash(m.group(2), m.group(3)));
-                            rules.get(id).add(Objects.hash(m.group(5), m.group(6)));
+                            rules.put(id, "[" + m.group(2) + " " + m.group(3) + "|" + m.group(5) + " " + m.group(6) + "]");
                         }
-                        nonTerminal.add(id);
                         continue;
                     }
 
@@ -69,9 +64,7 @@ public class Day19 extends Daily {
                     m = Regex.getMatcher(BASIC_PATTERN, s);
                     if (m.find()) {
                         id = m.group(1);
-                        rules.put(id, new HashSet<>());
-                        rules.get(id).add(Objects.hash(m.group(2), m.group(3)));
-                        nonTerminal.add(id);
+                        rules.put(id, m.group(2) + " " + m.group(3));
                         continue;
                     }
 
@@ -79,10 +72,7 @@ public class Day19 extends Daily {
                     m = Regex.getMatcher(BASE_PATTERN, s);
                     m.find();
                     id = m.group(1);
-                    rules.put(id, new HashSet<>());
-                    rules.get(id).add(Objects.hash(m.group(2)));
-                    nonTerminal.add(id);
-                    terminal.add(m.group(2));
+                    rules.put(id, m.group(2));
                     break;
                 case 1:
                     // Determine if the string matches the rules
@@ -99,7 +89,13 @@ public class Day19 extends Daily {
     public void task2() {
     }
 
-    private void cyk(String w) {
-        
+    private void buildFinalExpr() {
+        String expr = rules.get("0");
+        Matcher m = Regex.getMatcher("(\\d+)", expr);
+        while(m.find()) {
+            String repl = rules.get(m.group(1));
+            expr = expr.replace(m.group(1), repl);
+            int test = 0;
+        }
     }
 }
