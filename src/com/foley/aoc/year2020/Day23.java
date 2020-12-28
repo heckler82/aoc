@@ -2,7 +2,6 @@ package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,10 +11,9 @@ import java.util.List;
  * @version 24 Nov 2020
  */
 public class Day23 extends Daily {
-    private int maxCup;
-    private int[] index;
-    private int[] value;
-    private int currentCupIndex;
+    private int[] next;
+    private int[] nextEx;
+    private int first;
 
     /**
      * Creates a new daily
@@ -24,15 +22,28 @@ public class Day23 extends Daily {
      */
     public Day23(String fileName) {
         super(fileName);
-        index = new int[10];
-        value = new int[10];
+        next = new int[10];
+        nextEx = new int[1000001];
 
-        // Fill in the starting input
-        for(int i = 0; i < input[0].length(); i++) {
-            int curr = input[0].charAt(i) - '0';
-            index[i + 1] = curr;
-            value[curr] = i + 1;
+        // Fill the array
+        int prev = 0;
+        first = -1;
+        for(int i = 0; i < 9; i++) {
+            int index = input[0].charAt(i) - '0';
+            if(i == 0) {
+                first = index;
+            }
+            next[prev] = index;
+            nextEx[prev] = index;
+            prev = index;
         }
+        next[prev] = first;
+        // Fill in the remaining stuff for part 2
+        for(int i = 10; i < 1000001; i++) {
+            nextEx[prev] = i;
+            prev = i;
+        }
+        nextEx[prev] = first;
     }
 
     @Override
@@ -40,7 +51,8 @@ public class Day23 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        currentCupIndex = 0;
+        simulate(next, 100, first);
+        printFrom(1);
     }
 
     @Override
@@ -48,43 +60,52 @@ public class Day23 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
-        // Re-initialize the input
-        index = new int[10000001];
-        for(int i = 0; i < input[0].length(); i++) {
-            int curr = input[0].charAt(i) - '0';
-            index[i + 1] = curr;
-            value[curr] = i + 1;
-        }
-
-        // Fill in the rest of the array
-        for(int i = 10; i <= 10000000; i++) {
-            index[i] = i;
-            value[i] = i;
-        }
-
-        currentCupIndex = 0;
+        simulate(nextEx, 10000000, first);
+        long v1 = nextEx[1];
+        long v2 = nextEx[nextEx[1]];
+        System.out.printf("The final result is %d\n", v1 * v2);
     }
 
-    private void takeTurn(int turn) {
-        //System.out.printf("-- move %d --\n", turn);
-        //System.out.printf("cups: %s\n", cups.toString());
-        //System.out.printf("current: %d\n", cups.get(currentCupIndex));
-        //List<Integer> temp = List.of(index[(currentCupIndex + 1) % index.length], index[(currentCupIndex + 2) % index.length], index[(currentCupIndex + 3) % index.length]);
-        //System.out.printf("pickup: %s\n", temp.toString());
-        //int dest = currentCupValue - 1 == 0 ? maxCup : currentCupValue - 1;
-        //while(temp.contains(dest)) {
-        //    dest--;
-        //    if(dest < 1) {
-        //        dest += maxCup;
-        //    }
-        //}
-        //System.out.printf("destination: %d\n\n", dest);
-        //int destIndex = cups.indexOf(dest) + 1;
-        //for(int i : temp) {
-        //    cups.add(destIndex, i);
-        //    destIndex++;
-        //}
-        //currentCupIndex = (cups.indexOf(currentCupValue) + 1) % cups.size();
-        //currentCupValue = cups.get(currentCupIndex);
+    /**
+     * Plays that fucking crab game
+     *
+     * @param state The state of the crab game
+     * @param iterations The number of times to play the crab game
+     * @param start The starting cup
+     */
+    private void simulate(int[] state, int iterations, int start) {
+        for(int i = 0; i < iterations; i++) {
+            // Pick up the 3 cups immediately clockwise of the current cup
+            List<Integer> temp = List.of(state[start], state[state[start]], state[state[state[start]]]);
+            // Select new destination cup (1 less than current cup); ensure it is not in the temp list
+            int dest = start - 1;
+            state[start] = state[state[state[state[start]]]];
+            while(temp.contains(dest) || dest == 0) {
+                dest--;
+                if(dest <= 0) {
+                    dest = state.length - 1;
+                }
+            }
+            // Place temp list immediately clockwise of destination cup
+            int finalDest = state[dest];
+            state[dest] = temp.get(0);
+            state[temp.get(2)] = finalDest;
+            // Current cup becomes the cup immediately clockwise of the current cup
+            start = state[start];
+        }
+    }
+
+    /**
+     * Prints out the next value starting from an initial value
+     *
+     * @param start The starting value
+     */
+    private void printFrom(int start) {
+        int term = start;
+        while(next[start] != term) {
+            System.out.print(next[start]);
+            start = next[start];
+        }
+        System.out.println();
     }
 }
