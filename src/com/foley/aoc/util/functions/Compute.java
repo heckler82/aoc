@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 /**
  * Provides computational functions
@@ -21,18 +23,16 @@ public class Compute {
      * @return An array of integers filled with the converted strings
      */
     public static int[] convertToIntArray(String[] arr) {
-        int[] ints = new int[arr.length];
-        for(int i = 0; i < arr.length; i++) {
-            try {
-                ints[i] = Integer.parseInt(arr[i]);
-            }
-            catch(NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Could not parse '" + arr[i] + "' into an integer",
-                        "Number Format Exception", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
-            }
+        try {
+            return Arrays.stream(arr)
+                .map(s -> Integer.parseInt(s))
+                .toArray();
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Could not parse '" + arr[i] + "' into an integer",
+                                          "Number Format Exception", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
-        return ints;
+        return null;
     }
     
     /**
@@ -42,18 +42,16 @@ public class Compute {
      * @return An array of longs filled with the converted strings
      */
     public static long[] convertToLongArray(String[] arr) {
-        long[] longs = new long[arr.length];
-        for(int i = 0; i < arr.length; i++) {
-            try {
-                longs[i] = Long.parseLong(arr[i]);
-            }
-            catch(NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Could not parse '" + arr[i] + "' into a long",
-                        "Number Format Exception", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
-            }
+        try {
+            return Arrays.stream(arr)
+                .map(s -> Long.parseLong(s))
+                .toArray();
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Could not parse '" + arr[i] + "' into a long",
+                                          "Number Format Exception", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
-        return longs;
+        return null;
     }
 
     /**
@@ -63,18 +61,16 @@ public class Compute {
      * @return An integer array filled with the converted strings
      */
     public static int[] convertToIntArray(List<String> list) {
-        int[] ints = new int[list.size()];
-        for(int i = 0; i < list.size(); i++) {
-            try {
-                ints[i] = Integer.parseInt(list.get(i));
-            }
-            catch(NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Could not parse '" + list.get(i) + "' into an integer",
-                        "Number Format Exception", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
-            }
+        try {
+            return list.stream()
+                .map(s -> Integer.parseInt(s))
+                .toArray();
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Could not parse '" + arr[i] + "' into an integer",
+                                          "Number Format Exception", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
-        return ints;
+        return null;
     }
 
     /**
@@ -84,11 +80,16 @@ public class Compute {
      * @return A list filled with the converted strings
      */
     public static List<Integer> convertToIntegerList(String[] arr) {
-        List<Integer> ints = new ArrayList<>();
-        for(String s : arr) {
-            ints.add(Integer.parseInt(s));
+        try {
+            return Arrays.stream(arr)
+                .map(s -> Integer.parseInt(s))
+                .collect(Collectors.toList());
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Could not parse '" + arr[i] + "' into an integer",
+                                          "Number Format Exception", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
-        return ints;
+        return null;
     }
 
     /**
@@ -98,11 +99,15 @@ public class Compute {
      * @return A list filled with the converted strings
      */
     public static List<Long> convertToLongList(List<String> list) {
-        List<Long> longs = new ArrayList<>();
-        for(String s : list) {
-            longs.add(Long.parseLong(s));
+        try {
+            return list.stream()
+                .map(s -> Long.parseLong(s))
+                .collect(Collectors.toList());
+        } catch(NumberFormatException e) {
+            System.out.println("Parsing error");
+            System.exit(1);
         }
-        return longs;
+        return null;
     }
 
     /**
@@ -112,11 +117,16 @@ public class Compute {
      * @return A list filled with the converted strings
      */
     public static List<Long> convertToLongList(String[] arr) {
-        List<Long> longs = new ArrayList<>();
-        for(String s : arr) {
-            longs.add(Long.parseLong(s));
+        try {
+            return Arrays.stream(arr)
+                .map(s -> Long.parseLong(s))
+                .collect(Collectors.toList());
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Could not parse '" + arr[i] + "' into a long",
+                                          "Number Format Exception", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
-        return longs;
+        return null;
     }
     /**
      * Converts a list of Strings to a list of integers
@@ -125,11 +135,15 @@ public class Compute {
      * @return A list filled with the converted strings
      */
     public static List<Integer> convertToIntegerList(List<String> list) {
-        List<Integer> ints = new ArrayList<>();
-        for(String s : list) {
-            ints.add(Integer.parseInt(s));
+        try {
+            return list.stream()
+                .map(s -> Integer.parseInt(s))
+                .collect(Collectors.toList());
+        } catch(NumberFormatException e) {
+            System.out.println("Parsing error");
+            System.exit(1);
         }
-        return ints;
+        return null;
     }
 
 
@@ -143,11 +157,8 @@ public class Compute {
         if(ints == null || ints.length < 1) {
             throw new IllegalArgumentException("Cannot find the mean for a null or empty int array");
         }
-        int total = 0;
-        for(int i : ints) {
-            total += i;
-        }
-        return (double)total / ints.length;
+        OptionalDouble od = Arrays.stream(ints).average();
+        return dd.orElse(-1.0);
     }
 
     /**
@@ -160,11 +171,8 @@ public class Compute {
         if(longs == null || longs.length < 1) {
             throw new IllegalArgumentException("Cannot find the mean for a null or empty long array");
         }
-        int total = 0;
-        for(long l : longs) {
-            total += l;
-        }
-        return (double)total / longs.length;
+        OptionalDouble od = Arrays.stream(longs).average();
+        return dd.orElse(-1.0);
     }
 
     /**
