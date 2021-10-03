@@ -29,7 +29,7 @@ public class SimpleImageDisplay{
      * @param windowTitle The title of the window
      */
     public SimpleImageDisplay(Image img, String windowTitle) {
-        // Setup the image
+        // Set up the image
         JLabel label = new JLabel(new ImageIcon(img));
         // Frame setup
         JFrame frame = new JFrame(windowTitle);

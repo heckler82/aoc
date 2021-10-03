@@ -1,122 +1,144 @@
 package com.foley.aoc.util.functions;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.BitSet;
+import java.util.Iterator;
 
 /**
- * Represents a range of integers that can be either continuous or non-continuous
+ * Abstract for representing a range of numbers. After creation, the minimum and maximum boundaries for the range cannot
+ * be adjusted; sub ranges of values within can be excluded or included as needed
  *
  * @author Evan Foley
- * @version 28 Jan 2020
+ * @version 07 Feb 2021
  */
-public class Range {
-  private int minInclusive;
-  private int maxInclusive;
-  private List<Range> exclusions;
-  
-  /**
-  * Creates a new range
-  * 
-  * @param min The minimum value of the range (inclusive)
-  * @param max The maximum value of the range (inclusive)
-  */
-  public Range(int min, int max) {
-    if(max < min) {
-      throw new IllegalArgumentException("Max must be greater than min for a valid range");
+public class Range implements Iterable{
+    private BitSet range;
+    private int min;
+    private int max;
+
+    /**
+     * Creates a new range
+     *
+     * @param min The minimum allowable value of the range (inclusive)
+     * @param max The maximum allowable value of the range (inclusive)
+     */
+    public Range(int min, int max) {
+        if(min > max) {
+            throw new IllegalArgumentException("The minimum value of a range should not exceed the maximum allowable value");
+        }
+        range = new BitSet(max - min);
+        range.set(0, range.size());
     }
-    minInclusive = min;
-    maxInclusive = max;
-    exclusions = new ArrayList<>();
-  }
-  
-  /**
-  * Determines if a value falls into the defined scope of this range
-  * 
-  * @param val The value
-  * @return True if the value is in the scope of the range
-  */
-  public boolean inRange(int val) {
-    // If the value does not fall between the minimum or maximum, return false
-    if(val < min || val > max) {
-      return false;
+
+    /**
+     * Determines if a value is in the range
+     *
+     * @param val The value to check
+     * @return True if the value is an allowable value within the range
+     */
+    public boolean inRange(int val) {
+        if(val < min || val > max) {
+            return false;
+        }
+        return range.get(val - min);
     }
-    
-    // Ensure value does not fall into an excluded range
-    for(Range r : exclusions) {
-      if(r.inRange(val)) {
-        return false;
-      }
+
+    /**
+     * Gets the number of values that fall within the range
+     *
+     * @return The number of values that fall within the range
+     */
+    public int size() {
+        return range.cardinality();
     }
-    // Value must be in range
-    return true;
-  }
-  
-  /**
-  * Excludes values from this range
-  * 
-  * @param min The minimum value to exclude (inclusive)
-  * @param max The maximum value to exclude (inclusive)
-  */
-  public void exclude(int min, int max) {
-    // If the minimum is greater than the defined maximum, or the maximum is less than the defined minimum, return
-    if(min > this.max || max < this.min) {
-      return;
+
+    /**
+     * Excludes a range of numbers from this range
+     *
+     * @param min The minimum value (inclusive)
+     * @param max The maximum value (inclusive)
+     */
+    public void exclude(int min, int max) {
+        range.clear(Math.max(min, this.min) - min, Math.min(this.max, max) - min);
     }
-    // Create the range and add it to the exclusions list
-    //Range r = new Range(Math.max(min, this.min), Math.min(max, this.max));
-    Range r = new Range(min, max);
-    exclusions.add(r);
-  }
-  
-  /**
-  * Excludes values from this range
-  * 
-  * @param r The range of values to exclude
-  */
-  public void exclude(Range r) {
-    // If the minimum is greater than the defined maximum, or the maximum is less than the defined minimum, return
-    if(r.min > max || r.max < min) {
-      return;
+
+    /**
+     * Excludes a value from this range
+     *
+     * @param val The value to exclude
+     */
+    public void exclude(int val) {
+        if(inRange(val)) {
+            range.clear(val - min);
+        }
     }
-    exclusions.add(r);
-  }
-  
-  /**
-  * Includes values from this range
-  * 
-  * @param min The minimum value to include (inclusive)
-  * @param max The maximum value to include (inclusive)
-  */
-  public void include(int min, int max) {}
-  
-  /**
-  * Includes values from this range
-  * 
-  * @param r The range of values to include
-  */
-  public void include(int min, int max) {}
-  
-  /**
-  * The number of valid values in the range
-  * 
-  * @return The number of valued values in the range
-  */
-  public int rangeSize() {
-    int total = (max - min + 1);
-    // Subtract the exclusions
-    if(!exclusions.isEmpty()) {
-      for(Range r : exclusions) {
-        total -= r.rangeSize();
-      }
+
+    /**
+     * Includes a range of numbers in this range
+     *
+     * @param min The minimum value (inclusive)
+     * @param max The maximum value (inclusive)
+     */
+    public void include(int min, int max) {
+        range.set(Math.max(min, this.min) - min, Math.min(this.max, max) - min);
     }
-    return total;
-  }
-  
-  /**
-  * Determines if this range is continuous and contains no exclusions
-  * 
-  * @return True if this range contains no exclusions
-  */
-  public boolean isContinuous() {
-    return exclusions.isEmpty();
+
+    /**
+     * Includes a value in the range
+     *
+     * @param val The value to include
+     */
+    public void include(int val) {
+        if(inRange(val)) {
+            range.set(val - min);
+        }
+    }
+
+    @Override
+    /**
+     * Returns an iterator over a range
+     *
+     * @return an iterator
+     */
+    public Iterator iterator() {
+        return new RangeIterator(this);
+    }
+
+    /**
+     * An iterator that iterates over the allowable values of a range
+     */
+    private class RangeIterator implements Iterator {
+        private Range r;
+        private int index;
+
+        /**
+         * Creates a new range iterator
+         *
+         * @param r The range to iterate over
+         */
+        public RangeIterator(Range r) {
+            this.r = r;
+            this.index = 0;
+        }
+
+        @Override
+        /**
+         * Determines if there are more values to iterate over
+         *
+         * @return True if there is another element to iterate over
+         */
+        public boolean hasNext() {
+            index = r.range.nextSetBit(index);
+            return index != -1;
+        }
+
+        @Override
+        /**
+         * Gets the next object
+         *
+         * @return The next object
+         */
+        public Object next() {
+            return index;
+        }
+    }
 }
