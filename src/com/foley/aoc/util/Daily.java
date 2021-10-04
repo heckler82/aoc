@@ -45,7 +45,6 @@ public abstract class Daily {
                 rawInput.add(line);
             }
 
-            // Convert to array
             input = rawInput.toArray(new String[0]);
         } catch(FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Could not find the specified file: " + fileName,
@@ -53,7 +52,7 @@ public abstract class Daily {
             System.exit(1);
         }
         catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "IOException", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "There was an error conducting IO operations:\n" + e.getMessage(), "IOException", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
     }
@@ -62,7 +61,7 @@ public abstract class Daily {
      * Does both tasks for the day
      */
     public long doTasks() {
-        System.out.printf("============ DAY %d ============\n", day);
+        System.out.printf("======================== DAY %d ========================\n", day);
         long start = System.nanoTime();
         System.out.println("---- Task 1 ----");
         task1();
@@ -70,7 +69,7 @@ public abstract class Daily {
         task2();
         long elapsed = System.nanoTime() - start;
         System.out.println();
-        System.out.printf("Total runtime was %fms\n", elapsed / 1000.0 / 1000.0);
+        System.out.printf("Total task runtime was %fms\n", elapsed / 1000.0 / 1000.0);
         return elapsed;
     }
 
