@@ -377,6 +377,9 @@ public class Compute {
      * @return The greatest common divisor
      */
     public static int gcd(int a, int b) {
+        if(a < 0 || b < 0) {
+            throw new IllegalArgumentException("Cannot call gcd with negative numbers");
+        }
         while(b != 0) {
             int r = a % b;
             a = b;
@@ -393,6 +396,9 @@ public class Compute {
      * @return The greatest common divisor
      */
     public static long gcd(long a, long b) {
+        if(a < 0 || b < 0) {
+            throw new IllegalArgumentException("Cannot call gcd with negative numbers");
+        }
         while(b != 0) {
             long r = a % b;
             a = b;
