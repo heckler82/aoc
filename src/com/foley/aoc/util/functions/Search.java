@@ -24,7 +24,7 @@ public class Search {
         int lo = 0;
         int hi = ints.length - 1;
 
-        // Continue to search until the serach space is not valid
+        // Continue to search until the search space is not valid
         while(lo <= hi) {
             // Calculate the test value and account for potential overflow
             mid = (lo + hi) >>> 1;
