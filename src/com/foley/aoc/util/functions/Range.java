@@ -1,6 +1,5 @@
 package com.foley.aoc.util.functions;
 
-import java.util.BitSet;
 import java.util.Iterator;
 
 /**
@@ -10,23 +9,25 @@ import java.util.Iterator;
  * @author Evan Foley
  * @version 07 Feb 2021
  */
-public class Range implements Iterable{
-    private BitSet range;
+public class Range implements Iterable<Integer>{
     private int min;
     private int max;
+    private boolean isExclusive;
 
     /**
      * Creates a new range
      *
      * @param min The minimum allowable value of the range (inclusive)
-     * @param max The maximum allowable value of the range (inclusive)
+     * @param max The maximum allowable value of the range
+     * @param isExclusive True if the max value should not be included in the range, false if inclusive
      */
-    public Range(int min, int max) {
+    public Range(int min, int max, boolean isExclusive) {
         if(min > max) {
             throw new IllegalArgumentException("The minimum value of a range should not exceed the maximum allowable value");
         }
-        range = new BitSet(max - min);
-        range.set(0, range.size());
+        this.min = min;
+        this.max = max;
+        this.isExclusive = isExclusive;
     }
 
     /**
@@ -36,61 +37,7 @@ public class Range implements Iterable{
      * @return True if the value is an allowable value within the range
      */
     public boolean inRange(int val) {
-        if(val < min || val > max) {
-            return false;
-        }
-        return range.get(val - min);
-    }
-
-    /**
-     * Gets the number of values that fall within the range
-     *
-     * @return The number of values that fall within the range
-     */
-    public int size() {
-        return range.cardinality();
-    }
-
-    /**
-     * Excludes a range of numbers from this range
-     *
-     * @param min The minimum value (inclusive)
-     * @param max The maximum value (inclusive)
-     */
-    public void exclude(int min, int max) {
-        range.clear(Math.max(min, this.min) - min, Math.min(this.max, max) - min);
-    }
-
-    /**
-     * Excludes a value from this range
-     *
-     * @param val The value to exclude
-     */
-    public void exclude(int val) {
-        if(inRange(val)) {
-            range.clear(val - min);
-        }
-    }
-
-    /**
-     * Includes a range of numbers in this range
-     *
-     * @param min The minimum value (inclusive)
-     * @param max The maximum value (inclusive)
-     */
-    public void include(int min, int max) {
-        range.set(Math.max(min, this.min) - min, Math.min(this.max, max) - min);
-    }
-
-    /**
-     * Includes a value in the range
-     *
-     * @param val The value to include
-     */
-    public void include(int val) {
-        if(inRange(val)) {
-            range.set(val - min);
-        }
+        return val >= min && (isExclusive ? val < max : val <= max);
     }
 
     @Override
@@ -117,7 +64,7 @@ public class Range implements Iterable{
          */
         public RangeIterator(Range r) {
             this.r = r;
-            this.index = 0;
+            this.index = r.min - 1;
         }
 
         @Override
@@ -127,8 +74,8 @@ public class Range implements Iterable{
          * @return True if there is another element to iterate over
          */
         public boolean hasNext() {
-            index = r.range.nextSetBit(index);
-            return index != -1;
+            index++;
+            return r.inRange(index);
         }
 
         @Override
