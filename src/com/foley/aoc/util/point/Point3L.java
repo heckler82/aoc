@@ -9,9 +9,9 @@ import java.util.Objects;
  * @version 17 Dec 2020
  */
 public class Point3L {
-    private long x;
-    private long y;
-    private long z;
+    public long x;
+    public long y;
+    public long z;
 
     /**
      * Creates a new point
@@ -140,6 +140,26 @@ public class Point3L {
      */
     public void setZ(long z) {
         this.z = z;
+    }
+
+    /**
+     * Returns a new point with all values equal to zero
+     *
+     * @return A new point with all values equal to zero
+     */
+    public static Point3L zero() {
+        Point3L p = new Point3L(0, 0, 0);
+        return p;
+    }
+
+    /**
+     * Returns a new point with all values equal to one
+     *
+     * @return A new point with all values equal to one
+     */
+    private static Point3L one() {
+        Point3L p = new Point3L(1, 1, 1);
+        return p;
     }
 
     @Override
