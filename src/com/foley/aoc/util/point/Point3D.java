@@ -8,88 +8,506 @@ import java.util.Objects;
  * @author Evan Foley
  * @version 17 Dec 2020
  */
-public class Point3D {
-    private double x;
-    private double y;
-    private double z;
+public abstract class Point3D {
 
     /**
-     * Creates a new point
-     *
-     * @param x The x coordinate
-     * @param y The y coordinate
-     * @param z The z coordinate
+     * The Int class creates points in int precision
      */
-    public Point3D(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public static class Int extends Point3D {
+        public int x;
+        public int y;
+        public int z;
+
+        /**
+         * Creates a new point with all coordinates set to zero
+         */
+        public Int() {}
+
+        /**
+         * Creates a new point with the specified coordinates
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         */
+        public Int(int x, int y, int z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        /**
+         * Creates a new point with the same coordinates as the specified point
+         *
+         * @param p the specified point
+         */
+        public Int(Point3D p) {
+            x = (int)p.getX();
+            y = (int)p.getY();
+            z = (int)p.getZ();
+        }
+
+        @Override
+        /**
+         * Gets the x coordinate
+         *
+         * @return the x coordinate
+         */
+        public double getX() {
+            return (double)x;
+        }
+
+        @Override
+        /**
+         * Gets the y coordinate
+         *
+         * @return the y coordinate
+         */
+        public double getY() {
+            return (double)y;
+        }
+
+        @Override
+        /**
+         * Gets the z coordinate
+         *
+         * @return the z coordinate
+         */
+        public double getZ() {
+            return (double)z;
+        }
+
+        @Override
+        /**
+         * Sets the location of the point
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         */
+        public void setLocation(double x, double y, double z) {
+            this.x = (int)x;
+            this.y = (int)y;
+            this.z = (int)z;
+        }
+
+        /**
+         * Creates a new point in int precision initialized to zero
+         *
+         * @return a new point
+         */
+        public static Int zero() {
+            return new Int();
+        }
+
+        /**
+         * Creates a new point in integer precision initialized to one
+         *
+         * @return a new point with coordinates initializes to one
+         */
+        public static Int one() {
+            return new Int(1, 1, 1);
+        }
     }
 
     /**
-     * Creates a new point that is a copy of the specified point
-     *
-     * @param p The point to copy
+     * The Long class creates points in long precision
      */
-    public Point3D(Point3D p) {
-        x = p.x;
-        y = p.y;
-        z = p.z;
+    public static class Long extends Point3D {
+        public long x;
+        public long y;
+        public long z;
+
+        /**
+         * Creates a new point with all coordinates set to zero
+         */
+        public Long() {}
+
+        /**
+         * Creates a new point with the specified coordinates
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         */
+        public Long(long x, long y, long z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        /**
+         * Creates a new point with the same coordinates as the specified point
+         *
+         * @param p the specified point
+         */
+        public Long(Point3D p) {
+            x = (long)p.getX();
+            y = (long)p.getY();
+            z = (long)p.getZ();
+        }
+
+        @Override
+        /**
+         * Gets the x coordinate
+         *
+         * @return the x coordinate
+         */
+        public double getX() {
+            return (double)x;
+        }
+
+        @Override
+        /**
+         * Gets the y coordinate
+         *
+         * @return the y coordinate
+         */
+        public double getY() {
+            return (double)y;
+        }
+
+        @Override
+        /**
+         * Gets the z coordinate
+         *
+         * @return the z coordinate
+         */
+        public double getZ() {
+            return (double)z;
+        }
+
+        @Override
+        /**
+         * Sets the location of the point
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         */
+        public void setLocation(double x, double y, double z) {
+            this.x = (long)x;
+            this.y = (long)y;
+            this.z = (long)z;
+        }
+
+        /**
+         * Creates a new point in long precision initialized to zero
+         *
+         * @return a new point
+         */
+        public static Long zero() {
+            return new Long();
+        }
+
+        /**
+         * Creates a new point in long precision initialized to one
+         *
+         * @return a new point with coordinates initializes to one
+         */
+        public static Long one() {
+            return new Long(1L, 1L, 1L);
+        }
     }
 
     /**
-     * Gets the x coordinate for the point
-     *
-     * @return The x coordinate
+     * The Float class creates points in float precision
      */
-    public double getX() {
-        return x;
+    public static class Float extends Point3D {
+        public float x;
+        public float y;
+        public float z;
+
+        /**
+         * Creates a new point with all coordinates set to zero
+         */
+        public Float() {}
+
+        /**
+         * Creates a new point with the specified coordinates
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         */
+        public Float(float x, float y, float z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        /**
+         * Creates a new point with the same coordinates as the specified point
+         *
+         * @param p the specified point
+         */
+        public Float(Point3D p) {
+            x = (float)p.getX();
+            y = (float)p.getY();
+            z = (float)p.getZ();
+        }
+
+        @Override
+        /**
+         * Gets the x coordinate
+         *
+         * @return the x coordinate
+         */
+        public double getX() {
+            return x;
+        }
+
+        @Override
+        /**
+         * Gets the y coordinate
+         *
+         * @return the y coordinate
+         */
+        public double getY() {
+            return y;
+        }
+
+        @Override
+        /**
+         * Gets the z coordinate
+         *
+         * @return the z coordinate
+         */
+        public double getZ() {
+            return z;
+        }
+
+        @Override
+        /**
+         * Sets the location of the point
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         */
+        public void setLocation(double x, double y, double z) {
+            this.x = (float)x;
+            this.y = (float)y;
+            this.z = (float)z;
+        }
+
+        /**
+         * Creates a new point in float precision initialized to zero
+         *
+         * @return a new point
+         */
+        public static Float zero() {
+            return new Float();
+        }
+
+        /**
+         * Creates a new point in float precision initialized to one
+         *
+         * @return a new point with coordinates initializes to one
+         */
+        public static Float one() {
+            return new Float(1.0f, 1.0f, 1.0f);
+        }
     }
 
     /**
-     * Gets the y coordinate for the point
-     *
-     * @return The y coordinate
+     * The Double class creates points in double precision
      */
-    public double getY() {
-        return y;
+    public static class Double extends Point3D {
+        public double x;
+        public double y;
+        public double z;
+
+        /**
+         * Creates a new point with all coordinates set to zero
+         */
+        public Double() {}
+
+        /**
+         * Creates a new point with the specified coordinates
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         */
+        public Double(double x, double y, double z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        /**
+         * Creates a new point with the same coordinates as the specified point
+         *
+         * @param p the specified point
+         */
+        public Double(Point3D p) {
+            x = p.getX();
+            y = p.getY();
+            z = p.getZ();
+        }
+
+        @Override
+        /**
+         * Gets the x coordinate
+         *
+         * @return the x coordinate
+         */
+        public double getX() {
+            return x;
+        }
+
+        @Override
+        /**
+         * Gets the y coordinate
+         *
+         * @return the y coordinate
+         */
+        public double getY() {
+            return y;
+        }
+
+        @Override
+        /**
+         * Gets the z coordinate
+         *
+         * @return the z coordinate
+         */
+        public double getZ() {
+            return z;
+        }
+
+        @Override
+        /**
+         * Sets the location of the point
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         */
+        public void setLocation(double x, double y, double z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        /**
+         * Creates a new point in double precision initialized to zero
+         *
+         * @return a new point
+         */
+        public static Double zero() {
+            return new Double();
+        }
+
+        /**
+         * Creates a new point in double precision initialized to one
+         *
+         * @return a new point with coordinates initializes to one
+         */
+        public static Double one() {
+            return new Double(1.0, 1.0, 1.0);
+        }
     }
 
     /**
-     * Gets the z coordinate for the point
+     * Gets the x coordinate
      *
-     * @return The z coordinate
+     * @return the x coordinate
      */
-    public double getZ() {
-        return z;
+    public abstract double getX();
+
+    /**
+     * Gets the y coordinate
+     *
+     * @return the y coordinate
+     */
+    public abstract double getY();
+
+    /**
+     * Gets the z coordinate
+     *
+     * @return the z coordinate
+     */
+    public abstract double getZ();
+
+    /**
+     * Sets the location of the point
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param z the z coordinate
+     */
+    public abstract void setLocation(double x, double y, double z);
+
+    /**
+     * Sets the location of the point to the same coordinates as the specified point
+     *
+     * @param p the specified point
+     */
+    public void setLocation(Point3D p) {
+        setLocation(p.getX(), p.getY(), p.getZ());
     }
 
     /**
-     * Sets the x coordinate for the point
+     * Gets the distance between two points
      *
-     * @param x The new value
+     * @param x1 the x coordinate of the first point
+     * @param y1 the y coordinate of the first point
+     * @param z1 the z coordinate of the first point
+     * @param x2 the x coordinate of the second point
+     * @param y2 the y coordinate of the second point
+     * @param z2 the z coordinate of the second point
+     * @return the distance between the two
      */
-    public void setX(double x) {
-        this.x = x;
+    public static double distance(double x1, double y1, double z1, double x2, double y2, double z2) {
+        double distSq = distanceSq(x1, y1, z1, x2, y2, z2);
+        return Math.sqrt(distSq);
     }
 
     /**
-     * Sets the y coordinate for the point
+     * Gets the squared distance between two points
      *
-     * @param y The new value
+     * @param x1 the x coordinate of the first point
+     * @param y1 the y coordinate of the first point
+     * @param z1 the z coordinate of the first point
+     * @param x2 the x coordinate of the second point
+     * @param y2 the y coordinate of the second point
+     * @param z2 the z coordinate of the second point
+     * @return the squared distance between the two
      */
-    public void setY(double y) {
-        this.y = y;
+    public static double distanceSq(double x1, double y1, double z1, double x2, double y2, double z2) {
+        return Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2);
     }
 
     /**
-     * Sets the z coordinate for the point
+     * Gets the distance between two points
      *
-     * @param z The new value
+     * @param p1 the first point
+     * @param p2 the second point
+     * @return the distance between the two
      */
-    public void setZ(double z) {
-        this.z = z;
+    public static double distance(Point3D p1, Point3D p2) {
+        return distance(p1.getX(), p1.getY(), p1.getZ(),
+                p2.getX(), p2.getY(), p2.getZ());
     }
+
+    /**
+     * Gets the squared distance between two points
+     *
+     * @param p1 the first point
+     * @param p2 the second point
+     * @return the squared distance between the two
+     */
+    public static double distanceSq(Point3D p1, Point3D p2) {
+        return distanceSq(p1.getX(), p1.getY(), p1.getZ(),
+                p2.getX(), p2.getY(), p2.getZ());
+    }
+
+    /**
+     * Default constructor
+     */
+    protected Point3D() {}
 
     @Override
     /**
@@ -102,9 +520,9 @@ public class Point3D {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Point3D point3D = (Point3D) o;
-        return Double.compare(point3D.x, x) == 0 &&
-                Double.compare(point3D.y, y) == 0 &&
-                Double.compare(point3D.z, z) == 0;
+        return java.lang.Double.compare(point3D.getX(), getX()) == 0 &&
+                java.lang.Double.compare(point3D.getY(), getY()) == 0 &&
+                java.lang.Double.compare(point3D.getZ(), getZ()) == 0;
     }
 
     @Override
@@ -114,6 +532,6 @@ public class Point3D {
      * @return The hash of the point
      */
     public int hashCode() {
-        return Objects.hash(x, y, z);
+        return Objects.hash(getX(), getY(), getZ());
     }
 }

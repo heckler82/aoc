@@ -1,7 +1,7 @@
 package com.foley.aoc.year2020;
 
 import com.foley.aoc.util.Daily;
-import com.foley.aoc.util.point.Point3I;
+import com.foley.aoc.util.point.Point3D;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -55,7 +55,7 @@ public class Day17 extends Daily {
                             for(int dy = -1; dy < 2; dy++) {
                                 for(int dz = -1; dz < 2; dz++) {
                                     if(dx != 0 || dy != 0 || dz != 0) {
-                                        Point3I n = new Point3I(x + dx, y + dy, z + dz);
+                                        Point3D.Int n = new Point3D.Int(x + dx, y + dy, z + dz);
                                         if(active.contains(Objects.hash(x + dx, y + dy, z + dz))) {
                                             num += 1;
                                         }
