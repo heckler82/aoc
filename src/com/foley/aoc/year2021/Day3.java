@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Solutions for day 1
+ * Solutions for day 3
  *
  * @author Evan Foley
  * @version 03 Dec 2021

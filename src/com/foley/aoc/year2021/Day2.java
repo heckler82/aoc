@@ -4,7 +4,7 @@ import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.point.Point3L;
 
 /**
- * Solutions for day 1
+ * Solutions for day 2
  *
  * @author Evan Foley
  * @version 02 Dec 2021

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 
 /**
- * Solutions for day 1
+ * Solutions for day 4
  *
  * @author Evan Foley
  * @version 04 Dec 2021
