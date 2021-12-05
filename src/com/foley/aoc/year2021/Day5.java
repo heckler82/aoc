@@ -2,6 +2,7 @@ package com.foley.aoc.year2021;
 
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.Tuple;
+import com.foley.aoc.util.functions.Regex;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -82,44 +83,29 @@ public class Day5 extends Daily {
      */
     private void parsePoints(String[] in, List<Point> str, List<Point> diag) {
         for(String s : in) {
-            var pts = s.split(" -> ");
-            Point p1 = parsePoint(pts[0]);
-            Point p2 = parsePoint(pts[1]);
-            try {
-                double m = (p2.y - p1.y) / (p2.x - p1.x); // Divide by zero is a vertical line, but will throw ArithmeticException
-                int minX = Math.min(p1.x, p2.x);
-                int maxX = Math.max(p1.x, p2.x);
-                if (p1.y == p2.y) { // Horizontal line if both y's are equal
-                    for (int x = minX; x <= maxX; x++) {
-                            str.add(new Point(x, p1.y));
-                    }
-                } else {
-                    // Diagonal line
-                    int y = minX == p1.x ? p1.y : p2.y;
-                    for(int x = minX; x <= maxX; x++) {
-                        diag.add(new Point(x, y));
-                        y += (int)m;
-                    }
+            var match = Regex.getMatches("\\d+", s);
+            Point p1 = new Point(Integer.parseInt(match.get(0)), Integer.parseInt(match.get(1)));
+            Point p2 = new Point(Integer.parseInt(match.get(2)), Integer.parseInt(match.get(3)));
+            int minX = Math.min(p1.x, p2.x);
+            int maxX = Math.max(p1.x, p2.x);
+            int minY = Math.min(p1.y, p2.y);
+            int maxY = Math.max(p1.y, p2.y);
+            if (p1.y == p2.y) { // Horizontal line if both y's are equal
+                for (int x = minX; x <= maxX; x++) {
+                    str.add(new Point(x, p1.y));
                 }
-            } catch (ArithmeticException e) {
-                // Vertical line
-                int minY = Math.min(p1.y, p2.y);
-                int maxY = Math.max(p1.y, p2.y);
+            } else if (p1.x == p2.x) { // Vertical line if both x's are equal
                 for(int y = minY; y <= maxY; y++) {
-                    straight.add(new Point(p1.x, y));
+                    str.add(new Point(p1.x, y));
+                }
+            } else { // Diagonal line
+                int m = (p2.y - p1.y) / (p2.x - p1.x);
+                int y = minX == p1.x ? p1.y : p2.y;
+                for(int x = minX; x <= maxX; x++) {
+                    diag.add(new Point(x, y));
+                    y += m;
                 }
             }
         }
-    }
-
-    /**
-     * Parses a point from a string
-     *
-     * @param s The string to parse
-     * @return The point parsed from the string
-     */
-    private Point parsePoint(String s) {
-        var coord = s.split(",");
-        return new Point(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
     }
 }

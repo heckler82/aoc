@@ -75,9 +75,7 @@ public class Regex {
     Matcher m = getMatcher(pattern, match);
     List<String> list = new ArrayList<>();
     while(m.find()) {
-      for(int i = 0; i < m.groupCount(); i++) {
-        list.add(m.group(i + 1));
-      }
+      list.add(m.group());
     }
     return list;
   }
