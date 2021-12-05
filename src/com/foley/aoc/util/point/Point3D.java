@@ -92,6 +92,15 @@ public abstract class Point3D {
         }
 
         /**
+         * Returns a string representation of the point
+         *
+         * @return a string representation of the point
+         */
+        public String toString() {
+            return "(" + x + ", " + y + ", " + z + ")";
+        }
+
+        /**
          * Creates a new point in int precision initialized to zero
          *
          * @return a new point
@@ -189,6 +198,15 @@ public abstract class Point3D {
             this.x = (long)x;
             this.y = (long)y;
             this.z = (long)z;
+        }
+
+        /**
+         * Returns a string representation of the point
+         *
+         * @return a string representation of the point
+         */
+        public String toString() {
+            return "(" + x + ", " + y + ", " + z + ")";
         }
 
         /**
@@ -292,6 +310,15 @@ public abstract class Point3D {
         }
 
         /**
+         * Returns a string representation of the point
+         *
+         * @return a string representation of the point
+         */
+        public String toString() {
+            return "(" + x + ", " + y + ", " + z + ")";
+        }
+
+        /**
          * Creates a new point in float precision initialized to zero
          *
          * @return a new point
@@ -389,6 +416,15 @@ public abstract class Point3D {
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        /**
+         * Returns a string representation of the point
+         *
+         * @return a string representation of the point
+         */
+        public String toString() {
+            return "(" + x + ", " + y + ", " + z + ")";
         }
 
         /**
