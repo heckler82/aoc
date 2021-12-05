@@ -1,7 +1,6 @@
 package com.foley.aoc.year2021;
 
 import com.foley.aoc.util.Daily;
-import com.foley.aoc.util.Tuple;
 import com.foley.aoc.util.functions.Regex;
 
 import java.awt.Point;
