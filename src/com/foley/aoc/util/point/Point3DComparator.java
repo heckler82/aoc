@@ -19,13 +19,13 @@ public class Point3DComparator implements Comparator<Point3D> {
      */
     public int compare(Point3D p1, Point3D p2) {
         // Get initial comparison
-        int comp = Double.compare(p1.getY(), p2.getY());
         int zComp = Double.compare(p1.getZ(), p2.getZ());
 
         // Non-zero z values determine placement (negative z on p1 is closer to front than the p2, positive is farther)
         if (zComp != 0) {
             return zComp;
         } else {
+            int comp = Double.compare(p1.getY(), p2.getY());
             // Return if this is the top level point (lower y values are towards the top)
             if (comp < 0) {
                 return comp;
