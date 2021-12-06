@@ -51,13 +51,12 @@ public class Day6 extends Daily {
      */
     private long simulate(int numDays) {
         for(int i = 0; i < numDays; i++) {
-            long[] nextGen = new long[9];
-            for(int t = 8; t > 0; t--) {
-                nextGen[t - 1] = fishTimers[t];
+            long breeders = fishTimers[0];
+            for(int t = 1; t < fishTimers.length; t++) {
+                fishTimers[t - 1] = fishTimers[t];
             }
-            nextGen[8] = fishTimers[0];
-            nextGen[6] += fishTimers[0];
-            fishTimers = nextGen;
+            fishTimers[8] = breeders;
+            fishTimers[6] += breeders;
         }
         // Get grand total
         long sum = 0L;
