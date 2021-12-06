@@ -52,14 +52,11 @@ public class Day6 extends Daily {
     private long simulate(int numDays) {
         for(int i = 0; i < numDays; i++) {
             long[] nextGen = new long[9];
-            for(int t = 8; t > -1; t--) {
-                if(t == 0) {
-                    nextGen[8] = fishTimers[0];
-                    nextGen[6] += fishTimers[0];
-                } else {
-                    nextGen[t - 1] = fishTimers[t];
-                }
+            for(int t = 8; t > 0; t--) {
+                nextGen[t - 1] = fishTimers[t];
             }
+            nextGen[8] = fishTimers[0];
+            nextGen[6] += fishTimers[0];
             fishTimers = nextGen;
         }
         // Get grand total
