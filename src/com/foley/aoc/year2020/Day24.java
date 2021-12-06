@@ -140,7 +140,7 @@ public class Day24 extends Daily {
         for(var h : active) {
             g.fillRect((h.x - minx) * 5, (h.y - miny) * 5, 5, 5);
         }
-        SimpleImageDisplay sid = new SimpleImageDisplay(img);
+        SimpleImageDisplay.show(img);
     }
 
     private class Hex {

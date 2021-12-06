@@ -12,26 +12,23 @@ import java.awt.Image;
  * @version 28 Nov 2020
  */
 public class SimpleImageDisplay{
-
     /**
-     * Creates an image display
+     * Shows an image on the screen
      *
-     * @param img The image to display
+     * @param img the image to show
      */
-    public SimpleImageDisplay(Image img) {
-        this(img, "Simple Image Display");
+    public static void show(Image img) {
+        show(img, "Simple Image Display");
     }
 
     /**
-     * Creates an image display with the given window title
+     * Shows an image to the screen; displays a custom title on the window
      *
-     * @param img The image to display
-     * @param windowTitle The title of the window
+     * @param img the image to show
+     * @param windowTitle the title of the window
      */
-    public SimpleImageDisplay(Image img, String windowTitle) {
-        // Set up the image
+    public static void show(Image img, String windowTitle) {
         JLabel label = new JLabel(new ImageIcon(img));
-        // Frame setup
         JFrame frame = new JFrame(windowTitle);
         frame.getContentPane().add(label);
         frame.pack();
