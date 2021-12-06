@@ -4,7 +4,6 @@ import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.functions.Regex;
 
 import java.awt.Point;
-import java.util.List;
 
 /**
  * Solutions for day 5
