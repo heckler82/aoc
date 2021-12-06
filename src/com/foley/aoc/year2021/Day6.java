@@ -46,8 +46,8 @@ public class Day6 extends Daily {
     /**
      * Simulates the fish world
      *
-     * @param numDays the number of days to simluate
-     * @return the number of fish at the end of the simmulation
+     * @param numDays the number of days to simulate
+     * @return the number of fish at the end of the simulation
      */
     private long simulate(int numDays) {
         for(int i = 0; i < numDays; i++) {
