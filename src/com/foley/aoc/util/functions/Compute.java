@@ -430,6 +430,26 @@ public class Compute {
     }
 
     /**
+     * Computers the binomial coefficient of a number
+     *
+     * @param i the number
+     * @return the binomial coefficient of the number
+     */
+    public static int binomialCoefficient(int i) {
+        return i * (i + 1) / 2;
+    }
+
+    /**
+     * Computes the binomial coefficient of a number
+     *
+     * @param l the number
+     * @return the binomial coefficient of the number
+     */
+    public static long binomialCoefficient(long l) {
+        return l * (l + 1) / 2;
+    }
+
+    /**
      * Returns the smallest number x such that x % num[0] = rem[0]...x % num[value] = rem[value]
      * Assumes that values contained in longs are pairwise coprime (gcd for every pair is 1)
      *
