@@ -54,7 +54,7 @@ public class Day7 extends Daily {
      * Align the crabs
      *
      * @param useGrowth true to use the growing crab fuel cost
-     * @return
+     * @return The least amount of fuel used to align the crabs
      */
     private int align(boolean useGrowth) {
         int min = Integer.MAX_VALUE;
