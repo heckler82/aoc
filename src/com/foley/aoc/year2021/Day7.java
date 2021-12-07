@@ -72,7 +72,7 @@ public class Day7 extends Daily {
                     continue;
                 }
                 int n = Math.abs(j - i);
-                int add = Compute.binomialCoefficient(n);
+                int add = Compute.triangleNumber(n);
                 fuel += add;
             }
             if(fuel < min) {

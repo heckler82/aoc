@@ -430,22 +430,22 @@ public class Compute {
     }
 
     /**
-     * Computers the binomial coefficient of a number
+     * Computers the triangle value of a number
      *
      * @param i the number
-     * @return the binomial coefficient of the number
+     * @return the triangle value of the number
      */
-    public static int binomialCoefficient(int i) {
+    public static int triangleNumber(int i) {
         return i * (i + 1) / 2;
     }
 
     /**
-     * Computes the binomial coefficient of a number
+     * Computes the triangle value of a number
      *
      * @param l the number
-     * @return the binomial coefficient of the number
+     * @return the traingle value of the number
      */
-    public static long binomialCoefficient(long l) {
+    public static long triangleNumber(long l) {
         return l * (l + 1) / 2;
     }
 
