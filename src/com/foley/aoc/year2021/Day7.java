@@ -58,7 +58,7 @@ public class Day7 extends Daily {
      */
     private int align(boolean useGrowth) {
         int min = Integer.MAX_VALUE;
-        for(int i = 1; i < max + 1; i++) {
+        for(int i = 1; i <= max; i++) {
             int fuel = 0;
             for(int j : pos.keySet()) {
                 if(j == i) {
