@@ -6,7 +6,7 @@ import com.foley.aoc.util.functions.Regex;
 import java.util.regex.Matcher;
 
 /**
- * Solutions for day 1
+ * Solutions for day 6
  *
  * @author Evan Foley
  * @version 06 Dec 2021
