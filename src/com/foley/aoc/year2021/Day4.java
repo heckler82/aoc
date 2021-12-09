@@ -44,13 +44,16 @@ public class Day4 extends Daily {
      */
     public void task1() {
         int curr = 0;
+        long firstWin = -1L;
         List<Board> winners = new ArrayList<>();
         while(boards.size() > 0) {
             int num = guesses.get(curr);
             for(Board b : boards) {
                 if(b.checkNumber(num)) {
                     winners.add(b);
-                    System.out.printf("Board won: %d\n", b.computeBoardScore(num));
+                    if(firstWin == -1) {
+                        firstWin = b.computeBoardScore(num);
+                    }
                 }
             }
             if(winners.size() > 0) {
@@ -62,6 +65,7 @@ public class Day4 extends Daily {
             winners.clear();
             curr = (curr + 1) % guesses.size();
         }
+        System.out.printf("The first board to win has a score of %d\n", firstWin);
     }
 
     @Override
