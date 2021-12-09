@@ -75,6 +75,12 @@ public class Day9 extends Daily {
         System.out.printf("The product of the three largest basins is %d\n", basins.get(0) * basins.get(1) * basins.get(2));
     }
 
+    /**
+     * Performs a depth first search starting at a specified point
+     *
+     * @param p the starting point
+     * @return the number of visited points in the search
+     */
     private int performDFS(Point p) {
         Stack<Point> s = new Stack<>();
         Set<Point> visited = new HashSet<>();
@@ -92,6 +98,12 @@ public class Day9 extends Daily {
         return visited.size();
     }
 
+    /**
+     * Ensures that a point both exists in the map, and does not equate to a 9
+     *
+     * @param p the point to test
+     * @return true if the point passes both conditions
+     */
     private boolean conditionCheck(Point p) {
         return map.getOrDefault(p, 9) != 9;
     }
