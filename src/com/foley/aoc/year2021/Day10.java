@@ -3,10 +3,15 @@ package com.foley.aoc.year2021;
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.Tuple;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 /**
- * Solutions for day 1
+ * Solutions for day 10
  *
  * @author Evan Foley
  * @version 10 Dec 2021
