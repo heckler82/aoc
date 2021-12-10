@@ -103,10 +103,9 @@ public class Day8 extends Daily {
                         key.removeAll(digiPatterns.get(1));
                         if(set.containsAll(key)) {
                             digiPatterns.put(5, set);
-                            break;
+                        } else {
+                            digiPatterns.put(2, set);
                         }
-                        digiPatterns.put(2, set);
-                        break;
                     case 6: // 0, 6, or 9
                         if(!set.containsAll(digiPatterns.get(1))) {
                             digiPatterns.put(6, set);
@@ -114,12 +113,11 @@ public class Day8 extends Daily {
                         }
                         key = new HashSet<Character>(digiPatterns.get(4));
                         key.removeAll(digiPatterns.get(1));
-                        if(set.containsAll(key)) {
+                        if (set.containsAll(key)) {
                             digiPatterns.put(9, set);
-                            break;
+                        } else {
+                            digiPatterns.put(0, set);
                         }
-                        digiPatterns.put(0, set);
-                        break;
                     case 7: // 8
                         digiPatterns.put(8, set);
                 }
