@@ -54,7 +54,7 @@ public abstract class Point3D {
          * @return the x coordinate
          */
         public double getX() {
-            return (double)x;
+            return x;
         }
 
         @Override
@@ -64,7 +64,7 @@ public abstract class Point3D {
          * @return the y coordinate
          */
         public double getY() {
-            return (double)y;
+            return y;
         }
 
         @Override
@@ -74,7 +74,7 @@ public abstract class Point3D {
          * @return the z coordinate
          */
         public double getZ() {
-            return (double)z;
+            return z;
         }
 
         @Override
@@ -163,7 +163,7 @@ public abstract class Point3D {
          * @return the x coordinate
          */
         public double getX() {
-            return (double)x;
+            return x;
         }
 
         @Override
@@ -173,7 +173,7 @@ public abstract class Point3D {
          * @return the y coordinate
          */
         public double getY() {
-            return (double)y;
+            return y;
         }
 
         @Override
@@ -183,7 +183,7 @@ public abstract class Point3D {
          * @return the z coordinate
          */
         public double getZ() {
-            return (double)z;
+            return z;
         }
 
         @Override
