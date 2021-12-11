@@ -53,7 +53,7 @@ public class Day11 extends Daily {
             result = sim();
             step++;
         }
-        System.out.printf("The first time all the octopi flash simultaneously is step %d\n", step);
+        System.out.printf("The first time all the octopi flash simultaneously is step %d\n", step + 100);
     }
 
     private int sim() {
