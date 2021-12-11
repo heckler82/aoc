@@ -486,7 +486,7 @@ public abstract class Point3D {
     }
 
     /**
-     * Gets the distance between two points
+     * Gets the euclidean distance between two points
      *
      * @param x1 the x coordinate of the first point
      * @param y1 the y coordinate of the first point
@@ -494,15 +494,15 @@ public abstract class Point3D {
      * @param x2 the x coordinate of the second point
      * @param y2 the y coordinate of the second point
      * @param z2 the z coordinate of the second point
-     * @return the distance between the two
+     * @return the euclidean distance between the two points
      */
-    public static double distance(double x1, double y1, double z1, double x2, double y2, double z2) {
-        double distSq = distanceSq(x1, y1, z1, x2, y2, z2);
+    public static double euclideanDistance(double x1, double y1, double z1, double x2, double y2, double z2) {
+        double distSq = euclideanDistanceSq(x1, y1, z1, x2, y2, z2);
         return Math.sqrt(distSq);
     }
 
     /**
-     * Gets the squared distance between two points
+     * Gets the squared euclidean distance between two points
      *
      * @param x1 the x coordinate of the first point
      * @param y1 the y coordinate of the first point
@@ -510,34 +510,86 @@ public abstract class Point3D {
      * @param x2 the x coordinate of the second point
      * @param y2 the y coordinate of the second point
      * @param z2 the z coordinate of the second point
-     * @return the squared distance between the two
+     * @return the squared euclidean distance between the two points
      */
-    public static double distanceSq(double x1, double y1, double z1, double x2, double y2, double z2) {
+    public static double euclideanDistanceSq(double x1, double y1, double z1, double x2, double y2, double z2) {
         return Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2);
     }
 
     /**
-     * Gets the distance between two points
+     * Gets the cehbyshev distance between two points
+     *
+     * @param x1 the x coordinate of the first point
+     * @param y1 the y coordinate of the first point
+     * @param z1 the z coordinate of the first point
+     * @param x2 the x coordinate of the second point
+     * @param y2 the y coordinate of the second point
+     * @param z2 the z coordinate of the second point
+     * @return the chebyshev distance between the two points
+     */
+    public static double chebyshevDistance(double x1, double y1, double z1, double x2, double y2, double z2) {
+        return Math.max(Math.abs(x2 - x1), Math.max(Math.abs(y2 - y1), Math.abs(z2 - z1)));
+    }
+
+    /**
+     * Gets the manhattan distance between two points
+     *
+     * @param x1 the x coordinate of the first point
+     * @param y1 the y coordinate of the first point
+     * @param z1 the z coordinate of the first point
+     * @param x2 the x coordinate of the second point
+     * @param y2 the y coordinate of the second point
+     * @param z2 the z coordinate of the second point
+     * @return the manhattan distance between the two points
+     */
+    public static double manhattanDistance(double x1, double y1, double z1, double x2, double y2, double z2) {
+        return Math.abs(x2 - x1) + Math.abs(y2 - y1) + Math.abs(z2 - z1);
+    }
+
+    /**
+     * Gets the euclidean distance between two points
      *
      * @param p1 the first point
      * @param p2 the second point
-     * @return the distance between the two
+     * @return the distance between the two points
      */
-    public static double distance(Point3D p1, Point3D p2) {
-        return distance(p1.getX(), p1.getY(), p1.getZ(),
+    public static double euclideanDistance(Point3D p1, Point3D p2) {
+        return euclideanDistance(p1.getX(), p1.getY(), p1.getZ(),
                 p2.getX(), p2.getY(), p2.getZ());
     }
 
     /**
-     * Gets the squared distance between two points
+     * Gets the squared euclidean distance between two points
      *
      * @param p1 the first point
      * @param p2 the second point
-     * @return the squared distance between the two
+     * @return the squared euclidean distance between the two points
      */
-    public static double distanceSq(Point3D p1, Point3D p2) {
-        return distanceSq(p1.getX(), p1.getY(), p1.getZ(),
+    public static double euclideanDistanceSq(Point3D p1, Point3D p2) {
+        return euclideanDistanceSq(p1.getX(), p1.getY(), p1.getZ(),
                 p2.getX(), p2.getY(), p2.getZ());
+    }
+
+    /**
+     * Gets the cehbyshev distance between two points
+     *
+     * @param p1 the first point
+     * @param p2 the second point
+     * @return the chebyshev distance between the two points
+     */
+    public static double chebyshevDistance(Point3D p1, Point3D p2) {
+        return chebyshevDistance(p1.getX(), p1.getY(), p1.getZ(), p2.getX(), p2.getY(), p2.getZ());
+    }
+
+    /**
+     * Gets the manhattan distance between two points
+     *
+     * @param p1 the first point
+     * @param p2 the second point
+     * @return the manhattan distance between the two points
+     */
+    public static double manhattanDistance(Point3D p1, Point3D p2) {
+        return manhattanDistance(p1.getX(), p1.getY(), p1.getZ(), p2.getX(), p2.getY(), p2.getZ());
     }
 
     /**
