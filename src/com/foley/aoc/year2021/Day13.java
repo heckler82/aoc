@@ -3,7 +3,7 @@ package com.foley.aoc.year2021;
 import com.foley.aoc.util.Daily;
 
 /**
- * Solutions for day 1
+ * Solutions for day 13
  *
  * @author Evan Foley
  * @version 13 Dec 2021

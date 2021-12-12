@@ -50,7 +50,7 @@ public class Day12 extends Daily {
     private int findPaths(Graph<String> g, String start, String end, boolean allowSmallCaveReEntrance) {
         int pathCount = 0;
 
-        Queue<Path> q = new LinkedList<>();
+        Queue<Path> q = new ArrayDeque<>();
         Path path = new Path(start);
         q.offer(path);
 
