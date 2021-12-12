@@ -69,7 +69,7 @@ public class Day12 extends Daily {
                     continue;
                 }
                 // If lower case and exists in the path, bad path
-                if(n.toLowerCase().equals(n)) {
+                if(Character.isLowerCase(n.charAt(0))) {
                     if(path.contains(n)) {
                         if(allowSmallCaveReEntrance && path.canEnterSmallCaveAgain()) {
                             Path newPath = new Path(path, n);
