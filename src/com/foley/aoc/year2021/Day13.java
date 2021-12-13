@@ -88,21 +88,17 @@ public class Day13 extends Daily {
             var toAdd = new HashSet<Point>();
             for(var itr = map.iterator(); itr.hasNext();) {
                 Point ex = itr.next();
+                int diff;
                 if(p.x > -1) {
-                    if(ex.x > p.x) {
-                        int diff = ex.x - p.x;
-                        Point newPoint = new Point(p.x - diff, ex.y);
-                        toAdd.add(newPoint);
-                        itr.remove();
-                    }
+                    diff = p.x - Math.abs(ex.x - p.x);
+                    Point newPoint = new Point(diff, ex.y);
+                    toAdd.add(newPoint);
                 } else {
-                    if(ex.y > p.y) {
-                        int diff = ex.y - p.y;
-                        Point newPoint = new Point(ex.x, p.y - diff);
-                        toAdd.add(newPoint);
-                        itr.remove();
-                    }
+                    diff = p.y - Math.abs(ex.y - p.y);
+                    Point newPoint = new Point(ex.x, diff);
+                    toAdd.add(newPoint);
                 }
+                itr.remove();
             }
             map.addAll(toAdd);
         }
