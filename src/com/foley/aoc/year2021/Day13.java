@@ -66,7 +66,7 @@ public class Day13 extends Daily {
     public void task2() {
         folds.remove(0);
         fold(folds);
-        SimpleImageDisplay.show(createImage(map), "Activation Code");
+        new Thread(() -> SimpleImageDisplay.show(createImage(map), "Activation Code")).start();
     }
 
     private Image createImage(Collection<Point> pts) {
@@ -100,7 +100,7 @@ public class Day13 extends Daily {
                 }
                 itr.remove();
             }
-            map.addAll(toAdd);
+            map = toAdd;
         }
         return map.size();
     }
