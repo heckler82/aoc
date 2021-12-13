@@ -16,7 +16,7 @@ import java.util.List;
  * @version 13 Dec 2021
  */
 public class Day13 extends Daily {
-    private Map<Point, Integer> map;
+    private Set<Point> map;
     private List<Point> folds;
 
     /**
@@ -26,13 +26,13 @@ public class Day13 extends Daily {
      */
     public Day13(String fileName) {
         super(fileName);
-        map = new HashMap<>();
+        map = new HashSet<>();
         folds = new ArrayList<>();
         // Get coords
         for(int i = 0; i < input.length; i++) {
             if(Regex.canMatchPattern("\\d+,\\d+", input[i])) {
                 var coords = input[i].split(",");
-                map.put(new Point(Integer.parseInt(coords[0]), Integer.parseInt(coords[1])), 1);
+                map.add(new Point(Integer.parseInt(coords[0]), Integer.parseInt(coords[1])));
             } else {
                 if("".equals(input[i])) {
                     continue;
@@ -63,7 +63,7 @@ public class Day13 extends Daily {
     public void task2() {
         folds.remove(0);
         fold(folds);
-        SimpleImageDisplay.show(createImage(map.keySet()));
+        SimpleImageDisplay.show(createImage(map));
     }
 
     private Image createImage(Collection<Point> pts) {
@@ -82,28 +82,27 @@ public class Day13 extends Daily {
 
     private int fold(List<Point> folds) {
         for(Point p : folds) {
-            var newMap = new HashMap<Point, Integer>();
-            for(var entry : map.entrySet()) {
+            var toAdd = new HashSet<Point>();
+            for(var itr = map.iterator(); itr.hasNext();) {
+                Point ex = itr.next();
                 if(p.x > -1) {
-                    if(entry.getKey().x > p.x) {
-                        int diff = entry.getKey().x - p.x;
-                        Point newPoint = new Point(p.x - diff, entry.getKey().y);
-                        newMap.put(newPoint, map.getOrDefault(newPoint, 1));
-                    } else {
-                        newMap.put(entry.getKey(), newMap.getOrDefault(entry.getKey(), 1));
+                    if(ex.x > p.x) {
+                        int diff = ex.x - p.x;
+                        Point newPoint = new Point(p.x - diff, ex.y);
+                        toAdd.add(newPoint);
+                        itr.remove();
                     }
                 } else {
-                    if(entry.getKey().y > p.y) {
-                        int diff = entry.getKey().y - p.y;
-                        Point newPoint = new Point(entry.getKey().x, p.y - diff);
-                        newMap.put(newPoint, map.getOrDefault(newPoint, 1));
-                    } else {
-                        newMap.put(entry.getKey(), newMap.getOrDefault(entry.getKey(), 1));
+                    if(ex.y > p.y) {
+                        int diff = ex.y - p.y;
+                        Point newPoint = new Point(ex.x, p.y - diff);
+                        toAdd.add(newPoint);
+                        itr.remove();
                     }
                 }
             }
-            map = newMap;
+            map.addAll(toAdd);
         }
-        return map.keySet().size();
+        return map.size();
     }
 }
