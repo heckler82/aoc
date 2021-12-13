@@ -22,10 +22,11 @@ public class Day8 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day8(String fileName) {
-        super(fileName);
+    public Day8(int year, String fileName) {
+        super(year, fileName);
         instructions = new ArrayList<>();
         // Get all instructions from the input
         for(String s : input) {

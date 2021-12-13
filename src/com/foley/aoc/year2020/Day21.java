@@ -18,10 +18,11 @@ public class Day21 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day21(String fileName) {
-        super(fileName);
+    public Day21(int year, String fileName) {
+        super(year, fileName);
         ingredients = new HashMap<>();
         allergens = new HashMap<>();
         for(String s : input) {

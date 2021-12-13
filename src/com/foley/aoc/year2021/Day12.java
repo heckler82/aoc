@@ -18,10 +18,11 @@ public class Day12 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day12(String fileName) {
-        super(fileName);
+    public Day12(int year, String fileName) {
+        super(year, fileName);
         g = new HashGraph<>();
         for(String s : input) {
             var nodes = s.split("-");

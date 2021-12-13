@@ -24,10 +24,11 @@ public class Day7 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day7(String fileName) {
-        super(fileName);
+    public Day7(int year, String fileName) {
+        super(year, fileName);
         map = new HashMap<>();
         // Parse all data into the map
         // Data entries are in the format "color" : List of <quantity : "color">

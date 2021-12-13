@@ -23,10 +23,11 @@ public class Day10 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day10(String fileName) {
-        super(fileName);
+    public Day10(int year, String fileName) {
+        super(year, fileName);
         list = Compute.convertToIntegerList(input);
         list.add(0);
         Collections.sort(list);

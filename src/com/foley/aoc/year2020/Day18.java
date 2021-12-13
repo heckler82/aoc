@@ -21,10 +21,11 @@ public class Day18 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day18(String fileName) {
-        super(fileName);
+    public Day18(int year, String fileName) {
+        super(year, fileName);
     }
 
     @Override

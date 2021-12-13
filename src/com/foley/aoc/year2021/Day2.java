@@ -20,10 +20,11 @@ public class Day2 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day2(String fileName) {
-        super(fileName);
+    public Day2(int year, String fileName) {
+        super(year, fileName);
         pos = Point3D.Long.zero();
         instructions = new ArrayList<>();
     }

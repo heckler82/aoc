@@ -18,10 +18,11 @@ public class Day23 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day23(String fileName) {
-        super(fileName);
+    public Day23(int year, String fileName) {
+        super(year, fileName);
         next = new int[10];
         nextEx = new int[1000001];
 

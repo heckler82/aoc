@@ -17,14 +17,16 @@ import java.util.ArrayList;
  */
 public abstract class Daily {
     protected String[] input;
-    private int day;
+    protected int year;
+    protected int day;
 
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Daily(String fileName) {
+    public Daily(int year, String fileName) {
         setup(fileName);
         String name = getClass().getSimpleName();
         day = Integer.parseInt(name.substring(3));
@@ -90,14 +92,14 @@ public abstract class Daily {
      * @param className The name of the class to instantiate
      * @return A new daily
      */
-    public static Daily getDaily(String inputPath, String className) {
+    public static Daily getDaily(int year, String inputPath, String className) {
         if(inputPath == null || className == null) {
             throw new IllegalArgumentException("Path to input file or class name is null");
         }
         try {
             Class cl = Class.forName(className);
             Constructor<Daily> con = cl.getConstructor(inputPath.getClass());
-            return con.newInstance(inputPath);
+            return con.newInstance(year, inputPath);
         } catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
             System.exit(1);

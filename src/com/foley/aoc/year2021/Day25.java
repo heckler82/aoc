@@ -3,7 +3,7 @@ package com.foley.aoc.year2021;
 import com.foley.aoc.util.Daily;
 
 /**
- * Solutions for day 1
+ * Solutions for day 25
  *
  * @author Evan Foley
  * @version 25 Dec 2021
@@ -12,10 +12,11 @@ public class Day25 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day25(String fileName) {
-        super(fileName);
+    public Day25(int year, String fileName) {
+        super(year, fileName);
     }
 
     @Override

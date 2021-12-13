@@ -21,10 +21,11 @@ public class Day7 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day7(String fileName) {
-        super(fileName);
+    public Day7(int year, String fileName) {
+        super(year, fileName);
         var list = Regex.getMatches("\\d+", input[0]);
         hPos = new ArrayList<>();
         for(var v : list) {

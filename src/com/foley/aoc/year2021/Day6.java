@@ -17,10 +17,11 @@ public class Day6 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day6(String fileName) {
-        super(fileName);
+    public Day6(int year, String fileName) {
+        super(year, fileName);
         Matcher m = Regex.getMatcher("\\d+", input[0]);
         while(m.find()) {
             fishTimers[Integer.parseInt(m.group())]++;

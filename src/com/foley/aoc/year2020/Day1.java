@@ -19,10 +19,11 @@ public class Day1 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day1(String fileName) {
-        super(fileName);
+    public Day1(int year, String fileName) {
+        super(year, fileName);
         ints = Compute.convertToIntArray(input);
         Sort.mergeSort(ints);
     }

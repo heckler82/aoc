@@ -17,10 +17,11 @@ public class Day3 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day3(String fileName) {
-        super(fileName);
+    public Day3(int year, String fileName) {
+        super(year, fileName);
         map = processMap(input);
         clamp = map[0].length;
     }

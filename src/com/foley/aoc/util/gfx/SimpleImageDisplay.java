@@ -1,8 +1,11 @@
 package com.foley.aoc.util.gfx;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Displays an image
@@ -23,7 +26,8 @@ public class SimpleImageDisplay extends JFrame {
         super(title);
         this.img = img;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(img.getWidth(null), img.getHeight(null) + 39); // 39 is the height of the window menu bar
+        setSize(img.getWidth(null) + 16, img.getHeight(null) + 39); // 16 is the left and right insets, 39 is the top and bottom insets
+        setIconImage(getTitleImage());
         setResizable(true);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -37,6 +41,16 @@ public class SimpleImageDisplay extends JFrame {
     public void paint(Graphics g) {
         var insets = getInsets();
         g.drawImage(img, insets.left, insets.top, null);
+    }
+
+    private Image getTitleImage() {
+        Image tImg = null;
+        try(InputStream is = this.getClass().getClassLoader().getResourceAsStream("images/aoc_star.png")) {
+            tImg = ImageIO.read(is);
+        } catch(IOException | IllegalArgumentException e) {
+            System.out.printf("INFORMATIONAL: Could not find title image\n");
+        }
+        return tImg;
     }
 
     /**
@@ -55,13 +69,6 @@ public class SimpleImageDisplay extends JFrame {
      * @param windowTitle the title of the window
      */
     public static void show(Image img, String windowTitle) {
-        /**JLabel label = new JLabel(new ImageIcon(img));
-        JFrame frame = new JFrame(windowTitle);
-        frame.getContentPane().add(label);
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);*/
         var sid = new SimpleImageDisplay(img, windowTitle);
     }
 }

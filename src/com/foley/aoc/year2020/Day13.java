@@ -20,10 +20,11 @@ public class Day13 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day13(String fileName) {
-        super(fileName);
+    public Day13(int year, String fileName) {
+        super(year, fileName);
         arrival = Integer.parseInt(input[0]);
         id = new ArrayList<>();
         rem = new ArrayList<>();

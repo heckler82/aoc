@@ -2,12 +2,11 @@ package com.foley.aoc.year2021;
 
 import com.foley.aoc.util.Daily;
 import com.foley.aoc.util.functions.Regex;
+import com.foley.aoc.util.gfx.ImageUtil;
 import com.foley.aoc.util.gfx.SimpleImageDisplay;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
@@ -25,10 +24,11 @@ public class Day13 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day13(String fileName) {
-        super(fileName);
+    public Day13(int year, String fileName) {
+        super(year, fileName);
         map = new HashSet<>();
         folds = new ArrayList<>();
         // Get coords
@@ -66,21 +66,11 @@ public class Day13 extends Daily {
     public void task2() {
         folds.remove(0);
         fold(folds);
-        new Thread(() -> SimpleImageDisplay.show(createImage(map), "Activation Code")).start();
-    }
-
-    private Image createImage(Collection<Point> pts) {
-        int size = 5;
-        int buffer = size;
-
-        var img = new BufferedImage(260, 40, BufferedImage.TYPE_INT_RGB);
-        var g = img.createGraphics();
-        g.setColor(Color.WHITE);
-        for(Point p : pts) {
-            g.fillRect(p.x * size + buffer, p.y * size + buffer, size, size);
-        }
-        g.dispose();
-        return img;
+        new Thread(() -> {
+            Image img = ImageUtil.createImage(map, Color.BLACK, Color.WHITE, 20, 20, 1);
+            ImageUtil.saveImage(img, year + "/day13.png");
+            SimpleImageDisplay.show(img,  "Activation Code");
+        }).start();
     }
 
     private int fold(List<Point> folds) {

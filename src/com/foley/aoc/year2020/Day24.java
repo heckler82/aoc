@@ -29,10 +29,11 @@ public class Day24 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day24(String fileName) {
-        super(fileName);
+    public Day24(int year, String fileName) {
+        super(year, fileName);
         active = new HashSet<>();
     }
 

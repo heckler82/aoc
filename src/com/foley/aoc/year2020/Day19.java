@@ -23,10 +23,11 @@ public class Day19 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day19(String fileName) {
-        super(fileName);
+    public Day19(int year, String fileName) {
+        super(year, fileName);
         rules = new HashMap<>();
     }
 

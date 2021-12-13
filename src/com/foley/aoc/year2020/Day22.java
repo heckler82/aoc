@@ -18,10 +18,11 @@ public class Day22 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day22(String fileName) {
-        super(fileName);
+    public Day22(int year, String fileName) {
+        super(year, fileName);
         p1 = new ArrayList<>();
         p2 = new ArrayList<>();
 

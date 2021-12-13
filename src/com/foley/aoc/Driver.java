@@ -96,7 +96,7 @@ public class Driver {
         for(;start <= end; start++) {
             String inputPath = "./res/" + date.getFirst() + "/day" + start + ".txt";
             String className = "com.foley.aoc.year" + date.getFirst() + ".Day" + start;
-            list.add(Daily.getDaily(inputPath, className));
+            list.add(Daily.getDaily(date.getFirst(), inputPath, className));
         }
 
         return list;

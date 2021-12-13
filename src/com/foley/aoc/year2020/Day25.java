@@ -19,10 +19,11 @@ public class Day25 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day25(String fileName) {
-        super(fileName);
+    public Day25(int year, String fileName) {
+        super(year, fileName);
         cardKey = Integer.parseInt(input[0]);
         doorKey = Integer.parseInt(input[1]);
         //cardKey = 5764801;

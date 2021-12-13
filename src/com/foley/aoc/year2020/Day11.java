@@ -17,10 +17,11 @@ public class Day11 extends Daily {
     /**
      * Creates a new daily
      *
+     * @param year The year
      * @param fileName The name of the input file
      */
-    public Day11(String fileName) {
-        super(fileName);
+    public Day11(int year, String fileName) {
+        super(year, fileName);
         // Parse the map
         b = new Board(input);
     }
