@@ -6,7 +6,10 @@ import com.foley.aoc.util.gfx.SimpleImageDisplay;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 
 /**
