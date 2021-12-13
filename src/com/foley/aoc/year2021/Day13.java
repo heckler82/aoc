@@ -68,7 +68,7 @@ public class Day13 extends Daily {
 
     private Image createImage(Collection<Point> pts) {
         int size = 5;
-        int buffer = 1 * size;
+        int buffer = size;
 
         var img = new BufferedImage(260, 40, BufferedImage.TYPE_INT_RGB);
         var g = img.createGraphics();
