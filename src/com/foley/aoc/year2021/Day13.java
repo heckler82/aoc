@@ -70,7 +70,7 @@ public class Day13 extends Daily {
         int size = 5;
         int buffer = 1 * size;
 
-        var img = new BufferedImage(205, 40, BufferedImage.TYPE_INT_RGB);
+        var img = new BufferedImage(260, 40, BufferedImage.TYPE_INT_RGB);
         var g = img.createGraphics();
         g.setColor(Color.WHITE);
         for(Point p : pts) {
