@@ -98,7 +98,7 @@ public abstract class Daily {
         }
         try {
             Class cl = Class.forName(className);
-            Constructor<Daily> con = cl.getConstructor(inputPath.getClass());
+            Constructor<Daily> con = cl.getConstructor(int.class, inputPath.getClass());
             return con.newInstance(year, inputPath);
         } catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
