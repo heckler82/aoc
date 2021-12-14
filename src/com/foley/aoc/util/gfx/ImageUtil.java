@@ -97,7 +97,6 @@ public class ImageUtil {
             ImageIO.write(rImg, "png",output);
         } catch(IOException e) {
             System.err.println("ERROR: Could not write image to folder");
-            e.printStackTrace();
         }
     }
 }
