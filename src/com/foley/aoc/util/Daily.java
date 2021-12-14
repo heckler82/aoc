@@ -30,6 +30,7 @@ public abstract class Daily {
         setup(fileName);
         String name = getClass().getSimpleName();
         day = Integer.parseInt(name.substring(3));
+        this.year = year;
     }
 
     /**

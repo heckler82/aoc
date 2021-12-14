@@ -88,7 +88,7 @@ public class ImageUtil {
     public static void saveImage(Image img, String fileName) {
         RenderedImage rImg = (RenderedImage)img;
         try {
-            File output = new File("res/images/saved/" + fileName);
+            File output = new File("./res/images/saved/" + fileName);
             if(output.exists()) {
                 System.out.println("INFORMATIONAL: File already exists. Will not overwrite");
                 return;
@@ -97,6 +97,7 @@ public class ImageUtil {
             ImageIO.write(rImg, "png",output);
         } catch(IOException e) {
             System.err.println("ERROR: Could not write image to folder");
+            e.printStackTrace();
         }
     }
 }

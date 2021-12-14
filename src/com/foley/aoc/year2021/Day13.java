@@ -69,7 +69,7 @@ public class Day13 extends Daily {
         new Thread(() -> {
             Image img = ImageUtil.createImage(map, Color.BLACK, Color.WHITE, 20, 20, 1);
             ImageUtil.saveImage(img, year + "/day13.png");
-            SimpleImageDisplay.show(img,  "Activation Code");
+            SimpleImageDisplay.show(img, "Activation Code");
         }).start();
     }
 
