@@ -79,15 +79,15 @@ public class Day13 extends Daily {
             for(var itr = map.iterator(); itr.hasNext();) {
                 Point ex = itr.next();
                 int diff;
+                Point newPoint;
                 if(p.x > -1) {
                     diff = p.x - Math.abs(ex.x - p.x);
-                    Point newPoint = new Point(diff, ex.y);
-                    toAdd.add(newPoint);
+                    newPoint = new Point(diff, ex.y);
                 } else {
                     diff = p.y - Math.abs(ex.y - p.y);
-                    Point newPoint = new Point(ex.x, diff);
-                    toAdd.add(newPoint);
+                    newPoint = new Point(ex.x, diff);
                 }
+                toAdd.add(newPoint);
                 itr.remove();
             }
             map = toAdd;
