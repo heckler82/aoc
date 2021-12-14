@@ -40,7 +40,6 @@ public class Day14 extends Daily {
         for(int i = 2; i < input.length; i++) {
             var kvp = input[i].split("\\s+->\\s+");
             map.put(kvp[0], Tuple.pair(kvp[0].charAt(0) + kvp[1], kvp[1] + kvp[0].charAt(1)));
-            pairs.put(kvp[0], pairs.getOrDefault(kvp[0], 0L));
         }
     }
 
@@ -75,14 +74,12 @@ public class Day14 extends Daily {
         for(int t = 0; t < steps; t++) {
             var newPairs = new HashMap<String, Long>();
             for(var key : pairs.keySet()) {
-                if(pairs.get(key) > 0) {
-                    long numPairs = pairs.get(key);
-                    String newKey = map.get(key).getFirst();
-                    newPairs.put(newKey, numPairs + newPairs.getOrDefault(newKey, 0L));
-                    newKey = map.get(key).getSecond();
-                    newPairs.put(newKey, numPairs + newPairs.getOrDefault(newKey, 0L));
-                    freq.put(newKey.charAt(0), numPairs + freq.getOrDefault(newKey.charAt(0), 0L));
-                }
+                long numPairs = pairs.get(key);
+                String newKey = map.get(key).getFirst();
+                newPairs.put(newKey, numPairs + newPairs.getOrDefault(newKey, 0L));
+                newKey = map.get(key).getSecond();
+                newPairs.put(newKey, numPairs + newPairs.getOrDefault(newKey, 0L));
+                freq.put(newKey.charAt(0), numPairs + freq.getOrDefault(newKey.charAt(0), 0L));
             }
             pairs = newPairs;
         }
