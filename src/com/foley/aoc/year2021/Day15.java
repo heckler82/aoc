@@ -34,7 +34,7 @@ public class Day15 extends Daily {
 
         for(int y = 0; y < input.length; y++) {
             for(int x = 0; x < input[y].length(); x++) {
-                smallMap[y][x] = new SearchNode(input[y].charAt(x) - '0');
+                smallMap[y][x] = new SearchNode(input[y].charAt(x) - '0', new Point(x, y));
             }
         }
 
@@ -58,23 +58,23 @@ public class Day15 extends Daily {
     }
 
     private long getShortestPath(SearchNode[][] map, int endX, int endY) {
-        Queue<Point> q = new PriorityQueue<>(new AWTPointComparator());
-        var current = new Point(0, 0);
-        map[0][0].totalCost = 0;
+        Queue<SearchNode> q = new PriorityQueue<>((SearchNode a, SearchNode b) -> Long.compare(a.totalCost, b.totalCost));
+        var current = map[0][0];
+        current.totalCost = 0;
         q.offer(current);
 
         while(!q.isEmpty()) {
             current = q.poll();
 
             for(var p : dir) {
-                var newP = new Point(current.x + p.x, current.y + p.y);
+                var newP = new Point(current.p.x + p.x, current.p.y + p.y);
                 if(0 <= newP.x && newP.x < map[0].length && 0 <= newP.y && newP.y < map.length) {
                     var n = map[newP.y][newP.x];
-                    long alt = map[current.y][current.x].totalCost + n.risk;
+                    long alt = map[current.p.y][current.p.x].totalCost + n.risk;
                     if (alt < n.totalCost) {
                         n.totalCost = alt;
-                        n.parent = map[current.y][current.x];
-                        q.offer(newP);
+                        n.parent = map[current.p.y][current.p.x];
+                        q.offer(n);
                     }
                 }
             }
@@ -103,7 +103,7 @@ public class Day15 extends Daily {
                 if(newRisk > 9) {
                     newRisk = 1;
                 }
-                newMap[y][x] = new SearchNode(newRisk);
+                newMap[y][x] = new SearchNode(newRisk, new Point(x, y));
             }
         }
         return newMap;
@@ -113,11 +113,13 @@ public class Day15 extends Daily {
         long totalCost;
         int risk;
         SearchNode parent;
+        Point p;
 
-        public SearchNode(int risk) {
+        public SearchNode(int risk, Point p) {
             totalCost = Integer.MAX_VALUE;
             this.risk = risk;
             parent = null;
+            this.p = p;
         }
     }
 }
