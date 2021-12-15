@@ -1,9 +1,10 @@
 package com.foley.aoc.year2021;
 
 import com.foley.aoc.util.Daily;
+import com.foley.aoc.util.point.AWTPointComparator;
 
-import java.awt.*;
-import java.util.ArrayDeque;
+import java.awt.Point;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
@@ -14,6 +15,7 @@ import java.util.Queue;
  */
 public class Day15 extends Daily {
     private SearchNode[][] smallMap;
+    private SearchNode[][] largeMap;
     private int endX;
     private int endY;
     private Point[] dir = {new Point(-1, 0), new Point(0, -1), new Point(1, 0), new Point(0, 1)};
@@ -35,6 +37,8 @@ public class Day15 extends Daily {
                 smallMap[y][x] = new SearchNode(input[y].charAt(x) - '0');
             }
         }
+
+        largeMap = expand(smallMap);
     }
 
     @Override
@@ -50,12 +54,11 @@ public class Day15 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
-        var largeMap = expand(smallMap);
         System.out.printf("The path with the lowest risk has value %d\n", getShortestPath(largeMap, largeMap.length - 1, largeMap.length - 1));
     }
 
     private long getShortestPath(SearchNode[][] map, int endX, int endY) {
-        Queue<Point> q = new ArrayDeque<>();
+        Queue<Point> q = new PriorityQueue<>(new AWTPointComparator());
         var current = new Point(0, 0);
         map[0][0].totalCost = 0;
         q.offer(current);
