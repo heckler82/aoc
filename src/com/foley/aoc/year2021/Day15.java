@@ -1,12 +1,9 @@
 package com.foley.aoc.year2021;
 
 import com.foley.aoc.util.Daily;
-import com.foley.aoc.util.point.AWTPointComparator;
 
 import java.awt.*;
 import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -79,7 +76,6 @@ public class Day15 extends Daily {
                 }
             }
         }
-
         return map[endY][endX].totalCost;
     }
 
@@ -107,7 +103,6 @@ public class Day15 extends Daily {
                 newMap[y][x] = new SearchNode(newRisk);
             }
         }
-
         return newMap;
     }
 
