@@ -1,6 +1,13 @@
 package com.foley.aoc.year2021;
 
 import com.foley.aoc.util.Daily;
+import com.foley.aoc.util.point.AWTPointComparator;
+
+import java.awt.*;
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
 /**
  * Solutions for day 15
@@ -9,6 +16,11 @@ import com.foley.aoc.util.Daily;
  * @version 15 Dec 2021
  */
 public class Day15 extends Daily {
+    private SearchNode[][] smallMap;
+    private int endX;
+    private int endY;
+    private Point[] dir = {new Point(-1, 0), new Point(0, -1), new Point(1, 0), new Point(0, 1)};
+
     /**
      * Creates a new daily
      *
@@ -17,6 +29,15 @@ public class Day15 extends Daily {
      */
     public Day15(int year, String fileName) {
         super(year, fileName);
+        smallMap = new SearchNode[input.length][input[0].length()];
+        endX = input[0].length() - 1;
+        endY = input.length - 1;
+
+        for(int y = 0; y < input.length; y++) {
+            for(int x = 0; x < input[y].length(); x++) {
+                smallMap[y][x] = new SearchNode(input[y].charAt(x) - '0');
+            }
+        }
     }
 
     @Override
@@ -24,6 +45,7 @@ public class Day15 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
+        System.out.printf("The path with the lowest risk has value %d\n", getShortestPath(smallMap, smallMap.length - 1, smallMap.length - 1));
     }
 
     @Override
@@ -31,5 +53,73 @@ public class Day15 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
+        var largeMap = expand(smallMap);
+        System.out.printf("The path with the lowest risk has value %d\n", getShortestPath(largeMap, largeMap.length - 1, largeMap.length - 1));
+    }
+
+    private long getShortestPath(SearchNode[][] map, int endX, int endY) {
+        Queue<Point> q = new ArrayDeque<>();
+        var current = new Point(0, 0);
+        map[0][0].totalCost = 0;
+        q.offer(current);
+
+        while(!q.isEmpty()) {
+            current = q.poll();
+
+            for(var p : dir) {
+                var newP = new Point(current.x + p.x, current.y + p.y);
+                if(0 <= newP.x && newP.x < map[0].length && 0 <= newP.y && newP.y < map.length) {
+                    var n = map[newP.y][newP.x];
+                    long alt = map[current.y][current.x].totalCost + n.risk;
+                    if (alt < n.totalCost) {
+                        n.totalCost = alt;
+                        n.parent = map[current.y][current.x];
+                        q.offer(newP);
+                    }
+                }
+            }
+        }
+
+        return map[endY][endX].totalCost;
+    }
+
+    private SearchNode[][] expand(SearchNode[][] map) {
+        SearchNode[][] newMap = new SearchNode[map.length * 5][map[0].length * 5];
+
+        int yDiff = map.length;
+        int xDiff = map.length;
+
+        for(int y = 0; y < newMap.length; y++) {
+            for(int x = 0; x < newMap.length; x++) {
+                int newRisk;
+                if(x >= map.length) {
+                    newRisk = newMap[y][x - xDiff].risk + 1;
+                } else {
+                    if(y >= map.length) {
+                        newRisk = newMap[y - yDiff][x].risk + 1;
+                    } else {
+                        newRisk = map[y][x].risk;
+                    }
+                }
+                if(newRisk > 9) {
+                    newRisk = 1;
+                }
+                newMap[y][x] = new SearchNode(newRisk);
+            }
+        }
+
+        return newMap;
+    }
+
+    private class SearchNode {
+        long totalCost;
+        int risk;
+        SearchNode parent;
+
+        public SearchNode(int risk) {
+            totalCost = Integer.MAX_VALUE;
+            this.risk = risk;
+            parent = null;
+        }
     }
 }
