@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Solutions for day 16
@@ -16,7 +19,7 @@ import java.util.Map;
 public class Day16 extends Daily {
     private Map<Character, String> map;
     private String binaryString;
-    private List<Packet> packets;
+    private Packet root;
 
     /**
      * Creates a new daily
@@ -27,12 +30,10 @@ public class Day16 extends Daily {
     public Day16(int year, String fileName) {
         super(year, fileName);
         map = setupMap();
+        binaryString = input[0].chars().boxed()
+                .map(i -> map.get((char)i.intValue()))
+                .collect(Collectors.joining(""));
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < input[0].length(); i++) {
-            sb.append(map.get(input[0].charAt(i)));
-        }
-        binaryString = sb.toString();
-        packets = new ArrayList<>();
         parsePacket(binaryString, 0, null);
     }
 
@@ -41,7 +42,7 @@ public class Day16 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        System.out.printf("The sum of the version numbers is %d\n", packets.stream().mapToLong(Packet::getVersion).sum());
+        System.out.printf("The sum of the version numbers is %d\n", root.getVersion());
     }
 
     @Override
@@ -49,16 +50,17 @@ public class Day16 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
-        System.out.printf("The value from the expression is %d\n", packets.get(0).getValue());
+        System.out.printf("The value from the expression is %d\n", root.getValue());
     }
 
     private int parsePacket(String str, int i, Packet parent) {
         int ver = Integer.parseInt(str.substring(i, i += 3), 2);
         int id = Integer.parseInt(str.substring(i, i += 3), 2);
         Packet p = new Packet(ver, id);
-        packets.add(p);
         if(parent != null) {
             parent.packets.add(p);
+        } else {
+            root = p;
         }
         if(id == 4) {
             StringBuilder sb = new StringBuilder();
@@ -69,7 +71,6 @@ public class Day16 extends Daily {
                 sb.append(s.substring(1));
             }
             p.val = Long.parseLong(sb.toString(), 2);
-            return i;
         } else {
             int numPackets;
             if(str.charAt(i++) == '0') {
@@ -80,37 +81,23 @@ public class Day16 extends Daily {
                     numPackets -= res;
                     i += res;
                 }
-                return i;
             } else {
                 numPackets = Integer.parseInt(str.substring(i, i += 11), 2);
                 while(numPackets > 0) {
                     i += parsePacket(str.substring(i), 0, p);
                     numPackets--;
                 }
-                return i;
             }
         }
+        return i;
     }
 
     private Map<Character, String> setupMap() {
-        var m = new HashMap<Character, String>();
-        m.put('0', "0000");
-        m.put('1', "0001");
-        m.put('2', "0010");
-        m.put('3', "0011");
-        m.put('4', "0100");
-        m.put('5', "0101");
-        m.put('6', "0110");
-        m.put('7', "0111");
-        m.put('8', "1000");
-        m.put('9', "1001");
-        m.put('A', "1010");
-        m.put('B', "1011");
-        m.put('C', "1100");
-        m.put('D', "1101");
-        m.put('E', "1110");
-        m.put('F', "1111");
-        return m;
+        return IntStream.rangeClosed(0, 15)
+                .boxed()
+                .collect(Collectors.toMap(
+                        i -> Character.toUpperCase(Integer.toHexString(i).charAt(0)),
+                        i -> String.format("%4s", Integer.toBinaryString(i)).replace(' ', '0')));
     }
 
     private class Packet {
@@ -127,7 +114,7 @@ public class Day16 extends Daily {
         }
 
         public long getVersion() {
-            return ver;
+            return ver + packets.stream().mapToLong(Packet::getVersion).sum();
         }
 
         public long getValue() {
