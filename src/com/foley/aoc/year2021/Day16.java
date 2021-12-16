@@ -41,11 +41,7 @@ public class Day16 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        long sum = 0L;
-        for(Packet p : packets) {
-            sum += p.ver;
-        }
-        System.out.printf("The sum of the version numbers is %d\n", sum);
+        System.out.printf("The sum of the version numbers is %d\n", packets.stream().mapToLong(Packet::getVersion).sum());
     }
 
     @Override
@@ -57,10 +53,8 @@ public class Day16 extends Daily {
     }
 
     private int parsePacket(String str, int i, Packet parent) {
-        int ver = Integer.parseInt(str.substring(i, i + 3), 2);
-        i += 3;
-        int id = Integer.parseInt(str.substring(i, i + 3), 2);
-        i += 3;
+        int ver = Integer.parseInt(str.substring(i, i += 3), 2);
+        int id = Integer.parseInt(str.substring(i, i += 3), 2);
         Packet p = new Packet(ver, id);
         packets.add(p);
         if(parent != null) {
@@ -70,18 +64,16 @@ public class Day16 extends Daily {
             StringBuilder sb = new StringBuilder();
             char c = '1';
             while(c == '1') {
-                String s = str.substring(i, i + 5);
+                String s = str.substring(i, i += 5);
                 c = s.charAt(0);
                 sb.append(s.substring(1));
-                i += 5;
             }
             p.val = Long.parseLong(sb.toString(), 2);
             return i;
         } else {
             int numPackets;
-            if(str.charAt(i++) == '0') { // Number of bits in subpackets
-                numPackets = Integer.parseInt(str.substring(i, i + 15), 2);
-                i += 15;
+            if(str.charAt(i++) == '0') {
+                numPackets = Integer.parseInt(str.substring(i, i += 15), 2);
                 int res = 0;
                 while(numPackets > 0) {
                     res = parsePacket(str.substring(i), 0, p);
@@ -89,9 +81,8 @@ public class Day16 extends Daily {
                     i += res;
                 }
                 return i;
-            } else { // Number of subpackets
-                numPackets = Integer.parseInt(str.substring(i, i + 11), 2);
-                i += 11;
+            } else {
+                numPackets = Integer.parseInt(str.substring(i, i += 11), 2);
                 while(numPackets > 0) {
                     i += parsePacket(str.substring(i), 0, p);
                     numPackets--;
@@ -133,6 +124,10 @@ public class Day16 extends Daily {
             this.id = id;
             this.val = -1L;
             packets = new ArrayList<>();
+        }
+
+        public long getVersion() {
+            return ver;
         }
 
         public long getValue() {
