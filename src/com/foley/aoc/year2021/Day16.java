@@ -154,23 +154,11 @@ public class Day16 extends Daily {
                 case 4:
                     return val;
                 case 5:
-                    if(packets.get(0).getValue() > packets.get(1).getValue()) {
-                        return 1L;
-                    } else {
-                        return 0L;
-                    }
+                    return packets.get(0).getValue() > packets.get(1).getValue() ? 1L : 0L;
                 case 6:
-                    if(packets.get(0).getValue() < packets.get(1).getValue()) {
-                        return 1L;
-                    } else {
-                        return 0L;
-                    }
+                    return packets.get(0).getValue() < packets.get(1).getValue() ? 1L : 0L;
                 case 7:
-                    if(packets.get(0).getValue() == packets.get(1).getValue()) {
-                        return 1L;
-                    } else {
-                        return 0L;
-                    }
+                    return packets.get(0).getValue() == packets.get(1).getValue() ? 1L : 0L;
                 default:
                     return 0L;
             }
