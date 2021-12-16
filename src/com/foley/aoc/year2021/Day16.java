@@ -3,10 +3,8 @@ package com.foley.aoc.year2021;
 import com.foley.aoc.util.Daily;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -29,11 +27,14 @@ public class Day16 extends Daily {
      */
     public Day16(int year, String fileName) {
         super(year, fileName);
-        map = setupMap();
+        map = IntStream.rangeClosed(0, 15)
+                .boxed()
+                .collect(Collectors.toMap(
+                        i -> Character.toUpperCase(Integer.toHexString(i).charAt(0)),
+                        i -> String.format("%4s", Integer.toBinaryString(i)).replace(' ', '0')));
         binaryString = input[0].chars().boxed()
                 .map(i -> map.get((char)i.intValue()))
                 .collect(Collectors.joining(""));
-        StringBuilder sb = new StringBuilder();
         parsePacket(binaryString, 0, null);
     }
 
@@ -90,14 +91,6 @@ public class Day16 extends Daily {
             }
         }
         return i;
-    }
-
-    private Map<Character, String> setupMap() {
-        return IntStream.rangeClosed(0, 15)
-                .boxed()
-                .collect(Collectors.toMap(
-                        i -> Character.toUpperCase(Integer.toHexString(i).charAt(0)),
-                        i -> String.format("%4s", Integer.toBinaryString(i)).replace(' ', '0')));
     }
 
     private class Packet {
