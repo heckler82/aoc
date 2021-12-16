@@ -37,7 +37,7 @@ public class Day12 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        System.out.printf("The number of distinct path is %d\n", findPaths(g, "start", "end", false));
+        System.out.printf("The number of distinct paths is %d\n", findPaths(g, "start", "end", false));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Day12 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
-        System.out.printf("The number of distinct path is %d\n", findPaths(g, "start", "end", true));
+        System.out.printf("The number of distinct paths is %d\n", findPaths(g, "start", "end", true));
     }
 
     private int findPaths(Graph<String> g, String start, String end, boolean allowSmallCaveReEntrance) {
