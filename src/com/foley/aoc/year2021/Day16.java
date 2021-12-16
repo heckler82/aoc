@@ -27,7 +27,7 @@ public class Day16 extends Daily {
     public Day16(int year, String fileName) {
         super(year, fileName);
         map = setupMap();
-        StringBuilder sb = new StringBuilder(); // Change this over to a map of char to string?
+        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < input[0].length(); i++) {
             sb.append(map.get(input[0].charAt(i)));
         }
