@@ -76,19 +76,17 @@ public class Day13 extends Daily {
     private int fold(List<Point> folds) {
         for(Point p : folds) {
             var toAdd = new HashSet<Point>();
-            for(var itr = map.iterator(); itr.hasNext();) {
-                Point ex = itr.next();
+            for(Point mapP : map) {
                 int diff;
                 Point newPoint;
                 if(p.x > -1) {
-                    diff = p.x - Math.abs(ex.x - p.x);
-                    newPoint = new Point(diff, ex.y);
+                    diff = p.x - Math.abs(mapP.x - p.x);
+                    newPoint = new Point(diff, mapP.y);
                 } else {
-                    diff = p.y - Math.abs(ex.y - p.y);
-                    newPoint = new Point(ex.x, diff);
+                    diff = p.y - Math.abs(mapP.y - p.y);
+                    newPoint = new Point(mapP.x, diff);
                 }
                 toAdd.add(newPoint);
-                itr.remove();
             }
             map = toAdd;
         }
