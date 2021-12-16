@@ -138,15 +138,9 @@ public class Day16 extends Daily {
         public long getValue() {
             switch(id) {
                 case 0:
-                    if(packets.size() == 1) {
-                        return packets.get(0).getValue();
-                    }
-                    return packets.stream().mapToLong(Packet::getValue).sum();
+                    return packets.size() == 1 ? packets.get(0).getValue() : packets.stream().mapToLong(Packet::getValue).sum();
                 case 1:
-                    if(packets.size() == 1) {
-                        return packets.get(0).getValue();
-                    }
-                    return packets.stream().mapToLong(Packet::getValue).reduce(1L, (a, b) -> a * b);
+                    return packets.size() == 1 ? packets.get(0).getValue() : packets.stream().mapToLong(Packet::getValue).reduce(1L, (a, b) -> a * b);
                 case 2:
                     return packets.stream().mapToLong(Packet::getValue).min().getAsLong();
                 case 3:
