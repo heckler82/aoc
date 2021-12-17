@@ -27,16 +27,14 @@ public class Day17 extends Daily {
         var targetParam = input[0].split(":\\s+")[1].split(",\\s+");
         var targetX = targetParam[0].split("\\.\\.");
         var targetY = targetParam[1].split("\\.\\.");
+
         int x1 = Integer.parseInt(targetX[0].substring(2));
         int x2 = Integer.parseInt(targetX[1]);
-        int minX = Math.min(x1, x2);
-        int maxX = Math.max(x1, x2);
         int y1 = Integer.parseInt(targetY[0].substring(2));
         int y2 = Integer.parseInt(targetY[1]);
-        int minY = Math.min(y1, y2);
-        int maxY = Math.max(y1, y2);
-        upperLeft = new Point(minX, maxY);
-        lowerRight = new Point(maxX, minY);
+
+        upperLeft = new Point(Math.min(x1, x2), Math.max(y1, y2));
+        lowerRight = new Point(Math.max(x1, x2), Math.min(y1, y2));
     }
 
     @Override
@@ -72,7 +70,6 @@ public class Day17 extends Daily {
         Rectangle targetArea = new Rectangle(upperLeft.x, upperLeft.y, (lowerRight.x - upperLeft.x), Math.abs(lowerRight.y - upperLeft.y));
 
         int count = 0;
-        int lineLimit = 9;
         for(int x = minXVel; x <= maxXVel; x++) {
             for(int y = minYVel; y <= maxYVel; y++) {
                 Point p = new Point(x, y);
@@ -102,14 +99,13 @@ public class Day17 extends Daily {
                 return true;
             }
             if(p.x > r.x + r.width || p.y < r.y - r.height) {
-                break;
+                return false;
             }
             if(v.x > 0) {
                 v.x--;
             }
             v.y--;
         }
-        return false;
     }
 
     private boolean customContains(Rectangle r, Point p) {
