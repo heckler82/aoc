@@ -449,6 +449,18 @@ public class Compute {
         return l * (l + 1) / 2;
     }
 
+    public static int reverseTriangleNumber(int i) {
+        return (int)(Math.sqrt(2 * i + 0.25) - 0.5);
+    }
+
+    public static long reverseTriangleNumber(long l) {
+        return (long)(Math.sqrt(2 * l + 0.25) - 0.5);
+    }
+
+    public static double reverseTriangleNumber(double d) {
+        return (Math.sqrt(2 * d + 0.25) - 0.5);
+    }
+
     /**
      * Returns the smallest number x such that x % num[0] = rem[0]...x % num[value] = rem[value]
      * Assumes that values contained in longs are pairwise coprime (gcd for every pair is 1)
