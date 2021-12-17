@@ -42,19 +42,7 @@ public class Day17 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        int upperBound = Math.abs(lowerRight.y);
-        int lowerBound = upperBound - Math.abs(upperLeft.y);
-        int maxHeight = 0;
-        for(int i = 0; i < Integer.MAX_VALUE; i++) {
-            if(i + 1 <= upperBound) {
-                if(i + 1 >= lowerBound) {
-                    maxHeight = Compute.triangleNumber(i);
-                }
-            } else {
-                break;
-            }
-        }
-        System.out.printf("The highest the projectile can go is %d\n", maxHeight);
+        System.out.printf("The highest the projectile can go is %d\n", Compute.triangleNumber(Math.abs(lowerRight.y) - 1));
     }
 
     @Override
