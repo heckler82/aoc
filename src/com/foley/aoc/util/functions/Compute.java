@@ -450,11 +450,11 @@ public class Compute {
     }
 
     public static int reverseTriangleNumber(int i) {
-        return (int)(Math.sqrt(2 * i + 0.25) - 0.5);
+        return (int)(Math.round(Math.sqrt(2 * i + 0.25) - 0.5));
     }
 
     public static long reverseTriangleNumber(long l) {
-        return (long)(Math.sqrt(2 * l + 0.25) - 0.5);
+        return (long)(Math.round(Math.sqrt(2 * l + 0.25) - 0.5));
     }
 
     public static double reverseTriangleNumber(double d) {

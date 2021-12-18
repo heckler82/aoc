@@ -53,14 +53,14 @@ public class Day17 extends Daily {
         int minYVel = lowerRight.y;
         int maxYVel = Math.abs(lowerRight.y) - 1;
         int maxXVel = lowerRight.x;
-        int minXVel = getLowestPossibleXVel(upperLeft.x);
+        int minXVel = Compute.reverseTriangleNumber(upperLeft.x);
 
         Rectangle targetArea = new Rectangle(upperLeft.x, upperLeft.y, (lowerRight.x - upperLeft.x), Math.abs(lowerRight.y - upperLeft.y));
 
         int count = 0;
         for(int x = minXVel; x <= maxXVel; x++) {
             for(int y = minYVel; y <= maxYVel; y++) {
-                Point p = new Point(x, y);
+               Point p = new Point(x, y);
                 if(canHitTargetArea(targetArea, new Point(0, 0), p)) {
                     count++;
                 }
@@ -69,25 +69,16 @@ public class Day17 extends Daily {
         System.out.printf("The number of velocities that will hit the target is %d\n", count);
     }
 
-    private int getLowestPossibleXVel(int limit) {
-        for(int i = 0; i < limit; i++) {
-            int tri = Compute.triangleNumber(i);
-            if(tri >= limit) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     private boolean canHitTargetArea(Rectangle r, Point p, Point v) {
         while(true) {
             p.x += v.x;
             p.y += v.y;
-            if(customContains(r, p)) {
-                return true;
-            }
             if(p.x > r.x + r.width || p.y < r.y - r.height) {
                 return false;
+            } else {
+                if(customContains(r, p)) {
+                    return true;
+                }
             }
             if(v.x > 0) {
                 v.x--;
