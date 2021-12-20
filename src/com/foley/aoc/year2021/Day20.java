@@ -1,11 +1,14 @@
 package com.foley.aoc.year2021;
 
 import com.foley.aoc.util.Daily;
+import com.foley.aoc.util.gfx.ImageUtil;
+import com.foley.aoc.util.gfx.SimpleImageDisplay;
 import com.foley.aoc.util.point.AWTPointComparator;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Solutions for day 20
@@ -55,6 +58,12 @@ public class Day20 extends Daily {
 
         long lit = map.values().stream().filter(i -> i == '#').count();
         System.out.printf("There are %d pixels lit after 2 enhancements\n", lit);
+        new Thread(() -> {
+            var pts = map.keySet().stream().filter(p -> map.get(p) != '.').collect(Collectors.toSet());
+            Image img = ImageUtil.createImage(pts, Color.BLACK, Color.WHITE, 4, 4, 1);
+            ImageUtil.saveImage(img, year + "/day20.png");
+            SimpleImageDisplay.show(img, "Image Enhance");
+        }).start();
     }
 
     private void clickyClackyEnhance(int steps) {
