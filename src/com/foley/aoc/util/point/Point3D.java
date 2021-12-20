@@ -91,6 +91,62 @@ public abstract class Point3D {
             this.z = (int)z;
         }
 
+        @Override
+        /**
+         * Returns the sum of this point and a specified point
+         *
+         * @param p the specified point
+         * @return the sum of this point and a specified point
+         */
+        public Point3D add(Point3D p) {
+            return new Int((int)(x + p.getX()), (int)(y + p.getY()), (int)(z + p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns the difference between this point and a specified point
+         *
+         * @param p the specified point
+         * @return the difference between this point and a specified point
+         */
+        public Point3D subtract(Point3D p) {
+            return new Int((int)(x - p.getX()), (int)(y - p.getY()), (int)(z - p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns a new point scaled by the magnitudes of a specified point
+         *
+         * @param p the point to scale this point by
+         * @return a new point scaled by the specified point
+         */
+        public Point3D scale(Point3D p) {
+            return new Int((int)(x * p.getX()), (int)(y * p.getY()), (int)(z * p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns a new point with the same coordinates as this point
+         *
+         * @return a new point at the same location as this point
+         */
+        public Point3D copy() {
+            return new Int(x, y, z);
+        }
+
+        @Override
+        /**
+         * Makes a new point with the specified coordinates
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         * @return a new point with the specified coordinates
+         */
+        public Point3D make(double x, double y, double z) {
+            return new Int((int)x, (int)y, (int)z);
+        }
+
         /**
          * Returns a string representation of the point
          *
@@ -198,6 +254,62 @@ public abstract class Point3D {
             this.x = (long)x;
             this.y = (long)y;
             this.z = (long)z;
+        }
+
+        @Override
+        /**
+         * Returns the sum of this point and a specified point
+         *
+         * @param p the specified point
+         * @return the sum of this point and a specified point
+         */
+        public Point3D add(Point3D p) {
+            return new Float((long)(x + p.getX()), (long)(y + p.getY()), (long)(z + p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns the difference between this point and a specified point
+         *
+         * @param p the specified point
+         * @return the difference between this point and a specified point
+         */
+        public Point3D subtract(Point3D p) {
+            return new Float((long)(x - p.getX()), (long)(y - p.getY()), (long)(z - p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns a new point scaled by the magnitudes of a specified point
+         *
+         * @param p the point to scale this point by
+         * @return a new point scaled by the specified point
+         */
+        public Point3D scale(Point3D p) {
+            return new Long((long)(x * p.getX()), (long)(y * p.getY()), (long)(z * p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns a new point with the same coordinates as this point
+         *
+         * @return a new point at the same location as this point
+         */
+        public Point3D copy() {
+            return new Long(x, y, z);
+        }
+
+        @Override
+        /**
+         * Makes a new point with the specified coordinates
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         * @return a new point with the specified coordinates
+         */
+        public Point3D make(double x, double y, double z) {
+            return new Long((long)x, (long)y, (long)z);
         }
 
         /**
@@ -309,6 +421,62 @@ public abstract class Point3D {
             this.z = (float)z;
         }
 
+        @Override
+        /**
+         * Returns the sum of this point and a specified point
+         *
+         * @param p the specified point
+         * @return the sum of this point and a specified point
+         */
+        public Point3D add(Point3D p) {
+            return new Float((float)(x + p.getX()), (float)(y + p.getY()), (float)(z + p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns the difference between this point and a specified point
+         *
+         * @param p the specified point
+         * @return the difference between this point and a specified point
+         */
+        public Point3D subtract(Point3D p) {
+            return new Float((float)(x - p.getX()), (float)(y - p.getY()), (float)(z - p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns a new point scaled by the magnitudes of a specified point
+         *
+         * @param p the point to scale this point by
+         * @return a new point scaled by the specified point
+         */
+        public Point3D scale(Point3D p) {
+            return new Float((float)(x * p.getX()), (float)(y * p.getY()), (float)(z * p.getZ()));
+        }
+
+        @Override
+        /**
+         * Returns a new point with the same coordinates as this point
+         *
+         * @return a new point at the same location as this point
+         */
+        public Point3D copy() {
+            return new Float(x, y, z);
+        }
+
+        @Override
+        /**
+         * Makes a new point with the specified coordinates
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         * @return a new point with the specified coordinates
+         */
+        public Point3D make(double x, double y, double z) {
+            return new Float((float)x, (float)y, (float)z);
+        }
+
         /**
          * Returns a string representation of the point
          *
@@ -418,6 +586,62 @@ public abstract class Point3D {
             this.z = z;
         }
 
+        @Override
+        /**
+         * Returns the sum of this point and a specified point
+         *
+         * @param p the specified point
+         * @return the sum of this point and a specified point
+         */
+        public Point3D add(Point3D p) {
+            return new Double(x + p.getX(), y + p.getY(), z + p.getZ());
+        }
+
+        @Override
+        /**
+         * Returns the difference between this point and a specified point
+         *
+         * @param p the specified point
+         * @return the difference between this point and a specified point
+         */
+        public Point3D subtract(Point3D p) {
+            return new Double(x - p.getX(), y - p.getY(), z - p.getZ());
+        }
+
+        @Override
+        /**
+         * Returns a new point scaled by the magnitudes of a specified point
+         *
+         * @param p the point to scale this point by
+         * @return a new point scaled by the specified point
+         */
+        public Point3D scale(Point3D p) {
+            return new Double(x * p.getX(), y * p.getY(), z * p.getZ());
+        }
+
+        @Override
+        /**
+         * Returns a new point with the same coordinates as this point
+         *
+         * @return a new point at the same location as this point
+         */
+        public Point3D copy() {
+            return new Double(x, y, z);
+        }
+
+        @Override
+        /**
+         * Makes a new point with the specified coordinates
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param z the z coordinate
+         * @return a new point with the specified coordinates
+         */
+        public Point3D make(double x, double y, double z) {
+            return new Double(x, y, z);
+        }
+
         /**
          * Returns a string representation of the point
          *
@@ -475,6 +699,47 @@ public abstract class Point3D {
      * @param z the z coordinate
      */
     public abstract void setLocation(double x, double y, double z);
+
+    /**
+     * Returns the sum of this point and a specified point
+     *
+     * @param p the specified point
+     * @return the sum of this point and a specified point
+     */
+    public abstract Point3D add(Point3D p);
+
+    /**
+     * Returns the difference between this point and a specified point
+     *
+     * @param p the specified point
+     * @return the difference between this point and a specified point
+     */
+    public abstract Point3D subtract(Point3D p);
+
+    /**
+     * Returns a new point scaled by the magnitudes of a specified point
+     *
+     * @param p the point to scale this point by
+     * @return a new point scaled by the specified point
+     */
+    public abstract Point3D scale(Point3D p);
+
+    /**
+     * Returns a new point with the same coordinates as this point
+     *
+     * @return a new point at the same location as this point
+     */
+    public abstract Point3D copy();
+
+    /**
+     * Makes a new point with the specified coordinates
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param z the z coordinate
+     * @return a new point with the specified coordinates
+     */
+    public abstract Point3D make(double x, double y, double z);
 
     /**
      * Sets the location of the point to the same coordinates as the specified point

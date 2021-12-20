@@ -24,6 +24,12 @@ public class Day18 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
+        String s = input[0];
+        for(int i = 1; i < input.length; i++) {
+            s = "[" + s + "," + input[i] + "]";
+            reduce(s);
+        }
+        System.out.printf("The magnitude of the final sum is %d\n", magnitude(s));
     }
 
     @Override
@@ -31,5 +37,21 @@ public class Day18 extends Daily {
      * Accomplishes the second task for the day
      */
     public void task2() {
+    }
+
+    private void reduce(String s) {
+
+    }
+
+    private void explode() {
+
+    }
+
+    private void split() {
+        
+    }
+
+    private long magnitude(String s) {
+        return 0L;
     }
 }
