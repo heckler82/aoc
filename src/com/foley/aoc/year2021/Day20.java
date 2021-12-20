@@ -80,17 +80,4 @@ public class Day20 extends Daily {
             map = newMap;
         }
     }
-
-    private void printMap() {
-        Point min = map.keySet().stream().min(new AWTPointComparator()).get();
-        Point max = map.keySet().stream().max(new AWTPointComparator()).get();
-        for(int y = min.y; y <= max.y; y++) {
-            for(int x = min.x; x <= max.x; x++) {
-                char c = map.getOrDefault(new Point(x, y), '.');
-                System.out.print(c);
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
 }
