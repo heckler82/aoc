@@ -19,21 +19,13 @@ public class AWTPointComparator implements Comparator<Point> {
      * @return
      */
     public int compare(Point p1, Point p2) {
-        // Get initial comparison
         int comp = Integer.compare(p1.y, p2.y);
-        // Return if this is the top level point (lower y values are towards the top)
-        if(comp < 0) {
+        // A non-zero answer will sort the points (lower y values towards top, greater towards bottom)
+        if(comp != 0) {
             return comp;
+        } else {
+            // If two points are at same y position, sort on left to right order (left < x < right)
+            return Integer.compare(p1.x, p2.x);
         }
-        // If two points are at same y position, test left/right order
-        if(comp == 0) {
-            comp = Integer.compare(p1.x, p2.x);
-            // Return if this is the left point
-            if(comp < 0) {
-                return comp;
-            }
-        }
-        // This point is either lower level or right level point
-        return comp;
     }
 }
