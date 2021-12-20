@@ -54,15 +54,25 @@ public class Day19 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        Scanner reference = scanners.get(0);
-        scanners.remove(0);
-        reference.pos = Point3D.Int.zero();
+        //Scanner reference = scanners.get(0);
+        //scanners.remove(0);
+        //reference.pos = Point3D.Int.zero();
 
-        for(var s : scanners) {
-            search(reference, s);
+        //for(var s : scanners) {
+        //    search(reference, s);
+        //}
+
+        scanners.get(0).pos = Point3D.Int.zero();
+
+        for(int i = 0; i < scanners.size(); i++) {
+            Scanner reference = scanners.get(i);
+            for (int j = i + 1; j < scanners.size(); j++) {
+                System.out.printf("Testing scanners %d and %d\n", i, j);
+                search(reference, scanners.get(j));
+            }
         }
 
-        System.out.printf("There are %d beacons in the entire map\n", reference.beacons.size());
+        System.out.printf("There are %d beacons in the entire map\n", scanners.get(0).beacons.size());
     }
 
     @Override
@@ -95,7 +105,8 @@ public class Day19 extends Daily {
                     var d = p.subtract(pPrime);
                     var hits = s2.beacons.stream().filter(pB -> s.beacons.contains(o.multiply(pB).add(d))).count();
                     if(hits >= 12) {
-                        s2.beacons.stream().forEach(pB -> s.beacons.add(o.multiply(pB).add(d)));
+                        s2.beacons = s2.beacons.stream().map(pB -> o.multiply(pB).add(d)).collect(Collectors.toSet());
+                        s.beacons.addAll(s2.beacons);
                         return;
                     }
                 }
