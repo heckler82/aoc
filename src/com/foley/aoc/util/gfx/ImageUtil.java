@@ -1,5 +1,7 @@
 package com.foley.aoc.util.gfx;
 
+import com.foley.aoc.util.point.AWTPointComparator;
+
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Image;
@@ -33,6 +35,13 @@ public class ImageUtil {
         if(pts == null || pts.isEmpty()) {
             throw new IllegalArgumentException("Cannot create an image from a null or empty collection");
         }
+        int offX = pts.stream().min((p1, p2) -> Integer.compare(p1.x, p2.x)).get().x;
+        int offY = pts.stream().min((p1, p2) -> Integer.compare(p1.y, p2.y)).get().y;;
+        for(Point p : pts) {
+            p.x -= offX;
+            p.y -= offY;
+        }
+
         Point maxX = pts.stream().max((p1, p2) -> Integer.compare(p1.x, p2.x)).get();
         Point maxY = pts.stream().max((p1, p2) -> Integer.compare(p1.y, p2.y)).get();
 
