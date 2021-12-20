@@ -57,7 +57,7 @@ public class Day20 extends Daily {
         clickyClackyEnhance(48);
 
         long lit = map.values().stream().filter(i -> i == '#').count();
-        System.out.printf("There are %d pixels lit after 2 enhancements\n", lit);
+        System.out.printf("There are %d pixels lit after 50 enhancements\n", lit);
         new Thread(() -> {
             var pts = map.keySet().stream().filter(p -> map.get(p) != '.').collect(Collectors.toSet());
             Image img = ImageUtil.createImage(pts, Color.BLACK, Color.WHITE, 4, 4, 1);

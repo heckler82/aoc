@@ -1,13 +1,14 @@
 package com.foley.aoc.year2021;
 
 import com.foley.aoc.util.Daily;
+import com.foley.aoc.util.Matrix3;
 import com.foley.aoc.util.point.Point3D;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Solutions for day 19
@@ -17,7 +18,7 @@ import java.util.Set;
  */
 public class Day19 extends Daily {
     private List<Scanner> scanners;
-    private List<Point3D> orientations;
+    private List<Matrix3> orientations;
 
     /**
      * Creates a new daily
@@ -28,10 +29,7 @@ public class Day19 extends Daily {
     public Day19(int year, String fileName) {
         super(year, fileName);
         scanners = new ArrayList<>();
-        orientations = new ArrayList<>();
-
-        // Add all orientation combinations to list (should be 24)
-
+        orientations = createOrientations();
 
         Scanner currentScanner = null;
         int id = 0;
@@ -56,24 +54,15 @@ public class Day19 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        scanners.stream().forEach(s -> System.out.printf("S%d can see %d beacons\n", s.id, s.beacons.size()));
         Scanner reference = scanners.get(0);
+        scanners.remove(0);
         reference.pos = Point3D.Int.zero();
 
-        for(var o : orientations) {
-            for(Point3D p : reference.beacons) {
-                for(Scanner s : scanners) {
-                    if(s != reference) {
-                        for(Point3D p2 : s.beacons) {
-                            // re-orient p2 here
-                            // get the distance between the points (p - p2) = d
-                            // translate all points in this scanner
-                            // if there are 12 matches then add all translated points to reference beacons, translate scanner position by d?
-                        }
-                    }
-                }
-            }
+        for(var s : scanners) {
+            search(reference, s);
         }
+
+        System.out.printf("There are %d beacons in the entire map\n", reference.beacons.size());
     }
 
     @Override
@@ -83,7 +72,7 @@ public class Day19 extends Daily {
     public void task2() {
         // Find the greatest manhattan distance between point pairs
         double max = Integer.MIN_VALUE;
-        for(int i = 0; i < scanners.size(); i++) {
+        /**for(int i = 0; i < scanners.size(); i++) {
             var s = scanners.get(i);
             for(int j = i + 1; j < scanners.size(); j++) {
                 var s2 = scanners.get(j);
@@ -94,16 +83,101 @@ public class Day19 extends Daily {
                     }
                 }
             }
-        }
+        }*/
         System.out.printf("The greatest manhattan distance is %d\n", (int)max);
     }
 
-    private Point3D roll(Point3D p) {
-        return p.make(p.getX(), p.getZ(), -p.getY());
+    private void search(Scanner s, Scanner s2) {
+        for(var p : s.beacons) {
+            for(var p2 : s2.beacons) {
+                for(var o : orientations) {
+                    var pPrime = o.multiply(p2);
+                    var d = p.subtract(pPrime);
+                    var hits = s2.beacons.stream().filter(pB -> s.beacons.contains(o.multiply(pB).add(d))).count();
+                    if(hits >= 12) {
+                        s2.beacons.stream().forEach(pB -> s.beacons.add(o.multiply(pB).add(d)));
+                        return;
+                    }
+                }
+            }
+        }
     }
 
-    private Point3D turn(Point3D p) {
-        return p.make(-p.getY(), p.getX(), p.getZ());
+    private List<Matrix3> createOrientations() {
+        List<Matrix3> list = new ArrayList<>();
+        list.add(new Matrix3(new Point3D.Int(1, 0, 0),
+                new Point3D.Int(0, 1, 0),
+                new Point3D.Int(0, 0, 1)));
+        list.add(new Matrix3(new Point3D.Int(1, 0, 0),
+                new Point3D.Int(0, 0, 1),
+                new Point3D.Int(0, -1, 0)));
+        list.add(new Matrix3(new Point3D.Int(1, 0, 0),
+                new Point3D.Int(0, -1, 0),
+                new Point3D.Int(0, 0, -1)));
+        list.add(new Matrix3(new Point3D.Int(1, 0, 0),
+                new Point3D.Int(0, 0, -1),
+                new Point3D.Int(0, 1, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 1, 0),
+                new Point3D.Int(0, 0, 1),
+                new Point3D.Int(1, 0, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 1, 0),
+                new Point3D.Int(1, 0, 0),
+                new Point3D.Int(0, 0, -1)));
+        list.add(new Matrix3(new Point3D.Int(0, 1, 0),
+                new Point3D.Int(0, 0, -1),
+                new Point3D.Int(-1, 0, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 1, 0),
+                new Point3D.Int(-1, 0, 0),
+                new Point3D.Int(0, 0, 1)));
+        list.add(new Matrix3(new Point3D.Int(0, 0, 1),
+                new Point3D.Int(1, 0, 0),
+                new Point3D.Int(0, 1, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 0, 1),
+                new Point3D.Int(0, 1, 0),
+                new Point3D.Int(-1, 0, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 0, 1),
+                new Point3D.Int(-1, 0, 0),
+                new Point3D.Int(0, -1, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 0, 1),
+                new Point3D.Int(0, -1, 0),
+                new Point3D.Int(1, 0, 0)));
+        list.add(new Matrix3(new Point3D.Int(-1, 0, 0),
+                new Point3D.Int(0, -1, 0),
+                new Point3D.Int(0, 0, 1)));
+        list.add(new Matrix3(new Point3D.Int(-1, 0, 0),
+                new Point3D.Int(0, 0, 1),
+                new Point3D.Int(0, 1, 0)));
+        list.add(new Matrix3(new Point3D.Int(-1, 0, 0),
+                new Point3D.Int(0, 1, 0),
+                new Point3D.Int(0, 0, -1)));
+        list.add(new Matrix3(new Point3D.Int(-1, 0, 0),
+                new Point3D.Int(0, 0, -1),
+                new Point3D.Int(0, -1, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, -1, 0),
+                new Point3D.Int(0, 0, -1),
+                new Point3D.Int(1, 0, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, -1, 0),
+                new Point3D.Int(1, 0, 0),
+                new Point3D.Int(0, 0, 1)));
+        list.add(new Matrix3(new Point3D.Int(0, -1, 0),
+                new Point3D.Int(0, 0, 1),
+                new Point3D.Int(-1, 0, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, -1, 0),
+                new Point3D.Int(-1, 0, 0),
+                new Point3D.Int(0, 0, -1)));
+        list.add(new Matrix3(new Point3D.Int(0, 0, -1),
+                new Point3D.Int(-1, 0, 0),
+                new Point3D.Int(0, 1, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 0, -1),
+                new Point3D.Int(0, 1, 0),
+                new Point3D.Int(1, 0, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 0, -1),
+                new Point3D.Int(1, 0, 0),
+                new Point3D.Int(0, -1, 0)));
+        list.add(new Matrix3(new Point3D.Int(0, 0, -1),
+                new Point3D.Int(0, -1, 0),
+                new Point3D.Int(-1, 0, 0)));
+        return list;
     }
 
     private class Scanner {
@@ -118,6 +192,10 @@ public class Day19 extends Daily {
 
         public void addBeacon(int x, int y, int z) {
             beacons.add(new Point3D.Int(x, y, z));
+        }
+
+        public String toString() {
+            return "scanner " + id;
         }
     }
 }
