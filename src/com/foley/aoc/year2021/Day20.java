@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class Day20 extends Daily {
     private Map<Point, Character> map;
     private String algorithm;
+    private Point min;
+    private Point max;
     /**
      * Creates a new daily
      *
@@ -36,6 +38,8 @@ public class Day20 extends Daily {
                 map.put(new Point(x, y), s.charAt(x));
             }
         }
+        min = map.keySet().stream().min(new AWTPointComparator()).get();
+        max = map.keySet().stream().max(new AWTPointComparator()).get();
     }
 
     @Override
@@ -69,8 +73,10 @@ public class Day20 extends Daily {
     private void clickyClackyEnhance(int steps) {
         for(int t = 1; t <= steps; t++) {
             var newMap = new HashMap<Point, Character>();
-            Point min = map.keySet().stream().min(new AWTPointComparator()).get();
-            Point max = map.keySet().stream().max(new AWTPointComparator()).get();
+            min.x -= 1;
+            min.y -= 1;
+            max.x += 1;
+            max.y += 1;
 
             for(int y = min.y - 1; y <= max.y + 1; y++) {
                 for(int x = min.x - 1; x <= max.x + 1; x++) {

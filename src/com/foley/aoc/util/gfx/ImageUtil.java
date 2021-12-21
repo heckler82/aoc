@@ -68,8 +68,8 @@ public class ImageUtil {
 
         int padX = padding * pointSizeX;
         int padY = padding * pointSizeY;
-        int pxlWidth = (width * pointSizeX) + (3 * padX);
-        int pxlHeight = (height * pointSizeY) + (3 * padY);
+        int pxlWidth = (width * pointSizeX) + (3 * padX) - (offX * pointSizeX);
+        int pxlHeight = (height * pointSizeY) + (3 * padY) - (offY * pointSizeY);
 
         Image img = new BufferedImage(pxlWidth, pxlHeight, BufferedImage.TYPE_INT_ARGB);
 
