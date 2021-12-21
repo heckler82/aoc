@@ -14,8 +14,6 @@ public class Tuple<K, V> {
     private K first;
     private V second;
 
-    public Tuple() {}
-
     /**
      * Creates a new tuple
      *
