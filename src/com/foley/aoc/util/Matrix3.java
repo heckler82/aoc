@@ -56,4 +56,16 @@ public class Matrix3 {
                 p.getX() * mat[0].getY() + p.getY() * mat[1].getY() + p.getZ() * mat[2].getY(),
                 p.getX() * mat[0].getZ() + p.getY() * mat[1].getZ() + p.getZ() * mat[2].getZ());
     }
+
+    /**
+     * Gets the determinant for the matrix
+     *
+     * @return the determinant
+     */
+    public double determinant() {
+        double detA = mat[0].getX() * ((mat[1].getY() * mat[2].getZ()) - (mat[1].getZ() * mat[2].getY()));
+        double detB = mat[0].getY() * ((mat[1].getX() * mat[2].getZ()) - (mat[1].getZ() * mat[2].getX()));
+        double detC = mat[0].getZ() * ((mat[1].getX() * mat[2].getY()) - (mat[1].getY() * mat[2].getX()));
+        return detA - detB + detC;
+    }
 }

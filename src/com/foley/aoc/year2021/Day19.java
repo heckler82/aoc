@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  */
 public class Day19 extends Daily {
     private List<Scanner> scanners;
+    private List<Scanner> known;
     private List<Matrix3> orientations;
 
     /**
@@ -29,6 +30,7 @@ public class Day19 extends Daily {
     public Day19(int year, String fileName) {
         super(year, fileName);
         scanners = new ArrayList<>();
+        known = new ArrayList<>();
         orientations = createOrientations();
 
         Scanner currentScanner = null;
@@ -47,6 +49,11 @@ public class Day19 extends Daily {
                         Integer.parseInt(coords[2]));
             }
         }
+
+        Scanner ref = scanners.get(0);
+        scanners.remove(0);
+        ref.pos = Point3D.Int.zero();
+        known.add(ref);
     }
 
     @Override
@@ -54,25 +61,15 @@ public class Day19 extends Daily {
      * Accomplishes the first task for the day
      */
     public void task1() {
-        //Scanner reference = scanners.get(0);
-        //scanners.remove(0);
-        //reference.pos = Point3D.Int.zero();
-
-        //for(var s : scanners) {
-        //    search(reference, s);
-        //}
-
-        scanners.get(0).pos = Point3D.Int.zero();
-
-        for(int i = 0; i < scanners.size(); i++) {
-            Scanner reference = scanners.get(i);
-            for (int j = i + 1; j < scanners.size(); j++) {
-                System.out.printf("Testing scanners %d and %d\n", i, j);
-                search(reference, scanners.get(j));
+        for(Scanner s : scanners) {
+            for(Scanner ks : known) {
+                if(search(ks, s)) {
+                    known.add(s);
+                    break;
+                }
             }
         }
-
-        System.out.printf("There are %d beacons in the entire map\n", scanners.get(0).beacons.size());
+        System.out.printf("There are %d beacons in the entire map\n", known.get(0).beacons.size());
     }
 
     @Override
@@ -97,21 +94,15 @@ public class Day19 extends Daily {
         System.out.printf("The greatest manhattan distance is %d\n", (int)max);
     }
 
-    private void search(Scanner s, Scanner s2) {
-        for(var p : s.beacons) {
-            for(var p2 : s2.beacons) {
+    private boolean search(Scanner ref, Scanner s) {
+        for(var rPnt : ref.beacons) {
+            for(var sPnt : s.beacons) {
                 for(var o : orientations) {
-                    var pPrime = o.multiply(p2);
-                    var d = p.subtract(pPrime);
-                    var hits = s2.beacons.stream().filter(pB -> s.beacons.contains(o.multiply(pB).add(d))).count();
-                    if(hits >= 12) {
-                        s2.beacons = s2.beacons.stream().map(pB -> o.multiply(pB).add(d)).collect(Collectors.toSet());
-                        s.beacons.addAll(s2.beacons);
-                        return;
-                    }
+
                 }
             }
         }
+        return false;
     }
 
     private List<Matrix3> createOrientations() {
