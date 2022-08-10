@@ -57,8 +57,8 @@ public class Driver {
             System.exit(1);
         }
 
-        if(numYear < 0) {
-            throw new IllegalArgumentException("Year cannot be negative");
+        if(numYear < 1) {
+            throw new IllegalArgumentException("Year must be greater than 0");
         }
         if(numDay < 0 || numDay > 25) {
             throw new IllegalArgumentException("Day must be between 0 and 25 inclusive");
