@@ -43,7 +43,7 @@ public class Driver {
      * @param day the day
      * @return a tuple of ints containing a year and a day
      */
-    private static Tuple<Integer, Integer> getDate(String year, String day) throws NumberFormatException {
+    private static Tuple<Integer, Integer> getDate(String year, String day) {
         int numYear = 0;
         int numDay = 0;
 
