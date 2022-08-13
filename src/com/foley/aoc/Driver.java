@@ -19,8 +19,6 @@ public class Driver {
      * @param args CLI arguments provided to the program
      */
     public static void main(String[] args) {
-        Tuple<String, String> rawDate = null;
-
         // If no values passed in, cannot run
         if(args.length < 1) {
             System.err.println("No date values were provided, could not determine which year to run");
