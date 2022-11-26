@@ -3,31 +3,27 @@ package com.foley.aoc.util.functions;
 import java.util.Iterator;
 
 /**
- * Abstract for representing a range of numbers. After creation, the minimum and maximum boundaries for the range cannot
- * be adjusted; sub ranges of values within can be excluded or included as needed
+ * Abstract for representing a linear range of numbers.
  *
  * @author Evan Foley
- * @version 07 Feb 2021
+ * @version 25 Nov 2022
  */
 public class Range implements Iterable<Integer>{
     private int min;
     private int max;
-    private boolean isExclusive;
 
     /**
      * Creates a new range
      *
      * @param min The minimum allowable value of the range (inclusive)
-     * @param max The maximum allowable value of the range
-     * @param isExclusive True if the max value should not be included in the range, false if inclusive
+     * @param max The maximum allowable value of the range (exclusive)
      */
-    public Range(int min, int max, boolean isExclusive) {
+    public Range(int min, int max) {
         if(min > max) {
             throw new IllegalArgumentException("The minimum value of a range should not exceed the maximum allowable value");
         }
         this.min = min;
         this.max = max;
-        this.isExclusive = isExclusive;
     }
 
     /**
@@ -37,7 +33,7 @@ public class Range implements Iterable<Integer>{
      * @return True if the value is an allowable value within the range
      */
     public boolean inRange(int val) {
-        return val >= min && (isExclusive ? val < max : val <= max);
+        return val >= min && val < max;
     }
 
     @Override
