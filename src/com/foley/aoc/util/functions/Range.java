@@ -27,6 +27,16 @@ public class Range implements Iterable<Integer>{
     }
 
     /**
+     * Returns true if this range fully contains the specified range
+     *
+     * @param r the range to test
+     * @return true if this range fully contains the specified range
+     */
+    public boolean fullyInRange(Range r) {
+        return min <= r.min && max >= r.max;
+    }
+
+    /**
      * Determines if a value is in the range
      *
      * @param val The value to check
@@ -34,6 +44,21 @@ public class Range implements Iterable<Integer>{
      */
     public boolean inRange(int val) {
         return val >= min && val < max;
+    }
+
+    /**
+     * Returns true if any part of the specified range is in this range
+     *
+     * @param r the specified range
+     * @return true if any part of the specified range is in this range
+     */
+    public boolean inRange(Range r) {
+        for(int i : r) {
+            if(inRange(i)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
