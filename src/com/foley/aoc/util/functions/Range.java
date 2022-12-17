@@ -19,8 +19,8 @@ public class Range implements Iterable<Integer>{
      * @param max The maximum allowable value of the range (exclusive)
      */
     public Range(int min, int max) {
-        if(min > max) {
-            throw new IllegalArgumentException("The minimum value of a range should not exceed the maximum allowable value");
+        if(min >= max) {
+            throw new IllegalArgumentException("The minimum value of a range should not exceed or be equal to the exclusive maximum value");
         }
         this.min = min;
         this.max = max;
