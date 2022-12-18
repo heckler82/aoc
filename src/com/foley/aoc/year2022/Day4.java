@@ -38,8 +38,8 @@ public class Day4 extends Daily {
     @Override
     protected void task1() {
         int numPairs = 0;
-        for(var t : ranges) {
-            if(t.getFirst().fullyInRange(t.getSecond()) || t.getSecond().fullyInRange(t.getFirst())) {
+        for(var r : ranges) {
+            if(r.getFirst().fullyInRange(r.getSecond()) || r.getSecond().fullyInRange(r.getFirst())) {
                 numPairs++;
             }
         }
@@ -49,8 +49,8 @@ public class Day4 extends Daily {
     @Override
     protected void task2() {
         int numPairs = 0;
-        for(var t : ranges) {
-            if(t.getFirst().inRange(t.getSecond())) {
+        for(var r : ranges) {
+            if(r.getFirst().inRange(r.getSecond())) {
                 numPairs++;
             }
         }
