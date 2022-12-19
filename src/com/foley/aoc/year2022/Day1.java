@@ -3,7 +3,6 @@ package com.foley.aoc.year2022;
 import com.foley.aoc.util.Daily;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**

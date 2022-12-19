@@ -3,7 +3,6 @@ package com.foley.aoc.year2022;
 import com.foley.aoc.util.Daily;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
