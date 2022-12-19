@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @version 3 Dec 2022
  */
 public class Day3 extends Daily {
-    private Map<Character, Integer> priorities;
+    private final Map<Character, Integer> priorities;
 
     /**
      * Creates a new daily
@@ -38,10 +38,13 @@ public class Day3 extends Daily {
     protected void task1() {
         long priority = 0L;
         for(var s : input) {
-            Set<Character> first = new HashSet<>(s.substring(0, s.length() / 2).chars().mapToObj(e -> (char)e).collect(Collectors.toSet()));
-            Set<Character> second = new HashSet<>(s.substring(s.length() / 2).chars().mapToObj(e -> (char)e).collect(Collectors.toSet()));
+            var leftHalf = s.substring(0, s.length() / 2);
+            var rightHalf = s.substring(s.length() / 2);
+            Set<Character> first = leftHalf.chars().mapToObj(e -> (char) e).collect(Collectors.toSet());
+            Set<Character> second = rightHalf.chars().mapToObj(e -> (char) e).collect(Collectors.toSet());
             first.retainAll(second);
-            priority += priorities.get(first.stream().findFirst().get());
+            var val = first.stream().findFirst();
+            priority += priorities.get(val.orElse('a'));
         }
         System.out.printf("The total priority is %d\t", priority);
     }
@@ -53,12 +56,13 @@ public class Day3 extends Daily {
             var str1 = input[i];
             var str2 = input[i + 1];
             var str3 = input[i + 2];
-            Set<Character> first = new HashSet<>(str1.chars().mapToObj(e -> (char)e).collect(Collectors.toSet()));
-            Set<Character> second = new HashSet<>(str2.chars().mapToObj(e -> (char)e).collect(Collectors.toSet()));
-            Set<Character> third = new HashSet<>(str3.chars().mapToObj(e -> (char)e).collect(Collectors.toSet()));
+            Set<Character> first = str1.chars().mapToObj(e -> (char) e).collect(Collectors.toSet());
+            Set<Character> second = str2.chars().mapToObj(e -> (char) e).collect(Collectors.toSet());
+            Set<Character> third = str3.chars().mapToObj(e -> (char) e).collect(Collectors.toSet());
             first.retainAll(second);
             first.retainAll(third);
-            priority += priorities.get(first.stream().findFirst().get());
+            var val = first.stream().findFirst();
+            priority += priorities.get(val.orElse('a'));
         }
         System.out.printf("The total priority is %d\t", priority);
     }

@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1 Dec 2022
  */
 public class Day1 extends Daily {
-    private List<Elf> list = new ArrayList<>();
+    private final List<Elf> list = new ArrayList<>();
     /**
      * Creates a new daily
      *
@@ -46,7 +46,7 @@ public class Day1 extends Daily {
         System.out.printf("The top 3 elves are carrying %d calories\n", list.get(0).cal + list.get(1).cal + list.get(2).cal);
     }
 
-    private class Elf {
+    private static class Elf {
         private int cal;
         private int numItems;
 

@@ -14,7 +14,7 @@ import java.util.List;
  * @version 4 Dec 2022
  */
 public class Day4 extends Daily {
-    private List<Tuple<Range, Range>> ranges;
+    private final List<Tuple<Range, Range>> ranges;
 
     /**
      * Creates a new daily

@@ -15,9 +15,9 @@ import java.util.Map;
  * @version 2 Dec 2022
  */
 public class Day2 extends Daily {
-    private Map<Character, Integer> shapeKey;
-    private Map<Character, Map<Character, Integer>> key;
-    private List<Tuple<Character, Character>> matches;
+    private final Map<Character, Integer> shapeKey;
+    private final Map<Character, Map<Character, Integer>> key;
+    private final List<Tuple<Character, Character>> matches;
 
     /**
      * Creates a new daily
@@ -76,7 +76,8 @@ public class Day2 extends Daily {
             char opponent = m.getFirst();
             char need = m.getSecond();
             int ans = (shapeKey.get(need) - 1) * 3;
-            result += shapeKey.get(key.get(opponent).entrySet().stream().filter(e -> e.getValue().equals(ans)).map(Map.Entry::getKey).findFirst().get());
+            var needed = key.get(opponent).entrySet().stream().filter(e -> e.getValue().equals(ans)).map(Map.Entry::getKey).findFirst();
+            result += shapeKey.get(needed.orElse('X'));
             result += ans;
         }
         System.out.printf("My total score is %d\n", result);
